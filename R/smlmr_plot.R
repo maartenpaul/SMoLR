@@ -228,7 +228,6 @@ SMLMR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
 }
 
 
-#test
 
 
 
