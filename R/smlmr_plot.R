@@ -35,14 +35,14 @@ smlmr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   if(is.null(color)){color <- rep(1,length(x))}
   
   if(is.null(clim)){
-  max.col <- max(color)
-  min.col <- min(color)
+    max.col <- max(color)
+    min.col <- min(color)
   }
   
   if(is.null(slim)){
-  max.size <- max(size)
-  min.size <- min(size)
-  mid.size <- min(size)+((max(size)-min(size))/2)
+    max.size <- max(size)
+    min.size <- min(size)
+    mid.size <- min(size)+((max(size)-min(size))/2)
   }
   
   if(!is.null(clim)){
@@ -60,16 +60,16 @@ smlmr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   
   
   if(min.size!=max.size){
-  size <-  (size-min.size)/(max.size-min.size)  #normalize between 0 and 1 
+    size <-  (size-min.size)/(max.size-min.size)  #normalize between 0 and 1 
   }
   if(min.size==max.size){
-  size <- rep(1,length(x))
+    size <- rep(1,length(x))
   }
   if(min.col!=max.col){
-  color <- (color-min.col)/(max.col-min.col) 
+    color <- (color-min.col)/(max.col-min.col) 
   }
   if(min.col==max.col){
-  color <- rep(1,length(x))  
+    color <- rep(1,length(x))  
   }
   
   if(rev.size){
@@ -91,7 +91,7 @@ smlmr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   
   size <- (size*px*3)+ px #normalize between px and 5*px
   color <- trunc(color*99)+1 #normalize to integer between 1 and 100
-    
+  
   
   if(!grey){colors <- rainbow(100, start=0, end=2/6, alpha=alpha)}
   if(grey){colors <- grey.colors(100, alpha=alpha)}
@@ -127,31 +127,31 @@ smlmr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   } else {
     
     symbols(x,y,circles=size,fg=colors[color],bg=colors[color],xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px), inches=FALSE, xlab="", ylab="",add=F)
-  
+    
   }
   
   if(max.col!=min.col){
-  gradient.rect(((input_xsize*px)/20),((input_ysize*px)+(input_ysize*px*0.05)),((input_xsize*px)/3),((input_ysize*px)+(input_ysize*px*0.1)),col=colors,nslices=100)
-  if(min.size>100){labelcmin <- as.character(round(min.col,digits=0))}
-  if(min.size<100){labelcmin <- as.character(signif(min.col,digits=2))}
-  if(min.size>100){labelcmax <- as.character(round(max.col,digits=0))}
-  if(min.size<100){labelcmax <- as.character(signif(max.col,digits=2))}
-  text(0,((input_ysize*px)+(input_ysize*px*0.075)), labels=labelcmin, col="black", pos=2, cex=0.8)
-  text(((input_xsize*px)/3)+((input_xsize*px)/20),((input_ysize*px)+(input_ysize*px*0.075)), labels=labelcmax, col="black",pos=4, cex=0.8)
+    gradient.rect(((input_xsize*px)/20),((input_ysize*px)+(input_ysize*px*0.05)),((input_xsize*px)/3),((input_ysize*px)+(input_ysize*px*0.1)),col=colors,nslices=100)
+    if(min.size>100){labelcmin <- as.character(round(min.col,digits=0))}
+    if(min.size<100){labelcmin <- as.character(signif(min.col,digits=2))}
+    if(min.size>100){labelcmax <- as.character(round(max.col,digits=0))}
+    if(min.size<100){labelcmax <- as.character(signif(max.col,digits=2))}
+    text(0,((input_ysize*px)+(input_ysize*px*0.075)), labels=labelcmin, col="black", pos=2, cex=0.8)
+    text(((input_xsize*px)/3)+((input_xsize*px)/20),((input_ysize*px)+(input_ysize*px*0.075)), labels=labelcmax, col="black",pos=4, cex=0.8)
   }
   if(max.size!=min.size){
-  draw.circle((input_xsize*px)*1.1,input_ysize*px*(4/6), radius=px, border="black")
-  draw.circle((input_xsize*px)*1.1,input_ysize*px*(5/6), radius=2*px, border="black")
-  draw.circle((input_xsize*px)*1.1,input_ysize*px, radius=4*px, border="black")
-  if(min.size>100){labelmin <- as.character(round(min.size,digits=0))}
-  if(min.size<100){labelmin <- as.character(signif(min.size,digits=2))}
-  if(min.size>100){labelmid <- as.character(round(mid.size,digits=0))}
-  if(min.size<100){labelmid <- as.character(signif(mid.size,digits=2))}
-  if(min.size>100){labelmax <- as.character(round(max.size,digits=0))}
-  if(min.size<100){labelmax <- as.character(signif(max.size,digits=2))}
-  text( (input_xsize*px)+(5*px),input_ysize*px*(3.5/6),labels=labelmin, col="black",pos=4, cex=0.8)
-  text( (input_xsize*px)+(5*px),input_ysize*px*(4.5/6),labels=labelmid, col="black",pos=4, cex=0.8)
-  text( (input_xsize*px)+(5*px),input_ysize*px*(5.5/6),labels=labelmax, col="black",pos=4, cex=0.8)
+    draw.circle((input_xsize*px)*1.1,input_ysize*px*(4/6), radius=px, border="black")
+    draw.circle((input_xsize*px)*1.1,input_ysize*px*(5/6), radius=2*px, border="black")
+    draw.circle((input_xsize*px)*1.1,input_ysize*px, radius=4*px, border="black")
+    if(min.size>100){labelmin <- as.character(round(min.size,digits=0))}
+    if(min.size<100){labelmin <- as.character(signif(min.size,digits=2))}
+    if(min.size>100){labelmid <- as.character(round(mid.size,digits=0))}
+    if(min.size<100){labelmid <- as.character(signif(mid.size,digits=2))}
+    if(min.size>100){labelmax <- as.character(round(max.size,digits=0))}
+    if(min.size<100){labelmax <- as.character(signif(max.size,digits=2))}
+    text( (input_xsize*px)+(5*px),input_ysize*px*(3.5/6),labels=labelmin, col="black",pos=4, cex=0.8)
+    text( (input_xsize*px)+(5*px),input_ysize*px*(4.5/6),labels=labelmid, col="black",pos=4, cex=0.8)
+    text( (input_xsize*px)+(5*px),input_ysize*px*(5.5/6),labels=labelmax, col="black",pos=4, cex=0.8)
   }
 }
 
@@ -176,7 +176,7 @@ SMLMR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.col
 
 SMLMR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=FALSE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1){
   
-    
+  
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
   ind_y <- grep("^y$",names(x),ignore.case=T)
@@ -226,8 +226,4 @@ SMLMR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
     }
   }
 }
-
-
-
-
 
