@@ -1,0 +1,81 @@
+
+
+
+
+
+S3method(plot, smlmr_image)
+S3method(plot, smlmr_kde)
+S3method(plot, smlmr_dbscan)
+S3method(print, smlmr_image)
+S3method(print, smlmr_kde)
+S3method(print, smlmr_dbscan)
+
+S3method(SMLMR, default)
+S3method(SMLMR, data.frame)
+S3method(SMLMR, list)
+
+S3method(SMLMR_KDE, default)
+S3method(SMLMR_KDE, data.frame)
+S3method(SMLMR_KDE, list)
+
+S3method(SMLMR_DBSCAN, default)
+S3method(SMLMR_DBSCAN, data.frame)
+S3method(SMLMR_DBSCAN, list)
+
+S3method(SMLMR_PLOT, default)
+S3method(SMLMR_PLOT, data.frame)
+
+S3method(SMLMR_FEATURES, default)
+S3method(SMLMR_FEATURES, smlmr_kde)
+S3method(SMLMR_FEATURES, list)
+
+S3method(SMLMR_PARAMETER, default)
+S3method(SMLMR_PARAMETER, data.frame)
+S3method(SMLMR_PARAMETER, list)
+
+S3method(SMLMR_ROTATE, default)
+S3method(SMLMR_ROTATE, data.frame)
+
+S3method(SMLMR_LIST, default)
+S3method(SMLMR_LIST, data.frame)
+
+S3method(SMLMR_IMPORT, default)
+
+S3method(SMLMR_LOAD, default)
+
+S3method(SMLMR_TO_PPP, default)
+S3method(SMLMR_TO_PPP, data.frame)
+S3method(SMLMR_TO_PPP, list)
+
+
+
+
+import(plotrix, 
+       EBImage, 
+       KernSmooth, 
+       tiff, 
+       tools,
+       plyr,
+       dbscan,
+       RImageJROI
+       )
+
+
+export(rotate3d,
+       rotate_coord,
+       apply_filtered_features,
+       GAUSS_FUNCTION,
+       SMLMR,
+       SMLMR_FEATURES,
+       SMLMR_KDE,
+       SMLMR_PLOT,
+       SMLMR_PARAMETER,
+       SMLMR_ROTATE,
+       SMLMR_LIST,
+       SMLMR_DBSCAN,
+       SMLMR_IMPORT,
+       SMLMR_LOAD,
+       SMLMR_TO_PPP
+       )
+
+importFrom("spatstat", owin,disc,ppp)

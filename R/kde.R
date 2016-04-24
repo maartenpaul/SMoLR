@@ -1,4 +1,4 @@
-smlmr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = FALSE){
+smlmr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
   
   
   if((is.null(xlim) || length(xlim)==2)==FALSE){stop("xlim should be a vector with two values")}
@@ -119,7 +119,7 @@ SMLMR_KDE <- function(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, outp
   UseMethod("SMLMR_KDE")
 }
 
-SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = FALSE){
+SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
   
   getkde <- function(x,y){return(y[x[1],x[2],x[3]])}
        
@@ -193,7 +193,7 @@ SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   return(img)
 }
 
-SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = FALSE){
+SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
     
   getkde <- function(x,y){return(y[x[1],x[2],x[3]])}
     
@@ -286,7 +286,7 @@ SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   
 }
 
-SMLMR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05,  file=NULL, output=c("r","tiff"), fit = FALSE){
+SMLMR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05,  file=NULL, output=c("r","tiff"), fit = TRUE){
   
   
   

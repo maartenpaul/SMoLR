@@ -8,7 +8,7 @@ smlmr_load <- function(folder,statistics=F,prename=""){
 }
 
 SMLMR_LOAD <- function(folder,statistics,prename){
-  UseMethod("smlmr_load")
+  UseMethod("SMLMR_LOAD")
 }
 
 SMLMR_LOAD.default <- function(folder,statistics=F,prename=""){

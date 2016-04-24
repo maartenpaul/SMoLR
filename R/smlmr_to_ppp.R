@@ -19,7 +19,7 @@ smlmr_to_ppp <- function(x,y,xlim,ylim,marks=NULL,shape="rect"){
 
 
 SMLMR_TO_PPP <- function(x,y,xlim,ylim,marks,shape){
-  UseMethod("smlmr_to_ppp")
+  UseMethod("SMLMR_TO_PPP")
 }
 
 SMLMR_TO_PPP.default <- function(x,y,xlim,ylim,marks=NULL,shape="rect"){
@@ -48,11 +48,15 @@ SMLMR_TO_PPP.data.frame <- function(x,xlim=NULL,ylim=NULL,marks=NULL,shape="rect
   return(out)
 }
 
-SMLMR_TO_PPP.list <- function(x,xlim,ylim,shape="rect"){
+SMLMR_TO_PPP.list <- function(x,xlim=NULL,ylim=NULL,shape="rect"){
   out <- list()
-  for(i in 1:length(x)){
-    out [[i]] <- smlmr_to_ppp(x[[i]],xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),shape=shape)
+  if(is.null(xlim)||is.null(ylim)){
+    out [[i]] <- smlmr_to_ppp(x[[i]],shape=shape)
     
+  } else {
+    for(i in 1:length(x)){
+      out [[i]] <- smlmr_to_ppp(x[[i]],xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),shape=shape)
+    }
   }
   return(out)
 }

@@ -1,4 +1,4 @@
-smlmr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE, fit=FALSE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1){
+smlmr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1){
   
   if((is.null(xlim) || length(xlim)==2)==FALSE){stop("xlim should be a vector with two values")}
   if((is.null(ylim) || length(ylim)==2)==FALSE){stop("ylim should be a vector with two values")}
@@ -113,6 +113,8 @@ smlmr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
         img[,,1:dim(overlay$img)[3]] <- overlay$img
       } else if(dim(overlay$img)[3]==3){
         img <- overlay$img
+      } else if(dim(overlay$img)[3]>3){
+        stop("only 3 channels supported with SMLMR_PLOT overlay")
       }
     }else {
       img <- readTIFF(overlay)
@@ -159,7 +161,7 @@ SMLMR_PLOT <- function(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,spl
   UseMethod("SMLMR_PLOT")
 }
 
-SMLMR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=FALSE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1){
+SMLMR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1){
   
   if(is.null(color)){color <- rep(1,length(x))}
   if(is.null(size)){size <- rep(1,length(x))}
@@ -174,7 +176,7 @@ SMLMR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.col
   smlmr_plot(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast)
 }
 
-SMLMR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=FALSE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1){
+SMLMR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1){
   
   
   

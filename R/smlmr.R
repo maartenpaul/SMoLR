@@ -3,7 +3,7 @@
 ### minimum requirement is a set of coordinates
 
 
-smlmr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=FALSE, fast=FALSE){
+smlmr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   
   
@@ -229,7 +229,7 @@ SMLMR <- function(x,y,prec,ch, px,xlim,ylim,file,output,fit,fast){
   UseMethod("SMLMR")
 }
 
-SMLMR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=FALSE, fast=FALSE){
+SMLMR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   if(is.null(ch)){ch <- rep(1, length(x))}
   if(is.null(prec)){prec <- rep(20, length(x))}
@@ -262,7 +262,7 @@ SMLMR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,f
 
 }
 
-SMLMR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=FALSE, fast=FALSE){
+SMLMR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
   ind_y <- grep("^y$",names(x),ignore.case=T)
@@ -300,7 +300,7 @@ SMLMR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
   
 }
 
-SMLMR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file=NULL, output=c("r","tiff"), fit=FALSE, fast=FALSE){
+SMLMR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   img <- list()
   if(is.null(nrow(xlim)) & is.null(nrow(ylim)) ){
