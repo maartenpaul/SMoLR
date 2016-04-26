@@ -88,16 +88,16 @@ rotate3d <- function(x=NULL,y=NULL,z=NULL,i=0,j=0,k=0){
     return(cbind(x,y,z))
 }
 
-SMLMR_ROTATE <- function(x,y,angle, type, method, center, translate, stretch, flip){
-  UseMethod("SMLMR_ROTATE")
+SMOLR_ROTATE <- function(x,y,angle, type, method, center, translate, stretch, flip){
+  UseMethod("SMOLR_ROTATE")
 }
 
-SMLMR_ROTATE.default <- function(x,y,angle, type=c("degrees","radial"), method=c("transform","polar","polar_extended"), center=c(0,0), translate=NULL, stretch=NULL, flip=FALSE){
+SMOLR_ROTATE.default <- function(x,y,angle, type=c("degrees","radial"), method=c("transform","polar","polar_extended"), center=c(0,0), translate=NULL, stretch=NULL, flip=FALSE){
   coordinates <- rotate_coord(x,y,angle, type, method, center, translate, stretch, flip)
   return(coordinates)
 }
 
-SMLMR_ROTATE.data.frame <- function(x,y=NULL,angle, type=c("degrees","radial"), method=c("transform","polar","polar_extended"), center=c(0,0), translate=NULL, stretch=NULL, flip=FALSE){
+SMOLR_ROTATE.data.frame <- function(x,y=NULL,angle, type=c("degrees","radial"), method=c("transform","polar","polar_extended"), center=c(0,0), translate=NULL, stretch=NULL, flip=FALSE){
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
   ind_y <- grep("^y$",names(x),ignore.case=T)

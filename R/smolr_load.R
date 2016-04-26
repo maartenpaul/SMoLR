@@ -1,4 +1,4 @@
-smlmr_load <- function(folder,statistics=F,prename=""){
+smolr_load <- function(folder,statistics=F,prename=""){
   load(file.path(folder,paste(prename,"localizations.Rdata",sep="")),.GlobalEnv)
   if (statistics==T){
     load(file.path(folder,paste(prename,"statistics.Rdata",sep="")),.GlobalEnv)
@@ -7,10 +7,10 @@ smlmr_load <- function(folder,statistics=F,prename=""){
   
 }
 
-SMLMR_LOAD <- function(folder,statistics,prename){
-  UseMethod("SMLMR_LOAD")
+SMOLR_LOAD <- function(folder,statistics,prename){
+  UseMethod("SMOLR_LOAD")
 }
 
-SMLMR_LOAD.default <- function(folder,statistics=F,prename=""){
-  smlmr_load(folder,statistics,prename)
+SMOLR_LOAD.default <- function(folder,statistics=F,prename=""){
+  smolr_load(folder,statistics,prename)
 }

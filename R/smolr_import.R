@@ -1,6 +1,6 @@
-smlmr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
+smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
                          profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL){
-  #should be compatible with Elyra .txt files, SMLMR Viewer .loc files and SMLMR ROI files (.txt)
+  #should be compatible with Elyra .txt files, SMOLR Viewer .loc files and SMOLR ROI files (.txt)
   profile <- match.arg(profile)
   if(profile!="default"){
     switch(profile,
@@ -213,11 +213,11 @@ smlmr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
 }
 
 
-SMLMR_IMPORT <- function(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names){
-  UseMethod("SMLMR_IMPORT")
+SMOLR_IMPORT <- function(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names){
+  UseMethod("SMOLR_IMPORT")
 }
 
-SMLMR_IMPORT.default <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
+SMOLR_IMPORT.default <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
                                  profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL){
-  smlmr_import(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names)}
+  smolr_import(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names)}
     

@@ -52,16 +52,16 @@ getParameters <- function(x,y,ch=NULL,prec=NULL,ch_range=NULL){
   return(parameters)
 }
 
-SMLMR_PARAMETER <- function(x,y,ch,prec,ch_range){
-  UseMethod("SMLMR_PARAMETER")
+SMOLR_PARAMETER <- function(x,y,ch,prec,ch_range){
+  UseMethod("SMOLR_PARAMETER")
 }
 
-SMLMR_PARAMETER.default <- function(x,y,ch=NULL,prec=NULL,ch_range=NULL){
+SMOLR_PARAMETER.default <- function(x,y,ch=NULL,prec=NULL,ch_range=NULL){
   parameters <- getParameters(x,y,ch,prec,ch_range)
   return(parameters)
 }
 
-SMLMR_PARAMETER.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL,ch_range=NULL){
+SMOLR_PARAMETER.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL,ch_range=NULL){
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
   ind_y <- grep("^y$",names(x),ignore.case=T)
@@ -80,12 +80,12 @@ SMLMR_PARAMETER.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL,ch_range=NULL)
   return(parameters)
 }
 
-SMLMR_PARAMETER.list <- function(x,y=NULL,ch=NULL,prec=NULL,ch_range=NULL){
+SMOLR_PARAMETER.list <- function(x,y=NULL,ch=NULL,prec=NULL,ch_range=NULL){
   
   parameters <- list()
   
   for(i in 1:length(x)){
-  parameters[[i]] <- SMLMR_PARAMETER(x[[i]],y,ch,prec,ch_range)
+  parameters[[i]] <- SMOLR_PARAMETER(x[[i]],y,ch,prec,ch_range)
   }
   
   return(parameters)

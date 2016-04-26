@@ -1,5 +1,5 @@
 
-smlmr_features <- function(x, filter=NULL, filter_value=NULL){
+smolr_features <- function(x, filter=NULL, filter_value=NULL){
   
   
   est <- array(0,c(dim(x[[1]])[1],dim(x[[1]])[2],dim(x[[1]])[3]))
@@ -30,26 +30,26 @@ smlmr_features <- function(x, filter=NULL, filter_value=NULL){
   
 }
 
-SMLMR_FEATURES <- function(x, filter, filter_value){
-  UseMethod("SMLMR_FEATURES")
+SMOLR_FEATURES <- function(x, filter, filter_value){
+  UseMethod("SMOLR_FEATURES")
 }
 
 
-SMLMR_FEATURES.default <- function(x, filter=NULL, filter_value=NULL){
-  cat("x must be of the class smlmr_kde")
+SMOLR_FEATURES.default <- function(x, filter=NULL, filter_value=NULL){
+  cat("x must be of the class smolr_kde")
 }
 
-SMLMR_FEATURES.smlmr_kde <- function(x, filter=NULL, filter_value=NULL){
-  features <- smlmr_features(x, filter,filter_value)
+SMOLR_FEATURES.smolr_kde <- function(x, filter=NULL, filter_value=NULL){
+  features <- smolr_features(x, filter,filter_value)
   return(features)
 }
 
-SMLMR_FEATURES.list <- function(x, filter=NULL, filter_value=NULL){
+SMOLR_FEATURES.list <- function(x, filter=NULL, filter_value=NULL){
   
   features <- list()
   
   for(i in 1:length(x)){
-    features[[i]] <- SMLMR_FEATURES(x[[i]], filter,filter_value)
+    features[[i]] <- SMOLR_FEATURES(x[[i]], filter,filter_value)
   }
   
   return(features)

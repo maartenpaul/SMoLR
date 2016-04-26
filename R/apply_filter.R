@@ -1,7 +1,7 @@
 apply_filtered_features <- function(features, kde){
 
   
-if(class(kde[[1]])=="smlmr_kde"){    
+if(class(kde[[1]])=="smolr_kde"){    
 for(i in 1:length(kde)){  
 
   kde[[i]]$clust_parameters$filtered <-FALSE

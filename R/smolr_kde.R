@@ -1,4 +1,4 @@
-smlmr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
+smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
   
   
   if((is.null(xlim) || length(xlim)==2)==FALSE){stop("xlim should be a vector with two values")}
@@ -115,11 +115,11 @@ smlmr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, yli
   
 }
 
-SMLMR_KDE <- function(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit){
-  UseMethod("SMLMR_KDE")
+SMOLR_KDE <- function(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit){
+  UseMethod("SMOLR_KDE")
 }
 
-SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
+SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
   
   getkde <- function(x,y){return(y[x[1],x[2],x[3]])}
        
@@ -147,7 +147,7 @@ SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   
   ch_range <- unique(ch)
   
-  img <- smlmr_kde(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
+  img <- smolr_kde(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
   
   if(fit==TRUE){
     
@@ -163,7 +163,7 @@ SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   
   
   
-  parameters <- SMLMR_PARAMETER(x,y,ch,prec,ch_range)
+  parameters <- SMOLR_PARAMETER(x,y,ch,prec,ch_range)
     
   intensities <- data.frame(
                         cbind(ch,
@@ -178,7 +178,7 @@ SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   for(i in 1:length(ch_range)){
     if(length(which(ch==ch_range[i]))>0){
       for(j in 0:max(intensities$binary_no[intensities$channel==ch_range[i]])){
-        clust_parameters_temp <- cbind(SMLMR_PARAMETER(x[intensities$channel==i&intensities$binary_no==j],y[intensities$channel==i&intensities$binary_no==j],ch[intensities$channel==i&intensities$binary_no==j],prec[intensities$channel==i&intensities$binary_no==j]),binary_no=j)
+        clust_parameters_temp <- cbind(SMOLR_PARAMETER(x[intensities$channel==i&intensities$binary_no==j],y[intensities$channel==i&intensities$binary_no==j],ch[intensities$channel==i&intensities$binary_no==j],prec[intensities$channel==i&intensities$binary_no==j]),binary_no=j)
         if(j==0&i==1){names(clust_parameters) <- names(clust_parameters_temp)}
         clust_parameters <- rbind(clust_parameters,clust_parameters_temp)
       }
@@ -189,11 +189,11 @@ SMLMR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   
   img <- c(img,parameters=list(parameters),int=list(intensities),clust_parameters=list(clust_parameters),inputs=list(inputs))
   
-  class(img) <- "smlmr_kde"
+  class(img) <- "smolr_kde"
   return(img)
 }
 
-SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
+SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
     
   getkde <- function(x,y){return(y[x[1],x[2],x[3]])}
     
@@ -232,7 +232,7 @@ SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   
   if(length(c(ind_x,ind_y,ind_ch,ind_prec))!=4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
   
-  img <- smlmr_kde(dx,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
+  img <- smolr_kde(dx,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
   
   if(fit==TRUE){
     
@@ -249,7 +249,7 @@ SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   
   
   
-  parameters <- SMLMR_PARAMETER(dx,y,ch,prec,ch_range)
+  parameters <- SMOLR_PARAMETER(dx,y,ch,prec,ch_range)
   
   
   
@@ -267,7 +267,7 @@ SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   for(i in 1:length(ch_range)){
     if(length(which(ch==ch_range[i]))>0){
       for(j in 0:max(intensities$binary_no[intensities$channel==ch_range[i]])){
-        clust_parameters_temp <- cbind(SMLMR_PARAMETER(dx[intensities$channel==i&intensities$binary_no==j],y[intensities$channel==i&intensities$binary_no==j],ch[intensities$channel==i&intensities$binary_no==j],prec[intensities$channel==i&intensities$binary_no==j]),binary_no=j)
+        clust_parameters_temp <- cbind(SMOLR_PARAMETER(dx[intensities$channel==i&intensities$binary_no==j],y[intensities$channel==i&intensities$binary_no==j],ch[intensities$channel==i&intensities$binary_no==j],prec[intensities$channel==i&intensities$binary_no==j]),binary_no=j)
         if(j==0&i==1){names(clust_parameters) <- names(clust_parameters_temp)}
         clust_parameters <- rbind(clust_parameters,clust_parameters_temp)
       }
@@ -280,25 +280,25 @@ SMLMR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   
   
   
-  class(img) <- "smlmr_kde"
+  class(img) <- "smolr_kde"
   return(img)
   
   
 }
 
-SMLMR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05,  file=NULL, output=c("r","tiff"), fit = TRUE){
+SMOLR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05,  file=NULL, output=c("r","tiff"), fit = TRUE){
   
   
   
   kde <- list()
   if(is.null(nrow(xlim)) & is.null(nrow(ylim)) ){
     for(i in 1:length(x)){
-      kde[[i]] <- SMLMR_KDE(x[[i]],y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
+      kde[[i]] <- SMOLR_KDE(x[[i]],y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
     }
   }else{
   if(nrow(xlim)==length(x) & nrow(ylim)==length(x) ){
     for(i in 1:length(x)){
-      kde[[i]] <- SMLMR_KDE(x[[i]],y,ch,prec,bandwidth,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]), px, threshold, file, output, fit)
+      kde[[i]] <- SMOLR_KDE(x[[i]],y,ch,prec,bandwidth,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]), px, threshold, file, output, fit)
     }  
     
   }
@@ -308,7 +308,7 @@ SMLMR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xli
 }
 
 
-print.smlmr_kde <- function(x,...){
+print.smolr_kde <- function(x,...){
   cat("Kernel density estimation \n \n")
   cat("number of channels: \t", length(x[[3]]$channel), "\n \n")
   
@@ -316,7 +316,7 @@ print.smlmr_kde <- function(x,...){
 }
 
 
-plot.smlmr_kde <- function(x,y,brightness=0,contrast=1,saturate=0, ...){
+plot.smolr_kde <- function(x,y,brightness=0,contrast=1,saturate=0, ...){
   
       
     par(pty="s", mfrow=c(2,length(x$inputs$ch_range)))

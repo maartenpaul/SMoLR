@@ -3,7 +3,7 @@
 ### minimum requirement is a set of coordinates
 
 
-smlmr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   
   
@@ -225,18 +225,18 @@ GAUSS_FUNCTION <- function(sigx,sigy=NULL,xo=0,yo=0, one_D=FALSE, int_norm=FALSE
 
 
 
-SMLMR <- function(x,y,prec,ch, px,xlim,ylim,file,output,fit,fast){
-  UseMethod("SMLMR")
+SMOLR <- function(x,y,prec,ch, px,xlim,ylim,file,output,fit,fast){
+  UseMethod("SMOLR")
 }
 
-SMLMR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+SMOLR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   if(is.null(ch)){ch <- rep(1, length(x))}
   if(is.null(prec)){prec <- rep(20, length(x))}
   
   
   
-  img <- smlmr(x,y,prec,ch,px,xlim,ylim,file,output,fit,fast)
+  img <- smolr(x,y,prec,ch,px,xlim,ylim,file,output,fit,fast)
   
   ch_range <- unique(ch)
   
@@ -255,14 +255,14 @@ SMLMR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,f
   
   
   inputs <- list(px=px,xlim=xlim,ylim=ylim,file=file,output=output,fit=fit,fast=fast, ch_range=ch_range)
-  parameters <- SMLMR_PARAMETER(x,y,ch,prec,ch_range)
+  parameters <- SMOLR_PARAMETER(x,y,ch,prec,ch_range)
   img <- list(img=img, parameters=parameters, inputs=inputs )
-  class(img) <- "smlmr_image"
+  class(img) <- "smolr_image"
   return(img)
 
 }
 
-SMLMR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
   ind_y <- grep("^y$",names(x),ignore.case=T)
@@ -276,7 +276,7 @@ SMLMR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
     
   if(length(c(ind_x,ind_y,ind_prec,ind_ch))!=4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
   
-  img <- smlmr(x=dx,y,prec,ch,px,xlim,ylim,file,output,fit,fast)
+  img <- smolr(x=dx,y,prec,ch,px,xlim,ylim,file,output,fit,fast)
   
   ch_range <- unique(ch)
   
@@ -293,26 +293,26 @@ SMLMR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
   
   
   inputs <- list(px=px,xlim=xlim,ylim=ylim,file=file,output=output,fit=fit,fast=fast, ch_range=ch_range)
-  parameters <- SMLMR_PARAMETER(x=dx,y=y,ch=ch,prec=prec,ch_range=ch_range)
+  parameters <- SMOLR_PARAMETER(x=dx,y=y,ch=ch,prec=prec,ch_range=ch_range)
   img <- list(img=img, parameters=parameters, inputs=inputs )
-  class(img) <- "smlmr_image"
+  class(img) <- "smolr_image"
   return(img)
   
 }
 
-SMLMR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+SMOLR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
   
   img <- list()
   if(is.null(nrow(xlim)) & is.null(nrow(ylim)) ){
   for(i in 1:length(x)){
     
-    img[[i]] <- SMLMR(x[[i]],y,prec,ch,px,xlim,ylim,file,output,fit,fast)
+    img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim,ylim,file,output,fit,fast)
   }
   }else{
     if(nrow(xlim)==length(x) & nrow(ylim)==length(x) ){
       for(i in 1:length(x)){
       
-      img[[i]] <- SMLMR(x[[i]],y,prec,ch,px,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),file,output,fit)
+      img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),file,output,fit)
     }
     }
   }
@@ -320,7 +320,7 @@ SMLMR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file
 }
 
 
-print.smlmr_image <- function(x, ...){
+print.smolr_image <- function(x, ...){
   
   if(class(x[[1]])=="character"){ print(x[[1]]) }
      else{
@@ -332,7 +332,7 @@ print.smlmr_image <- function(x, ...){
 }
 }
 
-plot.smlmr_image <- function(x,y,saturate=0,brightness=0,contrast=1, ...){
+plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, ...){
   
   if(class(x[[1]])=="character"){ print(x[[1]]) }
   else{

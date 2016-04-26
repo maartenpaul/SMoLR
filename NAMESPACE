@@ -3,49 +3,49 @@
 
 
 
-S3method(plot, smlmr_image)
-S3method(plot, smlmr_kde)
-S3method(plot, smlmr_dbscan)
-S3method(print, smlmr_image)
-S3method(print, smlmr_kde)
-S3method(print, smlmr_dbscan)
+S3method(plot, smolr_image)
+S3method(plot, smolr_kde)
+S3method(plot, smolr_dbscan)
+S3method(print, smolr_image)
+S3method(print, smolr_kde)
+S3method(print, smolr_dbscan)
 
-S3method(SMLMR, default)
-S3method(SMLMR, data.frame)
-S3method(SMLMR, list)
+S3method(smolr, default)
+S3method(smolr, data.frame)
+S3method(smolr, list)
 
-S3method(SMLMR_KDE, default)
-S3method(SMLMR_KDE, data.frame)
-S3method(SMLMR_KDE, list)
+S3method(smolr_KDE, default)
+S3method(smolr_KDE, data.frame)
+S3method(smolr_KDE, list)
 
-S3method(SMLMR_DBSCAN, default)
-S3method(SMLMR_DBSCAN, data.frame)
-S3method(SMLMR_DBSCAN, list)
+S3method(smolr_DBSCAN, default)
+S3method(smolr_DBSCAN, data.frame)
+S3method(smolr_DBSCAN, list)
 
-S3method(SMLMR_PLOT, default)
-S3method(SMLMR_PLOT, data.frame)
+S3method(smolr_PLOT, default)
+S3method(smolr_PLOT, data.frame)
 
-S3method(SMLMR_FEATURES, default)
-S3method(SMLMR_FEATURES, smlmr_kde)
-S3method(SMLMR_FEATURES, list)
+S3method(smolr_FEATURES, default)
+S3method(smolr_FEATURES, smolr_kde)
+S3method(smolr_FEATURES, list)
 
-S3method(SMLMR_PARAMETER, default)
-S3method(SMLMR_PARAMETER, data.frame)
-S3method(SMLMR_PARAMETER, list)
+S3method(smolr_PARAMETER, default)
+S3method(smolr_PARAMETER, data.frame)
+S3method(smolr_PARAMETER, list)
 
-S3method(SMLMR_ROTATE, default)
-S3method(SMLMR_ROTATE, data.frame)
+S3method(smolr_ROTATE, default)
+S3method(smolr_ROTATE, data.frame)
 
-S3method(SMLMR_LIST, default)
-S3method(SMLMR_LIST, data.frame)
+S3method(smolr_LIST, default)
+S3method(smolr_LIST, data.frame)
 
-S3method(SMLMR_IMPORT, default)
+S3method(smolr_IMPORT, default)
 
-S3method(SMLMR_LOAD, default)
+S3method(smolr_LOAD, default)
 
-S3method(SMLMR_TO_PPP, default)
-S3method(SMLMR_TO_PPP, data.frame)
-S3method(SMLMR_TO_PPP, list)
+S3method(smolr_TO_PPP, default)
+S3method(smolr_TO_PPP, data.frame)
+S3method(smolr_TO_PPP, list)
 
 
 
@@ -65,17 +65,17 @@ export(rotate3d,
        rotate_coord,
        apply_filtered_features,
        GAUSS_FUNCTION,
-       SMLMR,
-       SMLMR_FEATURES,
-       SMLMR_KDE,
-       SMLMR_PLOT,
-       SMLMR_PARAMETER,
-       SMLMR_ROTATE,
-       SMLMR_LIST,
-       SMLMR_DBSCAN,
-       SMLMR_IMPORT,
-       SMLMR_LOAD,
-       SMLMR_TO_PPP
+       smolr,
+       smolr_FEATURES,
+       smolr_KDE,
+       smolr_PLOT,
+       smolr_PARAMETER,
+       smolr_ROTATE,
+       smolr_LIST,
+       smolr_DBSCAN,
+       smolr_IMPORT,
+       smolr_LOAD,
+       smolr_TO_PPP
        )
 
 importFrom("spatstat", owin,disc,ppp)

@@ -1,4 +1,4 @@
-smlmr_list <- function(x,xlim=NULL,ylim=NULL){
+smolr_list <- function(x,xlim=NULL,ylim=NULL){
   
   
   if(is.null(nrow(xlim))|is.null(nrow(ylim))){stop("not enough limits to make a list")}
@@ -12,27 +12,27 @@ smlmr_list <- function(x,xlim=NULL,ylim=NULL){
   
   if(length(c(ind_x,ind_y))!=2){stop("Not all parameters (x,y) are present once in the header")}
     
-  smlmrlist <- list()
+  smolrlist <- list()
   
   for(i in 1:nrow(xlim)){
     rows <- which(dx>xlim[i,1] & dx<xlim[i,2] & y>ylim[i,1] & y<ylim[i,2])
-    smlmrlist[[i]] <- x[rows,]
+    smolrlist[[i]] <- x[rows,]
   }
 
-  return(smlmrlist)
+  return(smolrlist)
 
 }
 
-SMLMR_LIST <- function(x,xlim,ylim){
-  UseMethod("SMLMR_LIST")
+SMOLR_LIST <- function(x,xlim,ylim){
+  UseMethod("SMOLR_LIST")
 }
 
-SMLMR_LIST.default <- function(x,xlim=NULL,ylim=NULL){
+SMOLR_LIST.default <- function(x,xlim=NULL,ylim=NULL){
  cat("x must be a data.frame")
 }
 
-SMLMR_LIST.data.frame <- function(x,xlim=NULL,ylim=NULL){
-  smlmr_list(x,xlim,ylim)
+SMOLR_LIST.data.frame <- function(x,xlim=NULL,ylim=NULL){
+  smolr_list(x,xlim,ylim)
 }
 
 
