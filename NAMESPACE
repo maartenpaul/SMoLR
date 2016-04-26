@@ -10,42 +10,42 @@ S3method(print, smolr_image)
 S3method(print, smolr_kde)
 S3method(print, smolr_dbscan)
 
-S3method(smolr, default)
-S3method(smolr, data.frame)
-S3method(smolr, list)
+S3method(SMOLR, default)
+S3method(SMOLR, data.frame)
+S3method(SMOLR, list)
 
-S3method(smolr_KDE, default)
-S3method(smolr_KDE, data.frame)
-S3method(smolr_KDE, list)
+S3method(SMOLR_KDE, default)
+S3method(SMOLR_KDE, data.frame)
+S3method(SMOLR_KDE, list)
 
-S3method(smolr_DBSCAN, default)
-S3method(smolr_DBSCAN, data.frame)
-S3method(smolr_DBSCAN, list)
+S3method(SMOLR_DBSCAN, default)
+S3method(SMOLR_DBSCAN, data.frame)
+S3method(SMOLR_DBSCAN, list)
 
-S3method(smolr_PLOT, default)
-S3method(smolr_PLOT, data.frame)
+S3method(SMOLR_PLOT, default)
+S3method(SMOLR_PLOT, data.frame)
 
-S3method(smolr_FEATURES, default)
-S3method(smolr_FEATURES, smolr_kde)
-S3method(smolr_FEATURES, list)
+S3method(SMOLR_FEATURES, default)
+S3method(SMOLR_FEATURES, smolr_kde)
+S3method(SMOLR_FEATURES, list)
 
-S3method(smolr_PARAMETER, default)
-S3method(smolr_PARAMETER, data.frame)
-S3method(smolr_PARAMETER, list)
+S3method(SMOLR_PARAMETER, default)
+S3method(SMOLR_PARAMETER, data.frame)
+S3method(SMOLR_PARAMETER, list)
 
-S3method(smolr_ROTATE, default)
-S3method(smolr_ROTATE, data.frame)
+S3method(SMOLR_ROTATE, default)
+S3method(SMOLR_ROTATE, data.frame)
 
-S3method(smolr_LIST, default)
-S3method(smolr_LIST, data.frame)
+S3method(SMOLR_LIST, default)
+S3method(SMOLR_LIST, data.frame)
 
-S3method(smolr_IMPORT, default)
+S3method(SMOLR_IMPORT, default)
 
-S3method(smolr_LOAD, default)
+S3method(SMOLR_LOAD, default)
 
-S3method(smolr_TO_PPP, default)
-S3method(smolr_TO_PPP, data.frame)
-S3method(smolr_TO_PPP, list)
+S3method(SMOLR_TO_PPP, default)
+S3method(SMOLR_TO_PPP, data.frame)
+S3method(SMOLR_TO_PPP, list)
 
 
 
@@ -65,17 +65,17 @@ export(rotate3d,
        rotate_coord,
        apply_filtered_features,
        GAUSS_FUNCTION,
-       smolr,
-       smolr_FEATURES,
-       smolr_KDE,
-       smolr_PLOT,
-       smolr_PARAMETER,
-       smolr_ROTATE,
-       smolr_LIST,
-       smolr_DBSCAN,
-       smolr_IMPORT,
-       smolr_LOAD,
-       smolr_TO_PPP
+       SMOLR,
+       SMOLR_FEATURES,
+       SMOLR_KDE,
+       SMOLR_PLOT,
+       SMOLR_PARAMETER,
+       SMOLR_ROTATE,
+       SMOLR_LIST,
+       SMOLR_DBSCAN,
+       SMOLR_IMPORT,
+       SMOLR_LOAD,
+       SMOLR_TO_PPP
        )
 
 importFrom("spatstat", owin,disc,ppp)
