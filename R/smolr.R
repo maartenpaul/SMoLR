@@ -395,7 +395,7 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
       
     } else{
       
-      par(pty="s", mfrow=c(1,length(x$inputs$ch_range)))
+      oripar <- par(pty="s", mfrow=c(1,length(x$inputs$ch_range)),mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
       for(i in 1:length(x$inputs$ch_range)){
         img <- x$img[,,i]
         
@@ -421,6 +421,7 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
               ylab=""
         )
       }
+      par(oripar)
     }
   }
 }

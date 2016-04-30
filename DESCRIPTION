@@ -4,12 +4,13 @@ Title: Single Molecule Localization Microscopy visualization and analysis in R
 Version: 0.9.0
 Date: 2016-04-26
 Author: Optical Imaging Centre ErasmusMC Rotterdam 
-Depends: R (>= 3.2.2)
-Import: plotrix, EBImage, KernSmooth, tiff, tools, plyr, dbscan, spatstat,RImageJROI
 Depends: plotrix, EBImage, KernSmooth, tiff, tools, plyr, dbscan, spatstat,RImageJROI
+Import: plotrix, EBImage, KernSmooth, tiff, tools, plyr, dbscan, RImageJROI
 Maintainer: Johan Slotman <j.slotman@erasmusmc.nl>
 Description: Single Molecule Localization Microscopy visualization and analysis
 License: GPL2
 LazyData: TRUE
 Repository: CRAN
-
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -319,7 +319,7 @@ print.smolr_kde <- function(x,...){
 plot.smolr_kde <- function(x,y,brightness=0,contrast=1,saturate=0, ...){
   
       
-    par(pty="s", mfrow=c(2,length(x$inputs$ch_range)))
+  oripar <-  par(pty="s", mfrow=c(2,length(x$inputs$ch_range)),mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
     for(i in 1:length(x$inputs$ch_range)){
       img <- x[[1]][,,i]
       
@@ -355,7 +355,7 @@ plot.smolr_kde <- function(x,y,brightness=0,contrast=1,saturate=0, ...){
             ylab=""
       )
     }
-  
+  par(oripar)
 }
 
 
