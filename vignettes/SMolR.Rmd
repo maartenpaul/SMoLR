@@ -1,0 +1,54 @@
+---
+title: "Single Molecule Localization in R (SMolR)"
+author: "Maarten Paul (m.w.paul@erasmusmc.nl)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{SMolR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r,cache=TRUE}
+library(SMolR)
+```
+
+The SMolR package consists of a set of functions dedicated to quantitive analysis of Single Molecule Localization data in R.
+
+- Importing and organizing large single molecule localization data sets
+- Visualize super resolution localization data
+- High-thoughput analysis of large 
+
+
+
+## Import of localization data
+
+Using `SMOLR_IMPORT` different types of data can be imported into R from a folder. The localizations from different ROIs or images are sorted in a `list` of `data.frame`'s. Different `profiles` are available to load different types of data.
+
+```{r}
+SMOLR_IMPORT(folder="../loc",profile = "roiloc")
+SMOLR_LOAD(folder="../loc")
+```
+
+Example of localizations `data.frame`
+
+```{r, echo=TRUE, results='asis'}
+knitr::kable(head(localizations[[1]], 10))
+```
+
+
+## Visualization
+
+```{r, fig.show='hold',fig.width=8}
+img <- SMOLR(smolrdata)
+plot(img)
+```
+
+```{r, fig.show='hold'}
+plot(img,rgb=TRUE)
+```
+
+```{r, fig.show='hold'}
+plot(SMOLR(subset(smolrdata,Channel==1)))
+```
+
+## Clustering

@@ -17,27 +17,27 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
   
   
   output <-match.arg(output)
-    
-    
+  
+  
   ## measure limits
   
   if(is.null(xlim)==FALSE) {
-    input_xsize <- ((xlim[2]-xlim[1])/px)+5
+    input_xsize <- ((xlim[2]-xlim[1])/px)
     x <- x-xlim[1]
   }  
   if(is.null(ylim)==FALSE) {
-    input_ysize <- ((ylim[2]-ylim[1])/px)+5
+    input_ysize <- ((ylim[2]-ylim[1])/px)
     y <- y-ylim[1]
   } 
   if(is.null(xlim)){
-    input_xsize <- ((max(x)-min(x))/px)+5
+    input_xsize <- ((max(x)-min(x))/px)
     x <- x - min(x)
   }
   if(is.null(ylim)){
-    input_ysize <- ((max(y)-min(y))/px)+5
+    input_ysize <- ((max(y)-min(y))/px)
     y <- y - min(y)
   }
-
+  
   if(fit==TRUE){
     selection <- x>0 & x<input_xsize*px & y>0 & y<input_ysize*px
     x <- x[selection]
@@ -47,7 +47,7 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
     
   } 
   
- 
+  
   
   if(max(x)>input_xsize*px||max(y)>input_ysize*px || min(x)<0 ||min(y)<0 ){stop("X or Y coordinates out of bound: use FIT=TRUE or set other xlim or ylim values")}
   
@@ -72,22 +72,22 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
     
     if(!fast){
       
-        makeIMdata <- cbind(x[ch==ch_range[j]],y[ch==ch_range[j]],sigx[ch==ch_range[j]],sigy[ch==ch_range[j]],xo[ch==ch_range[j]],yo[ch==ch_range[j]])        
+      makeIMdata <- cbind(x[ch==ch_range[j]],y[ch==ch_range[j]],sigx[ch==ch_range[j]],sigy[ch==ch_range[j]],xo[ch==ch_range[j]],yo[ch==ch_range[j]])        
+      
+      
+      ### create 2D gauss and add to image matrix
+      makeIM <- function(i){      
+        z <- GAUSS_FUNCTION(xo=i[5], yo=i[6], sigx=i[3], sigy=i[4], int_norm=TRUE)
         
+        x1<-trunc(i[1]/px)+(2*pm)+1-floor(0.5*ncol(z))+1
+        x2<-trunc(i[1]/px)+(2*pm)+1+floor(0.5*ncol(z))+1
+        y1<-trunc(i[2]/px)+(2*pm)+1-floor(0.5*nrow(z))+1
+        y2<-trunc(i[2]/px)+(2*pm)+1+floor(0.5*nrow(z))+1
         
-        ### create 2D gauss and add to image matrix
-        makeIM <- function(i){      
-          z <- GAUSS_FUNCTION(xo=i[5], yo=i[6], sigx=i[3], sigy=i[4], int_norm=TRUE)
-                
-          x1<-trunc(i[1]/px)+(2*pm)+1-floor(0.5*ncol(z))+1
-          x2<-trunc(i[1]/px)+(2*pm)+1+floor(0.5*ncol(z))+1
-          y1<-trunc(i[2]/px)+(2*pm)+1-floor(0.5*nrow(z))+1
-          y2<-trunc(i[2]/px)+(2*pm)+1+floor(0.5*nrow(z))+1
-                
-          i_m[y1:y2, x1:x2]<<-i_m[y1:y2, x1:x2]+z
-        }  
-        
-        apply(makeIMdata,1,FUN=makeIM)
+        i_m[y1:y2, x1:x2]<<-i_m[y1:y2, x1:x2]+z
+      }  
+      
+      apply(makeIMdata,1,FUN=makeIM)
       
     }
     
@@ -137,7 +137,7 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
       if(length(which(i_m_tif[,,j]=="NaN"))==0){
         i_m_tif[,,j]<-EBImage::normalize(i_m_tif[,,j], ft=c(0,1))
       }
-      ### dont normalize is dataset is empty
+      ### dont normalize if dataset is empty
       if(length(which(i_m_tif[,,j]=="NaN"))>0){
         i_m_tif[,,j] <- 0
         warning(paste("Channel",ch_range[j],"is empty or has an error", sep=" "))
@@ -259,7 +259,7 @@ SMOLR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,f
   img <- list(img=img, parameters=parameters, inputs=inputs )
   class(img) <- "smolr_image"
   return(img)
-
+  
 }
 
 SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
@@ -273,7 +273,7 @@ SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
   y <- x[,ind_y]
   prec <- x[,ind_prec]
   ch <- x[,ind_ch]
-    
+  
   if(length(c(ind_x,ind_y,ind_prec,ind_ch))!=4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
   
   img <- smolr(x=dx,y,prec,ch,px,xlim,ylim,file,output,fit,fast)
@@ -283,7 +283,7 @@ SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
   if(fit==TRUE){
     if(is.null(xlim)){xlim <- c(min(x),max(x))}
     if(is.null(ylim)){ylim <- c(min(y),max(y))}
-    selection <- dx>xlim[1] & dx<xlim[2] & y>ylim[1] & y<ylim[2]
+    selection <- dx>=xlim[1] & dx<=xlim[2] & y>=ylim[1] & y<=ylim[2]
     dx <- dx[selection]
     y <- y[selection]
     prec <- prec[selection]
@@ -304,16 +304,16 @@ SMOLR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file
   
   img <- list()
   if(is.null(nrow(xlim)) & is.null(nrow(ylim)) ){
-  for(i in 1:length(x)){
-    
-    img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim,ylim,file,output,fit,fast)
-  }
+    for(i in 1:length(x)){
+      
+      img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim,ylim,file,output,fit,fast)
+    }
   }else{
     if(nrow(xlim)==length(x) & nrow(ylim)==length(x) ){
       for(i in 1:length(x)){
-      
-      img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),file,output,fit)
-    }
+        
+        img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),file,output,fit)
+      }
     }
   }
   return(img)
@@ -323,46 +323,105 @@ SMOLR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file
 print.smolr_image <- function(x, ...){
   
   if(class(x[[1]])=="character"){ print(x[[1]]) }
-     else{
-  cat("single molecule image: \n \n")
-  cat("Number of channels:\t",length(x$inputs$ch_range),"\n \n")
- 
-  
-  print(x[[2]])
-}
+  else{
+    cat("single molecule image: \n \n")
+    cat("Number of channels:\t",length(x$inputs$ch_range),"\n \n")
+    
+    
+    print(x[[2]])
+  }
 }
 
-plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, ...){
+plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
   
   if(class(x[[1]])=="character"){ print(x[[1]]) }
   else{
-  
-  par(pty="s", mfrow=c(1,length(x$inputs$ch_range)))
-   for(i in 1:length(x$inputs$ch_range)){
-     img <- x$img[,,i]
-     
-     #saturate
-     max <- sort(img)[length(img)*(1-saturate)]  
-     img <- img/max
-     #brightness
-     img <- img+brightness
-     
-     #contrast
-     img <- img*contrast
-     
-     #cut below 0 and above 1
-     img[img>1] <- 1
-     img[img<0] <- 0
-     
-     image(x=seq(1,dim(x$img[,,i])[1]*x$inputs$px,length.out = dim(x$img[,,i])[1]) ,
-           y=seq(1,dim(x$img[,,i])[2]*x$inputs$px,length.out = dim(x$img[,,i])[2]) ,
-           z=img, 
-           main=paste("channel", x$inputs$ch_range[i], sep=" "), 
-           col=grey.colors(2^16, start=0, end=1),
-           xlab="",
-           ylab=""
-     )
-   }
+    if(rgb){
+      x$img<-aperm(x$img, c(2,1,3)) #flip image into the right orientation
+      x$img <- flop(x$img)
+      if(length(contrast==1)){
+        contrast <- rep(contrast,length(x[[2]]$channel))
+      }
+      if(length(saturate==1)){
+        saturate <- rep(saturate,length(x[[2]]$channel))
+      }
+      if(length(brightness==1)){
+        brightness <- rep(brightness,length(x[[2]]$channel))
+      }
+      
+      if(length(x[[2]]$channel)>3){stop("Maximum of three channels for RGB images")}
+      
+      for(i in 1:length(x[[2]]$channel)){
+        img <- x$img[,,i]
+        
+        #saturate
+        max <- sort(img)[length(img)*(1-saturate[i])]  
+        img <- img/max
+        #brightness
+        img <- img+brightness[i]
+        
+        #contrast
+        img <- img*contrast[i]
+        
+        #cut below 0 and above 1
+        img[img>1] <- 1
+        img[img<0] <- 0
+        
+        x$img[,,i] <- img
+        
+      }
+      
+      if(length(x[[2]]$channel)==1){
+        col <- rgb(x[[1]][,,1],matrix(data = 0,ncol = ncol(x[[1]][,,1]),nrow=nrow(x[[1]][,,1]))
+                   ,matrix(data = 0,ncol = ncol(x[[1]][,,1]),nrow=nrow(x[[1]][,,1])))
+        
+        dim(col) <- dim(x[[1]][,,1])
+        grid.raster(col, interpolate=FALSE)  
+      }  
+      
+      if(length(x[[2]]$channel)==2){
+        col <- rgb(x[[1]][,,1],x[[1]][,,2],matrix(data = 0,ncol = ncol(x[[1]][,,1]),nrow=nrow(x[[1]][,,1])))
+        
+        dim(col) <- dim(x[[1]][,,1])
+        grid.raster(col, interpolate=FALSE)  
+      }  
+      
+      if(length(x[[2]]$channel)==3){
+        col <- rgb(x[[1]][,,1],x[[1]][,,2],x[[1]][,,3])
+        
+        dim(col) <- dim(x[[1]][,,1])
+      }  
+      grid.raster(col, interpolate=FALSE)  
+      
+    } else{
+      
+      par(pty="s", mfrow=c(1,length(x$inputs$ch_range)))
+      for(i in 1:length(x$inputs$ch_range)){
+        img <- x$img[,,i]
+        
+        #saturate
+        max <- sort(img)[length(img)*(1-saturate)]  
+        img <- img/max
+        #brightness
+        img <- img+brightness
+        
+        #contrast
+        img <- img*contrast
+        
+        #cut below 0 and above 1
+        img[img>1] <- 1
+        img[img<0] <- 0
+        
+        image(x=seq(1,dim(x$img[,,i])[1]*x$inputs$px,length.out = dim(x$img[,,i])[1]) ,
+              y=seq(1,dim(x$img[,,i])[2]*x$inputs$px,length.out = dim(x$img[,,i])[2]) ,
+              z=img, 
+              main=paste("channel", x$inputs$ch_range[i], sep=" "), 
+              col=grey.colors(2^16, start=0, end=1),
+              xlab="",
+              ylab=""
+        )
+      }
+    }
   }
 }
 

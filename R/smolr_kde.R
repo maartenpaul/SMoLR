@@ -151,7 +151,7 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   
   if(fit==TRUE){
     
-    selection <- x>xlim[1] & x<xlim[2] & y>ylim[1] & y<ylim[2]
+    selection <- x>=xlim[1] & x<=xlim[2] & y>=ylim[1] & y<=ylim[2]
     x <- x[selection]
     x_corr <- x_corr[selection]
     y <- y[selection]
@@ -236,8 +236,8 @@ SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   
   if(fit==TRUE){
     
-    selection <- dx>xlim[1] & dx<xlim[2] & y>ylim[1] & y<ylim[2]
-    if(is.null(xlim) | is.null(ylim)){selection <- dx>min(dx) & dx<max(dx) & y>min(y) & y<max(y)}
+    selection <- dx>=xlim[1] & dx<=xlim[2] & y>=ylim[1] & y<=ylim[2]
+    if(is.null(xlim) | is.null(ylim)){selection <- dx>=min(dx) & dx<=max(dx) & y>=min(y) & y<=max(y)}
     dx <- dx[selection]
     dx_corr <- dx_corr[selection]
     y <- y[selection]
@@ -254,13 +254,13 @@ SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   
   
   intensities <- data.frame(
-                            cbind(ch,
+                            cbind(dx,y,ch,
                                   apply(cbind(trunc(dx_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde,y=img$kde),
                                   apply(cbind(trunc(dx_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde, y=bwlabel(img$kde_binary))
                           )
                     )
   
-  names(intensities) <- c("channel","kde_intensity","binary_no")
+  names(intensities) <- c("X","Y","channel","kde_intensity","binary_no")
   clust_parameters <- data.frame(matrix(ncol=12,nrow = 1))[-1,]
   
     

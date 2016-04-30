@@ -202,7 +202,7 @@ SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
   range_ch <- unique(ch)
   
   if(fit==TRUE){
-    selection <- dx>xlim[1] & dx<xlim[2] & y>ylim[1] & y<ylim[2]
+    selection <- dx>=xlim[1] & dx<=xlim[2] & y>=ylim[1] & y<=ylim[2]
     dx <- dx[selection]
     y <- y[selection]
     prec <- prec[selection]

@@ -1,4 +1,4 @@
-smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50, xlim=NULL, ylim=NULL, fit = TRUE){
+smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
   
   if(is.null(ch)){ch <- rep(1,length(x))}
   if(is.null(prec)){prec <- rep(20,length(x))}
@@ -28,7 +28,7 @@ smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50, xlim=NULL,
 #test <- smolr_dbscan(x=smolrdata[,1],y = smolrdata[,2],ch=smolrdata[,4],MinPts=10,elki=TRUE)
 
 
-SMOLR_DBSCAN <- function(x,y,ch,prec, eps, MinPts, xlim, ylim, fit){
+SMOLR_DBSCAN <- function(x,y,ch,prec, eps, MinPts){
   UseMethod("SMOLR_DBSCAN")
 }
 
@@ -58,7 +58,7 @@ SMOLR_DBSCAN.default <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
     }
   }
   
-  inputs <- list(eps=eps,MinPts=MinPts,xlim=xlim,ylim=ylim, fit=fit,elki=elki)
+  inputs <- list(eps=eps,MinPts=MinPts)
   dbimg <- c(dbscan = list(dbscan_temp),parameters=list(parameters),clust_parameters=list(clust_parameters),inputs=list(inputs))
   
   class(dbimg) <- "smolr_dbscan"
@@ -68,7 +68,7 @@ SMOLR_DBSCAN.default <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
 #example
 #k <- SMOLR_DBSCAN(x=smolrdata[,1],y = smolrdata[,2],prec = smolrdata[,3],ch=smolrdata[,4],eps = 100,MinPts=20)
 
-SMOLR_DBSCAN.data.frame <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50,  xlim=NULL, ylim=NULL, fit = TRUE){
+SMOLR_DBSCAN.data.frame <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
   
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
@@ -120,8 +120,8 @@ plot.smolr_dbscan <- function(x,y, ...){
   x <- ldply(x$dbscan,.id=NULL)
   
     if(max(x$Cluster)!=min(x$Cluster)){
-    clim <-c(min(x$Cluster),max(x$Cluster))}
-    else{
+    clim <-c(min(x$Cluster),max(x$Cluster))
+    }   else{
     clim <- NULL
     }
   
