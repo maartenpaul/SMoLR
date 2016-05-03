@@ -2,7 +2,7 @@
 title: "Single Molecule Localization in R (SMolR)"
 author: "Maarten Paul (m.w.paul@erasmusmc.nl)"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{SMolR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -51,4 +51,28 @@ plot(img,rgb=TRUE)
 plot(SMOLR(subset(smolrdata,Channel==1)))
 ```
 
+Plotting localizations as scatter plot
+```{r, fig.show='hold',fig.width=4}
+SMOLR_PLOT(smolrdata)
+```
+
+Plotting channels separetely
+```{r, fig.show='hold',fig.width=8}
+SMOLR_PLOT(smolrdata,split_ch = T)
+```
+
+```{r, fig.show='hold',fig.width=8}
+SMOLR_PLOT(smolrdata,split_ch = T,color = smolrdata$First_Frame)
+```
+
 ## Clustering
+```{r, fig.show='hold',fig.width=8}
+plot(SMOLR_KDE(smolrdata))
+
+```
+
+Visualization of DBSCAN clustering. The colors indicate the assigned cluster, while the red localizations are considered background.
+```{r, fig.show='hold',fig.width=8}
+plot(SMOLR_DBSCAN(smolrdata,eps=50,MinPts=5))
+
+```

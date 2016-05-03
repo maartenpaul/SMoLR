@@ -61,7 +61,7 @@ smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, yli
     if(length(which(ch==ch_range[i]))>0){
     inp <- cbind(x[ch==ch_range[i]],y[ch==ch_range[i]])
     
-    kde_temp <- bkde2D(x=inp, bandwidth= bandwidth, gridsize = c(input_xsize,input_ysize), range.x= range )
+    kde_temp <- KernSmooth::bkde2D(x=inp, bandwidth= bandwidth, gridsize = c(input_xsize,input_ysize), range.x= range )
     kde_temp$fhat <- kde_temp$fhat*px*px*nrow(inp)
     
     kde_binary <- kde_temp$fhat
@@ -143,23 +143,14 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   }
   
   
+  
   if(is.null(ch)){ch <- rep(1,length(x))}
   
   ch_range <- unique(ch)
   
   img <- smolr_kde(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
   
-  if(fit==TRUE){
-    
-    selection <- x>=xlim[1] & x<=xlim[2] & y>=ylim[1] & y<=ylim[2]
-    x <- x[selection]
-    x_corr <- x_corr[selection]
-    y <- y[selection]
-    y_corr <- y_corr[selection]
-    prec <- prec[selection]
-    ch <- ch[selection]
-    
-  }
+
   
   
   
@@ -319,7 +310,7 @@ print.smolr_kde <- function(x,...){
 plot.smolr_kde <- function(x,y,brightness=0,contrast=1,saturate=0, ...){
   
       
-  oripar <-  par(pty="s", mfrow=c(2,length(x$inputs$ch_range)),mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
+  oripar <-  par(pty='s',mfrow=c(2,length(x$inputs$ch_range)),mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
     for(i in 1:length(x$inputs$ch_range)){
       img <- x[[1]][,,i]
       
@@ -352,7 +343,10 @@ plot.smolr_kde <- function(x,y,brightness=0,contrast=1,saturate=0, ...){
             main=paste("KDE binary channel", x$inputs$ch_range[i], sep=" "), 
             col=grey.colors(2^16, start=0, end=1),
             xlab="",
-            ylab=""
+            ylab="",
+            xlim=c(1,nrow(x[[2]][,,i])*x$inputs$px),
+            ylim=c(1,ncol(x[[2]][,,i])*x$inputs$px),
+            asp=1
       )
     }
   par(oripar)

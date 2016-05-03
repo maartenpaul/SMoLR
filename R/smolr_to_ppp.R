@@ -51,11 +51,13 @@ SMOLR_TO_PPP.data.frame <- function(x,xlim=NULL,ylim=NULL,marks=NULL,shape="rect
 SMOLR_TO_PPP.list <- function(x,xlim=NULL,ylim=NULL,shape="rect"){
   out <- list()
   if(is.null(xlim)||is.null(ylim)){
-    out [[i]] <- smolr_to_ppp(x[[i]],shape=shape)
+    for(i in 1:length(x)){
+      out[[i]] <- SMOLR_TO_PPP(x[[i]],shape=shape)
+    }
     
   } else {
     for(i in 1:length(x)){
-      out [[i]] <- smolr_to_ppp(x[[i]],xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),shape=shape)
+      out[[i]] <- SMOLR_TO_PPP(x[[i]],xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),shape=shape)
     }
   }
   return(out)

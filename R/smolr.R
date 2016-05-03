@@ -338,7 +338,7 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
   else{
     if(rgb){
       x$img<-aperm(x$img, c(2,1,3)) #flip image into the right orientation
-      x$img <- flop(x$img)
+      x$img <- EBImage::flop(x$img)
       if(length(contrast==1)){
         contrast <- rep(contrast,length(x[[2]]$channel))
       }
@@ -370,20 +370,21 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
         x$img[,,i] <- img
         
       }
-      
+
       if(length(x[[2]]$channel)==1){
         col <- rgb(x[[1]][,,1],matrix(data = 0,ncol = ncol(x[[1]][,,1]),nrow=nrow(x[[1]][,,1]))
                    ,matrix(data = 0,ncol = ncol(x[[1]][,,1]),nrow=nrow(x[[1]][,,1])))
         
         dim(col) <- dim(x[[1]][,,1])
-        grid.raster(col, interpolate=FALSE)  
+        
+        
+        #grid.raster(col, interpolate=FALSE)  
       }  
       
       if(length(x[[2]]$channel)==2){
         col <- rgb(x[[1]][,,1],x[[1]][,,2],matrix(data = 0,ncol = ncol(x[[1]][,,1]),nrow=nrow(x[[1]][,,1])))
         
         dim(col) <- dim(x[[1]][,,1])
-        grid.raster(col, interpolate=FALSE)  
       }  
       
       if(length(x[[2]]$channel)==3){
@@ -391,11 +392,14 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
         
         dim(col) <- dim(x[[1]][,,1])
       }  
-      grid.raster(col, interpolate=FALSE)  
-      
+      oripar <- par(mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
+      plot(1:2, type='n',xlim= c(x$inputs$xlim[1],x$inputs$xlim[2]),ylim=c(x$inputs$ylim[1],x$inputs$ylim[2]), asp = 1,xlab="X",ylab="Y",bty="n",axes=FALSE)
+      lim <- par()
+      rasterImage(col, x$inputs$xlim[1], x$inputs$ylim[1], x$inputs$xlim[2], x$inputs$ylim[2])
+      par(oripar)
     } else{
       
-      oripar <- par(pty="s", mfrow=c(1,length(x$inputs$ch_range)),mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
+      oripar <- par(pty='s',mfrow=c(1,length(x$inputs$ch_range)),mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
       for(i in 1:length(x$inputs$ch_range)){
         img <- x$img[,,i]
         
@@ -418,7 +422,11 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
               main=paste("channel", x$inputs$ch_range[i], sep=" "), 
               col=grey.colors(2^16, start=0, end=1),
               xlab="",
-              ylab=""
+              ylab="",
+              xlim=c(1,dim(x$img[,,i])[1]*x$inputs$px),
+              ylim=c(1,dim(x$img[,,i])[2]*x$inputs$px),
+              asp=1,
+              useRaster = T
         )
       }
       par(oripar)

@@ -97,8 +97,8 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   if(grey){colors <- grey.colors(100, alpha=alpha)}
   
   if(rev.color){colors <- rev(colors)}
-  
   par(xpd=T)
+  #oripar <- par(xpd=T,mar=c(3,3,3,2.5),no.readonly = TRUE)
   
   if(!is.null(overlay)){
     if(class(overlay)=="smolr_image"){
@@ -123,7 +123,7 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
     img[img>1] <- 1
     plot(1:2, type='n',xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px))
     lim <- par()
-    rasterImage(flop(img), 0, 0, input_xsize*px, input_ysize*px)
+    rasterImage(EBImage::flop(img), 0, 0, input_xsize*px, input_ysize*px)
     symbols(x,y,circles=size,fg=colors[color],bg=colors[color],xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px), inches=FALSE, xlab="", ylab="",add=T)
     
   } else {
