@@ -134,26 +134,34 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   if(is.null(xlim)){
     
     x_corr <- x - (floor(min(x))-px)
-    xlim <- c(0,max(x_corr))
+    xlim <- c(min(x),max(x))
   }
   if(is.null(ylim)){
    
     y_corr <- y - (floor(min(y))-px)
-    ylim <- c(0,max(y_corr))
+    #ylim <- c(0,max(y_corr))
+    ylim <- c(min(y),max(y))
   }
   
-  
-  
   if(is.null(ch)){ch <- rep(1,length(x))}
+  
+  if(fit==TRUE){
+    
+    selection <- x>=xlim[1] & x<=xlim[2] & y>=ylim[1] & y<=ylim[2]
+    #if(is.null(xlim) | is.null(ylim)){selection <- dx>=min(dx) & dx<=max(dx) & y>=min(y) & y<=max(y)}
+    x <- x[selection]
+   # dx_corr <- dx_corr[selection]
+    y <- y[selection]
+   #y_corr <- y_corr[selection]
+    prec <- prec[selection]
+    ch <- ch[selection]
+    
+  }
   
   ch_range <- unique(ch)
   
   img <- smolr_kde(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
-  
 
-  
-  
-  
   parameters <- SMOLR_PARAMETER(x,y,ch,prec,ch_range)
     
   intensities <- data.frame(
@@ -198,78 +206,7 @@ SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   ch <- x[,ind_ch]
   prec <- x[,ind_prec]
   
-  if(is.null(xlim)==FALSE) {
-    
-    dx_corr <- dx-(floor(xlim[1])-px)
-  }  
-  if(is.null(ylim)==FALSE) {
-    
-    y_corr <- y-(floor(ylim[1])-px)
-  } 
-  if(is.null(xlim)){
-    
-    dx_corr <- dx - (floor(min(dx))-px)
-    xlim <- c(0,max(dx_corr))
-  }
-  if(is.null(ylim)){
-    
-    y_corr <- y - (floor(min(y))-px)
-    ylim <- c(0,max(y_corr))
-  }
-        
-  if(is.null(ch)){ch <- rep(1,length(x))}
-  
-  ch_range <- unique(ch)
-  
-  if(length(c(ind_x,ind_y,ind_ch,ind_prec))!=4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
-  
-  img <- smolr_kde(dx,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit)
-  
-  if(fit==TRUE){
-    
-    selection <- dx>=xlim[1] & dx<=xlim[2] & y>=ylim[1] & y<=ylim[2]
-    if(is.null(xlim) | is.null(ylim)){selection <- dx>=min(dx) & dx<=max(dx) & y>=min(y) & y<=max(y)}
-    dx <- dx[selection]
-    dx_corr <- dx_corr[selection]
-    y <- y[selection]
-    y_corr <- y_corr[selection]
-    prec <- prec[selection]
-    ch <- ch[selection]
-    
-  }
-  
-  
-  
-  parameters <- SMOLR_PARAMETER(dx,y,ch,prec,ch_range)
-  
-  
-  
-  intensities <- data.frame(
-                            cbind(dx,y,ch,
-                                  apply(cbind(trunc(dx_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde,y=img$kde),
-                                  apply(cbind(trunc(dx_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde, y=bwlabel(img$kde_binary))
-                          )
-                    )
-  
-  names(intensities) <- c("X","Y","channel","kde_intensity","binary_no")
-  clust_parameters <- data.frame(matrix(ncol=12,nrow = 1))[-1,]
-  
-    
-  for(i in 1:length(ch_range)){
-    if(length(which(ch==ch_range[i]))>0){
-      for(j in 0:max(intensities$binary_no[intensities$channel==ch_range[i]])){
-        clust_parameters_temp <- cbind(SMOLR_PARAMETER(dx[intensities$channel==i&intensities$binary_no==j],y[intensities$channel==i&intensities$binary_no==j],ch[intensities$channel==i&intensities$binary_no==j],prec[intensities$channel==i&intensities$binary_no==j]),binary_no=j)
-        if(j==0&i==1){names(clust_parameters) <- names(clust_parameters_temp)}
-        clust_parameters <- rbind(clust_parameters,clust_parameters_temp)
-      }
-    }
-  }
-  inputs <- list(bandwidth=bandwidth,xlim=xlim,ylim=ylim, px=px, threshold=threshold, file=file, output=output, fit=fit, ch_range=ch_range)
-  
-  
-  img <- c(img,parameters=list(parameters),int=list(intensities),clust_parameters=list(clust_parameters),inputs=list(inputs))
-  
-  
+  img <- SMOLR_KDE(x=dx,y=y,ch=ch,prec=prec, bandwidth= bandwidth,  xlim=xlim, ylim=ylim, px=px, threshold=threshold, file=file, output=output, fit = fit)
   
   class(img) <- "smolr_kde"
   return(img)
@@ -278,9 +215,7 @@ SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
 }
 
 SMOLR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05,  file=NULL, output=c("r","tiff"), fit = TRUE){
-  
-  
-  
+
   kde <- list()
   if(is.null(nrow(xlim)) & is.null(nrow(ylim)) ){
     for(i in 1:length(x)){

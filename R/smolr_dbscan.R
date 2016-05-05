@@ -96,8 +96,7 @@ SMOLR_DBSCAN.list <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
   dbscan_temp <- llply(x,function(x){
           SMOLR_DBSCAN(x,y,ch, prec, eps, MinPts)
       })
-      
- 
+
   
   return(dbscan_temp)
 }

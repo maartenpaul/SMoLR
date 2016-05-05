@@ -276,25 +276,9 @@ SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
   
   if(length(c(ind_x,ind_y,ind_prec,ind_ch))!=4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
   
-  img <- smolr(x=dx,y,prec,ch,px,xlim,ylim,file,output,fit,fast)
   
-  ch_range <- unique(ch)
+  img <- SMOLR(x=dx,y=y,prec=prec,ch=ch,px=px,xlim=xlim,ylim=ylim,file=file,output=output,fit=fit,fast=fast)
   
-  if(fit==TRUE){
-    if(is.null(xlim)){xlim <- c(min(x),max(x))}
-    if(is.null(ylim)){ylim <- c(min(y),max(y))}
-    selection <- dx>=xlim[1] & dx<=xlim[2] & y>=ylim[1] & y<=ylim[2]
-    dx <- dx[selection]
-    y <- y[selection]
-    prec <- prec[selection]
-    ch <- ch[selection]
-    
-  }  
-  
-  
-  inputs <- list(px=px,xlim=xlim,ylim=ylim,file=file,output=output,fit=fit,fast=fast, ch_range=ch_range)
-  parameters <- SMOLR_PARAMETER(x=dx,y=y,ch=ch,prec=prec,ch_range=ch_range)
-  img <- list(img=img, parameters=parameters, inputs=inputs )
   class(img) <- "smolr_image"
   return(img)
   
