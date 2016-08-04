@@ -32,11 +32,19 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   }
   
   
+  colorfactor <- is.factor(color)
+  
+  
   if(is.null(color)){color <- rep(1,length(x))}
   
   if(is.null(clim)){
+#     if (colorfactor){
+#       max.col <- length(levels(color))
+#       min.col <- 0
+#     } else {
     max.col <- max(color)
     min.col <- min(color)
+   # }
   }
   
   if(is.null(slim)){
@@ -65,13 +73,14 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   if(min.size==max.size){
     size <- rep(1,length(x))
   }
+  #if (!colorfactor){
   if(min.col!=max.col){
     color <- (color-min.col)/(max.col-min.col) 
   }
   if(min.col==max.col){
     color <- rep(1,length(x))  
   }
-  
+  #}
   if(rev.size){
     temp.size <- min.size
     min.size <- max.size
@@ -90,6 +99,7 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   }
   
   size <- (size*px*3)+ px #normalize between px and 5*px
+  
   color <- trunc(color*99)+1 #normalize to integer between 1 and 100
   
   
@@ -121,18 +131,20 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
     }
     img <- (img / max(img))*contrast
     img[img>1] <- 1
-    plot(1:2, type='n',xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px))
+    plot(1:2, type='n',xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px),xlab="",ylab="")
     lim <- par()
     rasterImage(EBImage::flop(img), 0, 0, input_xsize*px, input_ysize*px)
-    symbols(x,y,circles=size,fg=colors[color],bg=colors[color],xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px), inches=FALSE, xlab="", ylab="",add=T)
+    symbols(x,y,circles=size,fg=colors[as.numeric(color)],bg=colors[as.numeric(color)],xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px), inches=FALSE, xlab="", ylab="",add=T)
     
   } else {
-    
-    symbols(x,y,circles=size,fg=colors[color],bg=colors[color],xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px), inches=FALSE, xlab="", ylab="",add=F)
-    
+    if (!colorfactor){
+      symbols(x,y,circles=size,fg=colors[color],bg=colors[color],xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px), inches=FALSE, xlab="", ylab="",add=F)
+    } else {
+      symbols(x,y,circles=size,fg=as.numeric(color),bg=as.numeric(color),xlim= c(0,input_xsize*px),ylim=c(0,input_ysize*px), inches=FALSE, xlab="", ylab="",add=F)
+    }
   }
   
-  if(max.col!=min.col){
+  if(max.col!=min.col&!colorfactor){
     gradient.rect(((input_xsize*px)/20),((input_ysize*px)+(input_ysize*px*0.05)),((input_xsize*px)/3),((input_ysize*px)+(input_ysize*px*0.1)),col=colors,nslices=100)
     if(min.size>100){labelcmin <- as.character(round(min.col,digits=0))}
     if(min.size<100){labelcmin <- as.character(signif(min.col,digits=2))}

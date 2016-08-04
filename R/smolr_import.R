@@ -20,6 +20,8 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
              # basename <- ""
              sep <- "\t"
              extension<-"txt"
+             names <- c("Index","First_Frame","Number_Frames", "Frames_Missing", "X","Y","Precision","Photons","Background","Fit_chi2","PSF_width","Channel","Z_slice")
+             
            },
            thunderstorm={
              #  basename<-""

@@ -1,10 +1,10 @@
 ---
-title: "Single Molecule Localization in R (SMolR)"
-author: "Maarten Paul (m.w.paul@erasmusmc.nl)"
+title: "Introduction in Single Molecule Localization in R (SMolR)"
+author: "Maarten Paul (m.w.paul@erasmusmc.nl) and Johan Slotman (j.slotman@erasmusmc.nl)"
 date: "`r Sys.Date()`"
-output: rmarkdown::pdf_document
+output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{SMolR}
+  %\VignetteIndexEntry{SMoLR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,8 +16,7 @@ The SMolR package consists of a set of functions dedicated to quantitive analysi
 
 - Importing and organizing large single molecule localization data sets
 - Visualize super resolution localization data
-- High-thoughput analysis of large 
-
+- High-thoughput analysis of large data sets
 
 
 ## Import of localization data
@@ -37,22 +36,31 @@ knitr::kable(head(localizations[[1]], 10))
 
 
 ## Visualization
+The localizations can plotted by individual Gaussians using the `SMOLR` function. This can also be applied to a `list` of `data.frame's`. This will create an list of super resolution images. In this example a `data.frame` is the input. The plot function can be applied to the `SMOLR_image` object. This will return images of all channels in gray scale.
 
-```{r, fig.show='hold',fig.width=8}
+```{r, fig.show='hold',fig.height=3}
 img <- SMOLR(smolrdata)
 plot(img)
 ```
 
-```{r, fig.show='hold'}
+Alternatively an RGB image can be plotted.
+
+```{r, fig.show='hold',fig.height=3}
 plot(img,rgb=TRUE)
 ```
 
-```{r, fig.show='hold'}
+Instead of storing the data in R it is also possible to save an image as tiff.
+
+```{r, eval = FALSE}
+SMOLR(smolrdata)
+```
+
+```{r, fig.show='hold',fig.height=3}
 plot(SMOLR(subset(smolrdata,Channel==1)))
 ```
 
 Plotting localizations as scatter plot
-```{r, fig.show='hold',fig.width=4}
+```{r, fig.show='hold',fig.height=3}
 SMOLR_PLOT(smolrdata)
 ```
 
@@ -65,6 +73,9 @@ SMOLR_PLOT(smolrdata,split_ch = T)
 SMOLR_PLOT(smolrdata,split_ch = T,color = smolrdata$First_Frame)
 ```
 
+
+\newpage 
+
 ## Clustering
 ```{r, fig.show='hold',fig.width=8}
 plot(SMOLR_KDE(smolrdata))
@@ -75,4 +86,22 @@ Visualization of DBSCAN clustering. The colors indicate the assigned cluster, wh
 ```{r, fig.show='hold',fig.width=8}
 plot(SMOLR_DBSCAN(smolrdata,eps=50,MinPts=5))
 
+```
+
+## Features
+```{r}
+features <- SMOLR_FEATURES(SMOLR_KDE(smolrdata))
+```
+
+```{r, echo=TRUE, results='asis'}
+knitr::kable(head(features$channel_1[,1:9], 10))
+```
+
+Or localization based features
+```{r}
+point_features <- SMOLR_POINT_FEATURES(SMOLR_DBSCAN(smolrdata,eps=50,MinPts=5))
+```
+
+```{r, echo=TRUE, results='asis'}
+knitr::kable(head(point_features[,1:10], 10))
 ```
