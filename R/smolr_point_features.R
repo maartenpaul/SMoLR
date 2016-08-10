@@ -34,17 +34,20 @@ SMOLR_POINT_FEATURES.default <- function(x){
 }
 
 SMOLR_POINT_FEATURES.data.frame <- function(x){
+  x$Cluster <- 1
   smolr_point_features(x)
 }
 
 SMOLR_POINT_FEATURES.smolr_kde <- function(x){
   x <- x$int
   x$Cluster <- x$binary_no 
+  x$Channel <- x$channel
   return(smolr_point_features(x))
 }
 
 SMOLR_POINT_FEATURES.smolr_dbscan <- function(x){
   x <- ldply(x$dbscan)
+  
   return(smolr_point_features(x))
 }
 

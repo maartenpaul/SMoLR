@@ -1,5 +1,5 @@
-smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1){
-  
+smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1,color_scale=NULL){
+
   if((is.null(xlim) || length(xlim)==2)==FALSE){stop("xlim should be a vector with two values")}
   if((is.null(ylim) || length(ylim)==2)==FALSE){stop("ylim should be a vector with two values")}
   if((is.null(clim) || length(clim)==2)==FALSE){stop("clim should be a vector with two values")}
@@ -100,11 +100,15 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   
   size <- (size*px*3)+ px #normalize between px and 5*px
   
-  color <- trunc(color*99)+1 #normalize to integer between 1 and 100
   
   
-  if(!grey){colors <- rainbow(100, start=0, end=2/6, alpha=alpha)}
-  if(grey){colors <- grey.colors(100, alpha=alpha)}
+  if(!grey&&is.null(color_scale)){colors <- rainbow(100, start=0, end=2/6, alpha=alpha)}
+  if(!grey&&!is.null(color_scale)){colors <- color_scale}
+  if(grey&&is.null(color_scale)){colors <- grey.colors(100, alpha=alpha)}
+  
+  
+  color <- trunc(color*(length(colors)-1))+1 #normalize to integer between 1 and 100
+  
   
   if(rev.color){colors <- rev(colors)}
   par(xpd=T)
@@ -169,11 +173,11 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   }
 }
 
-SMOLR_PLOT <- function(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,split_ch,fit,clim,slim,alpha,overlay,contrast){
+SMOLR_PLOT <- function(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,split_ch,fit,clim,slim,alpha,overlay,contrast,color_scale){
   UseMethod("SMOLR_PLOT")
 }
 
-SMOLR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1){
+SMOLR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1,color_scale=NULL){
   
   if(is.null(color)){color <- rep(1,length(x))}
   if(is.null(size)){size <- rep(1,length(x))}
@@ -185,10 +189,10 @@ SMOLR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.col
     size <- size[selection]
   } 
   par(mfrow=c(1,1),pty="s",xpd=T)  
-  smolr_plot(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast)
+  smolr_plot(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,,color_scale)
 }
 
-SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1){
+SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1,color_scale=NULL){
   
   
   
@@ -230,13 +234,13 @@ SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
   
   if(!split_ch){
     par(mfrow=c(1,1),pty="s",xpd=T)  
-    smolr_plot(dx,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast)
+    smolr_plot(dx,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale)
   }
   
   if(split_ch){
     par(mfrow=c(1,length(range_ch)),pty="s",xpd=T)
     for(i in 1:length(range_ch)){
-      smolr_plot(dx[ch==range_ch[i]],y[ch==range_ch[i]],size[ch==range_ch[i]],color[ch==range_ch[i]],rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast)
+      smolr_plot(dx[ch==range_ch[i]],y[ch==range_ch[i]],size[ch==range_ch[i]],color[ch==range_ch[i]],rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale)
     }
   }
 }

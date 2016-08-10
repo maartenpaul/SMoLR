@@ -49,6 +49,9 @@ SMLMR_PLOT(x, y, size, color, rev.size, rev.color, input_xsize, input_ysize, px,
   \item{fit}{
 %%     ~~Describe \code{fit} here~~
 }
+  \item{color_scale}{
+Add your own color scale to the plot. The values in color are automatically scaled between the first and last color in the scale. Using adjustcolor() transparency can be added to the color scale.
+}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -77,5 +80,7 @@ SMLMR_PLOT(x, y, size, color, rev.size, rev.color, input_xsize, input_ysize, px,
 }
 \examples{
 SMLMR_PLOT(smlmrdata,rev.color=TRUE,size="off",split_ch=TRUE)
+
+SMOLR_PLOT(smolrdata,color_scale = adjustcolor(c("red","green","magenta"),0.3))
 }
 

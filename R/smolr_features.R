@@ -41,6 +41,7 @@ SMOLR_FEATURES.default <- function(x, filter=NULL, filter_value=NULL){
 
 SMOLR_FEATURES.smolr_kde <- function(x, filter=NULL, filter_value=NULL){
   features <- smolr_features(x, filter,filter_value)
+  
   return(features)
 }
 

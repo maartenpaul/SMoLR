@@ -121,7 +121,7 @@ plot.smolr_dbscan <- function(x,y, ...){
     clim <- NULL
     }
   
-    SMOLR_PLOT(x = x,split_ch = T,color = x$Cluster, clim=clim, ...)
+    SMOLR_PLOT(x = x,split_ch = T,color = x$Cluster, ...)
     
 }
 
