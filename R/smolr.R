@@ -418,7 +418,23 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
   }
 }
 
-
+plot_lut.smolr_image <- function(x,channel=1,lut="Red Hot"){
+  x$img<-aperm(x$img, c(2,1,3)) #flip image into the right orientation
+  x$img <- EBImage::flop(x$img)
+    img <-readTIFF(paste0(lut,".tif"))
+    rgblut <- rgb(img[1,,1],img[1,,2],img[1,,3])
+    D <- round(x$img[,,channel]*255)
+    D2 <- matrix(nrow = nrow(D),ncol = ncol(D))
+    for (i in 1:nrow(D)){
+      for (j in 1:ncol(D)){
+        D2[i,j] <- rgblut[D[i,j]+1]
+      }
+    }
+    oripar <- par(mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
+    plot(1:2, type='n',xlim= c(x$inputs$xlim[1],x$inputs$xlim[2]),ylim=c(x$inputs$ylim[1],x$inputs$ylim[2]), asp = 1,xlab="X",ylab="Y",bty="n",axes=FALSE)
+    lim <- par()
+    rasterImage(D2, x$inputs$xlim[1], x$inputs$ylim[1], x$inputs$xlim[2], x$inputs$ylim[2])
+  }
 
 
 
