@@ -1,16 +1,16 @@
-\name{SMLMR_IMPORT}
-\alias{SMLMR_IMPORT}
+\name{SMOLR_IMPORT}
+\alias{SMOLR_IMPORT}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Import Single Molecule Localization Data into SMLMR
+Import Single Molecule Localization Data into SMOLR
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 
 }
 \usage{
-SMLMR_IMPORT(folder, basename, sep_chfiles, channel, length_statistics, condition, remove_empty_ROI, extension, prename)
+SMOLR_IMPORT(folder, basename, sep_chfiles, channel, length_statistics, condition, remove_empty_ROI, extension, prename)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -76,14 +76,14 @@ If ROIs are present that do not contain any localization they will be removed
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-SMLMR_LOAD
+SMOLR_LOAD
 }
 \examples{
 
-SMLMR_IMPORT(file.path(getwd(),"loc"),profile="roiloc")
-SMLMR_LOAD(file.path(getwd(),"loc"),statistics=T)
+SMOLR_IMPORT(file.path(getwd(),"loc"),profile="roiloc")
+SMOLR_LOAD(file.path(getwd(),"loc"),statistics=T)
 
-SMLMR_IMPORT(file.path(getwd(),"thunderstorm"),profile="thunderstorm")
+SMOLR_IMPORT(file.path(getwd(),"thunderstorm"),profile="thunderstorm")
 
 ## The function is currently defined as
 function (folder, basename, sep_chfiles, channel, length_statistics, 

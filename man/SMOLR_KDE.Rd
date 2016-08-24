@@ -1,5 +1,5 @@
-\name{SMLMR_KDE}
-\alias{SMLMR_KDE}
+\name{SMOLR_KDE}
+\alias{SMOLR_KDE}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
@@ -10,7 +10,7 @@ Get kernel density estimation from a single molecule dataset
 Fits a kernel density estimation to single molecule localization data based on bkde2de from the kernsmooth package
 }
 \usage{
-SMLMR_KDE(x, y, ch, prec, bandwidth, input_xsize, input_ysize, px, threshold, fit, file, output)
+SMOLR_KDE(x, y, ch, prec, bandwidth, input_xsize, input_ysize, px, threshold, fit, file, output)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -92,9 +92,9 @@ Optical Imaging Centre ErasmusMC Rotterdam
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-test_kde <- SMLMR_KDE(400,400,threshold=0.005)
-test_kde <- SMLMR_KDE(c(200,150,400,345),c(200,300,400.5,239),ch=c(2,3,4,2),threshold=0.01)
-test_kde <- SMLMR_KDE(smlmrdata)
+test_kde <- SMOLR_KDE(400,400,threshold=0.005)
+test_kde <- SMOLR_KDE(c(200,150,400,345),c(200,300,400.5,239),ch=c(2,3,4,2),threshold=0.01)
+test_kde <- SMOLR_KDE(smolrdata)
 
 
 #test_kde
@@ -103,5 +103,5 @@ test_kde <- SMLMR_KDE(smlmrdata)
 #test_kde$parameters
 #test_kde$int
 plot(test_kde)
-SMLMR_PLOT(smlmrdata,color=SMLMR_KDE(smlmrdata)[[4]][,1],rev.color=TRUE,size="off",split_ch=TRUE)
+SMOLR_PLOT(smlmrdata,color=SMOLR_KDE(smolrdata)[[4]][,1],rev.color=TRUE,size="off",split_ch=TRUE)
 }

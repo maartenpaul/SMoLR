@@ -1,33 +1,24 @@
-\name{SMLMR_PARAMETER}
-\alias{SMLMR_PARAMETER}
+\name{SMOLR_POINT_FEATURES}
+\alias{SMOLR_POINT_FEATURES}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Get parameters from a single molecule dataset
+SMOLR POINT FEATURES
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Extraction of features based on the localization data
 }
 \usage{
-SMLMR_PARAMETER(x, y, ch, prec)
+SMOLR_POINT_FEATURES(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
 %%     ~~Describe \code{x} here~~
-X coordinates
+item{x}{
+SMOLR_DBSCAN or SMOLR_KDE file, can be a list
 }
-  \item{y}{
-%%     ~~Describe \code{y} here~~
-Y coordinates
-}
-  \item{ch}{
-%%     ~~Describe \code{ch} here~~
-Channel numbers
-}
-  \item{prec}{
-%%     ~~Describe \code{prec} here~~
-Precision
 }
 }
 \details{
@@ -45,6 +36,7 @@ Precision
 }
 \author{
 %%  ~~who you are~~
+Optical Imaging Centre ErasmusMC Rotterdam
 }
 \note{
 %%  ~~further notes~~
@@ -54,9 +46,20 @@ Precision
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
+
 }
 \examples{
-SMLMR_PARAMETER(c(400,400,320),c(200,120,190),ch=c(1,2,2),prec=c(20,21,15))
-SMLMR_PARAMETER(smlmrdata)
-}
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
 
+## The function is currently defined as
+function (x) 
+{
+    UseMethod("SMOLR_POINT_FEATURES")
+  }
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
+\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

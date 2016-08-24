@@ -1,5 +1,5 @@
-\name{SMLMR_PLOT}
-\alias{SMLMR_PLOT}
+\name{SMOLR_PLOT}
+\alias{SMOLR_PLOT}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
@@ -9,7 +9,7 @@ Plots single molecule datasets
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-SMLMR_PLOT(x, y, size, color, rev.size, rev.color, input_xsize, input_ysize, px, grey, split_ch, fit)
+SMOLR_PLOT(x, y, size, color, rev.size, rev.color, input_xsize, input_ysize, px, grey, split_ch, fit)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -79,7 +79,7 @@ Add your own color scale to the plot. The values in color are automatically scal
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-SMLMR_PLOT(smlmrdata,rev.color=TRUE,size="off",split_ch=TRUE)
+SMOLR_PLOT(smolr,rev.color=TRUE,size="off",split_ch=TRUE)
 
 SMOLR_PLOT(smolrdata,color_scale = adjustcolor(c("red","green","magenta"),0.3))
 }

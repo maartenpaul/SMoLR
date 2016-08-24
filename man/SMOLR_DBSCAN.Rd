@@ -1,16 +1,15 @@
-\name{SMLMR_TO_PPP}
-\alias{SMLMR_TO_PPP}
+\name{SMOLR_DBSCAN}
+\alias{SMOLR_DBSCAN}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Convert localizations to point pattern for spatstat package
+Analysis of SMOLR localization data by DBSCAN clustering
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-A function to convert localization data coordinates to point patterns for the spatstat package. Input can be separate vectors, data.frame or a list of data.frames.
 }
 \usage{
-SMLMR_TO_PPP(x, y, xlim, ylim, marks, shape)
+SMOLR_DBSCAN(x, y, ch, prec, eps, MinPts)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,17 +19,17 @@ SMLMR_TO_PPP(x, y, xlim, ylim, marks, shape)
   \item{y}{
 %%     ~~Describe \code{y} here~~
 }
-  \item{xlim}{
-%%     ~~Describe \code{xlim} here~~
+  \item{ch}{
+%%     ~~Describe \code{ch} here~~
 }
-  \item{ylim}{
-%%     ~~Describe \code{ylim} here~~
+  \item{prec}{
+%%     ~~Describe \code{prec} here~~
 }
-  \item{marks}{
-%%     ~~Describe \code{marks} here~~
+  \item{eps}{
+%%     ~~Describe \code{eps} here~~
 }
-  \item{shape}{
-%%     ~~Describe \code{shape} here~~
+  \item{MinPts}{
+%%     ~~Describe \code{MinPts} here~~
 }
 }
 \details{
@@ -59,15 +58,17 @@ SMLMR_TO_PPP(x, y, xlim, ylim, marks, shape)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-example <- SMLMR_TO_PPP(smlmrdata)
-plot(example)
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
 ## The function is currently defined as
-function (x, y, xlim, ylim, marks, shape) 
+function (x, y, ch, prec, eps, MinPts) 
 {
-    UseMethod("smlmr_to_ppp")
+    UseMethod("SMOLR_DBSCAN")
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

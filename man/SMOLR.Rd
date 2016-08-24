@@ -1,5 +1,5 @@
-\name{SMLMR}
-\alias{SMLMR}
+\name{SMOLR}
+\alias{SMOLR}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
@@ -10,9 +10,9 @@ Single Molecule Localization Gaussian Image Reconstruction
 Visualizes single molecule data (x,y,precision,channel) by plotting a gaussian function with a sigma proportional to the precision of the localizations, and a fixed integrated density.
 }
 \usage{
-SMLMR(x, y, prec, ch, px, xlim, ylim, file, output, fit, fast)
-\method{SMLMR}{data.frame}(x, px, xlim, ylim, file, output, fit, fast)
-\method{SMLMR}{list}(x, px, xlim, ylim, file, output, fit, fast)
+SMOLR(x, y, prec, ch, px, xlim, ylim, file, output, fit, fast)
+\method{SMOLR}{data.frame}(x, px, xlim, ylim, file, output, fit, fast)
+\method{SMOLR}{list}(x, px, xlim, ylim, file, output, fit, fast)
 }
 
 %- maybe also 'usage' for other objects documented here.
@@ -91,7 +91,7 @@ Optical Imaging Centre ErasmusMC Rotterdam
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-test <- SMLMR(c(200,150,400,345),c(200,300,400.5,239),ch=c(2,3,4,2), prec=c(15,10,16.3,12))
+test <- SMOLR(c(200,150,400,345),c(200,300,400.5,239),ch=c(2,3,4,2), prec=c(15,10,16.3,12))
 
 #test #displays a summery 
 #test$img #displays the image array

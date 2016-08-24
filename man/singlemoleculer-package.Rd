@@ -1,4 +1,4 @@
-\name{singlemoleculer-package}
+\name{SMOLR-package}
 \alias{singlemoleculer-package}
 \alias{singlemoleculer}
 \docType{package}

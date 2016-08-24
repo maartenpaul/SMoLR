@@ -1,5 +1,5 @@
-\name{smlmrdata}
-\alias{smlmrdata}
+\name{smolrdata}
+\alias{smolrdata}
 \docType{data}
 \title{
 %%   ~~ data name/kind ... ~~
@@ -9,7 +9,7 @@ Test data for single moleculer
 %%  ~~ A concise (1-5 lines) description of the dataset. ~~
 A single molecule data set, representing data from 3 Channels with random precisions.
 }
-\usage{data("smlmrdata")}
+\usage{data("smolrdata")}
 \format{
   A data frame with 693 observations on the following 4 variables.
   \describe{
@@ -31,9 +31,9 @@ Optical Imaging Center ErasmusMC Rotterdam
 }
 \examples{
 
-plot(SMLMR(smlmrdata))
-plot(SMLMR_KDE(smlmrdata))
-SMLMR_PLOT(smlmrdata) 
-SMLMR_PARAMETER(smlmrdata)
+plot(SMOLR(smolrdata))
+plot(SMOLR_KDE(smolrdata))
+SMOLR_PLOT(smolrdata) 
+SMOLR_PARAMETER(smolrdata)
 }
 \keyword{datasets}

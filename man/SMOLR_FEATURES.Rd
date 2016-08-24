@@ -1,5 +1,5 @@
-\name{SMLMR_FEATURES}
-\alias{SMLMR_FEATURES}
+\name{SMOLR_FEATURES}
+\alias{SMOLR_FEATURES}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
@@ -56,9 +56,9 @@ Optical Imaging Centre ErasmusMC Rotterdam
 }
 \examples{
 
-test_kde <- SMLMR_KDE(c(200,150,400,210),c(200,300,400.5,239),ch=c(2,3,4,3),threshold=0.01)
+test_kde <- SMOLR_KDE(c(200,150,400,210),c(200,300,400.5,239),ch=c(2,3,4,3),threshold=0.01)
 
-test_features <- SMLMR_FEATURES(test_kde)
-test_features <- SMLMR_FEATURES(test_kde, filter="x.0.s.area", filter_value=1000)
+test_features <- SMOLR_FEATURES(test_kde)
+test_features <- SMOLR_FEATURES(test_kde, filter="x.0.s.area", filter_value=1000)
 
 }

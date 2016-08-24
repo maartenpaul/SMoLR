@@ -1,5 +1,5 @@
-\name{SMLMR_PARAMETER}
-\alias{SMLMR_PARAMETER}
+\name{SMOLR_PARAMETER}
+\alias{SMOLR_PARAMETER}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
@@ -9,7 +9,7 @@ Get parameters from a single molecule dataset
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-SMLMR_PARAMETER(x, y, ch, prec)
+SMOLR_PARAMETER(x, y, ch, prec)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -56,7 +56,7 @@ Precision
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-SMLMR_PARAMETER(c(400,400,320),c(200,120,190),ch=c(1,2,2),prec=c(20,21,15))
-SMLMR_PARAMETER(smlmrdata)
+SMOLR_PARAMETER(c(400,400,320),c(200,120,190),ch=c(1,2,2),prec=c(20,21,15))
+SMOLR_PARAMETER(smlmrdata)
 }
 
