@@ -1,4 +1,4 @@
-### SMLM_plot_light
+### SMOLR_plot
 ### based on SMLM_plot v0.9 by Martijn de Gruiter Erasmus MC/ Erasmus OIC, Rotterdam, Netherlands
 ### minimum requirement is a set of coordinates
 
@@ -416,6 +416,10 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
       par(oripar)
     }
   }
+}
+
+plot_lut <- function(x,channel,lut){
+  UseMethod("plot_lut")
 }
 
 plot_lut.smolr_image <- function(x,channel=1,lut="Red Hot"){

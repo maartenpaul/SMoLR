@@ -111,17 +111,21 @@ print.smolr_dbscan <- function(x,...){
 }
 
 
-plot.smolr_dbscan <- function(x,y, ...){
+plot.smolr_dbscan <- function(x,y, hide_noise=FALSE, ...){
   
   x <- ldply(x$dbscan,.id=NULL)
   
     if(max(x$Cluster)!=min(x$Cluster)){
-    clim <-c(min(x$Cluster),max(x$Cluster))
+      if(hide_noise){
+        clim <-c(1,max(x$Cluster))
+      } else{
+        clim <-c(min(x$Cluster),max(x$Cluster))
+      }
     }   else{
     clim <- NULL
     }
   
-    SMOLR_PLOT(x = x,split_ch = T,color = x$Cluster, ...)
+    SMOLR_PLOT(x = x,split_ch = T,color = x$Cluster,clim=clim, ...)
     
 }
 

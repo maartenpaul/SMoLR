@@ -181,15 +181,15 @@ SMOLR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.col
   
   if(is.null(color)){color <- rep(1,length(x))}
   if(is.null(size)){size <- rep(1,length(x))}
-  if(fit==TRUE){
-    selection <- x>xlim[1] & x<xlim[2] & y>ylim[1] & y<ylim[2]
-    x <- x[selection]
-    y <- y[selection]
-    color <- color[selection]
-    size <- size[selection]
-  } 
+#   if(fit==TRUE){
+#     selection <- x>xlim[1] & x<xlim[2] & y>ylim[1] & y<ylim[2]
+#     x <- x[selection]
+#     y <- y[selection]
+#     color <- color[selection]
+#     size <- size[selection]
+#   } 
   par(mfrow=c(1,1),pty="s",xpd=T)  
-  smolr_plot(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,,color_scale)
+  smolr_plot(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale)
 }
 
 SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1,color_scale=NULL){

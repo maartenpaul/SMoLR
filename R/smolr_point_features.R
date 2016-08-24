@@ -14,11 +14,34 @@ smolr_point_features <- function(x){
       area <- pracma::polyarea(coord[rev(y),1], coord[rev(y),2])
       perimeter <- pracma::poly_length(coord[rev(y),1], coord[rev(y),2])
       
+      
+      skeletonize <- function(x){
+        sa <- matrix(1, nrow(x), ncol(x)) 
+        skel <- matrix(0, nrow(x), ncol(x)) 
+        kern <- makeBrush(3, shape="diamond") 
+        while(max(sa)==1){
+          k <- EBImage::opening(x, kern) 
+          sa <- x-k 
+          skel <- skel | sa
+          x <- EBImage::erode(x, kern) 
+        }
+        return(skel)
+      }
+      
+      xlim <- c(min(x$X)-50,max(x$X)+50)
+      ylim <-  c(min(x$Y)-50,max(x$Y)+50)   
+      kde <- SMOLR_KDE(x,threshold = 0.5,px=10,xlim=xlim,ylim=ylim)$kde_binary[,,1]
+      image(kde)
+      skeleton <- skeletonize(as.matrix(kde))
+      image(skeleton)
+      length_skeleton <- length(skeleton[skeleton==TRUE])*5
+
+    
       # return(data.frame("N"=nrow(x),"sd"=((D$sdev[1]+D$sdev[2])/2)*2.35))
       return(
         data.frame("meanX" = mean(x$X),"meanY" = mean(x$Y),
                    "sd" = ((D$sdev[1] + D$sdev[2])/2) * 2.35,"width" = (max(D$scores[,1]) - min(D$scores[,1])),"area"=area,"perimeter"=perimeter,
-                   "major_axis"= D$sdev[1]*2.35,"minor_axis"= D$sdev[2]*2.35 ,"ratio" = (D$sdev[1] /D$sdev[2]),"angle" = angle,"N" = nrow(x)
+                   "major_axis"= D$sdev[1]*2.35,"minor_axis"= D$sdev[2]*2.35 ,"ratio" = (D$sdev[1] /D$sdev[2]),"angle" = angle,"N" = nrow(x),"skeleton"=length_skeleton
         )
       )})
     
