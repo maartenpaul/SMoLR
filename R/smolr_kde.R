@@ -166,8 +166,8 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
     
   intensities <- data.frame(
                         cbind(ch,
-                              apply(cbind(trunc(x_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde,y=img$kde),
-                              apply(cbind(trunc(x_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde, y=bwlabel(img$kde_binary))
+                              apply(cbind(ceiling(x_corr/px),ceiling(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde,y=img$kde),
+                              apply(cbind(ceiling(x_corr/px),ceiling(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde, y=bwlabel(img$kde_binary))
                               )
                         )
   
