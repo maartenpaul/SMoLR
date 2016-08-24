@@ -150,9 +150,9 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
     selection <- x>=xlim[1] & x<=xlim[2] & y>=ylim[1] & y<=ylim[2]
     #if(is.null(xlim) | is.null(ylim)){selection <- dx>=min(dx) & dx<=max(dx) & y>=min(y) & y<=max(y)}
     x <- x[selection]
-   # dx_corr <- dx_corr[selection]
+    x_corr <- x_corr[selection]
     y <- y[selection]
-   #y_corr <- y_corr[selection]
+   y_corr <- y_corr[selection]
     prec <- prec[selection]
     ch <- ch[selection]
     
