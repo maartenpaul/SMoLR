@@ -1,15 +1,39 @@
 ---
-title: "Introduction in Single Molecule Localization in R (SMolR)"
+title: "Introduction to Single Molecule Localization in R (SMolR)"
 author: "Maarten Paul (m.w.paul@erasmusmc.nl) and Johan Slotman (j.slotman@erasmusmc.nl)"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::pdf_document
 vignette: >
   %\VignetteIndexEntry{SMoLR}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-```{r,cache=TRUE}
+<STYLE TYPE="text/css">
+<!--
+  td{
+   
+    font-size: 8pt;
+    padding:0px;
+    cellpadding="0";
+    cellspacing="0"
+  }
+  th {
+    
+    font-size: 10pt;
+    height: 20px;
+    font-weight: bold;
+    text-align: right;
+    
+  }
+  table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+  }
+--->
+</STYLE>
+```{r,cache=TRUE,echo=FALSE}
 library(SMolR)
+library(pander)
 ```
 
 The SMolR package consists of a set of functions dedicated to quantitive analysis of Single Molecule Localization data in R.
@@ -21,7 +45,7 @@ The SMolR package consists of a set of functions dedicated to quantitive analysi
 
 ## Import of localization data
 
-Using `SMOLR_IMPORT` different types of data can be imported into R from a folder. The localizations from different ROIs or images are sorted in a `list` of `data.frame`'s. Different `profiles` are available to load different types of data.
+Using `SMOLR_IMPORT`, different types of data can be imported into R from a folder. The localizations from different ROIs or images are sorted in a `list` of `data.frame`'s. Different `profiles` are available to load different types of data.
 
 ```{r}
 SMOLR_IMPORT(folder="../loc",profile = "roiloc")
@@ -30,46 +54,46 @@ SMOLR_LOAD(folder="../loc")
 
 Example of localizations `data.frame`
 
-```{r, echo=TRUE, results='asis'}
-knitr::kable(head(localizations[[1]], 10))
+```{r, echo=FALSE, results='asis'}
+pander(head(localizations[[1]][,-c(5,10,11)], 10))
 ```
 
-
+\newpage
 ## Visualization
 The localizations can plotted by individual Gaussians using the `SMOLR` function. This can also be applied to a `list` of `data.frame's`. This will create an list of super resolution images. In this example a `data.frame` is the input. The plot function can be applied to the `SMOLR_image` object. This will return images of all channels in gray scale.
 
-```{r, fig.show='hold',fig.height=3}
+```{r, fig.show='hold',fig.height=2}
 img <- SMOLR(smolrdata)
 plot(img)
 ```
 
 Alternatively an RGB image can be plotted.
 
-```{r, fig.show='hold',fig.height=3}
+```{r, fig.show='hold',fig.height=2,fig.asp=0.5}
 plot(img,rgb=TRUE)
 ```
 
-Instead of storing the data in R it is also possible to save an image as tiff.
+Instead of using the image in R it is also possible to export an image as tiff.
 
-```{r, eval = FALSE}
-SMOLR(smolrdata)
-```
-
-```{r, fig.show='hold',fig.height=3}
+```{r, fig.show='hold',fig.height=2.5}
 plot(SMOLR(subset(smolrdata,Channel==1)))
 ```
 
-Plotting localizations as scatter plot
-```{r, fig.show='hold',fig.height=3}
+Using the SMOLR_PLOT function the localizations can be plotted in a scatter plot
+```{r, fig.show='hold',fig.height=2,fig.asp=0.5}
+par(mar=c(2,2,2,2))
 SMOLR_PLOT(smolrdata)
 ```
 
 Plotting channels separetely
-```{r, fig.show='hold',fig.width=8}
+```{r, fig.show='hold',fig.width=10,fig.asp=0.3}
+par(mar=c(2,2,2,2))
 SMOLR_PLOT(smolrdata,split_ch = T)
 ```
 
-```{r, fig.show='hold',fig.width=8}
+The color and size of the points in the plot can be related to column in the data.frame. In this example the color represents the Frame in which the localization is detected, while the size is by default equal to the localization precision.
+```{r, fig.show='hold',fig.width=10,fig.asp=0.3}
+par(mar=c(2,2,2,2))
 SMOLR_PLOT(smolrdata,split_ch = T,color = smolrdata$First_Frame)
 ```
 
@@ -83,25 +107,26 @@ plot(SMOLR_KDE(smolrdata))
 ```
 
 Visualization of DBSCAN clustering. The colors indicate the assigned cluster, while the red localizations are considered background.
-```{r, fig.show='hold',fig.width=8}
+```{r, fig.show='hold',fig.width=10,fig.asp=0.3}
 plot(SMOLR_DBSCAN(smolrdata,eps=50,MinPts=5))
 
 ```
 
 ## Features
+From the data image features can be calculated, using the SMOLR_FEATURES function. This function can be applied to a data.frame, but also to a list of data.frame's.
 ```{r}
 features <- SMOLR_FEATURES(SMOLR_KDE(smolrdata))
 ```
 
-```{r, echo=TRUE, results='asis'}
-knitr::kable(head(features$channel_1[,1:9], 10))
+```{r, echo=FALSE, results='asis'}
+pander(head(features$channel_1[,1:9], 10))
 ```
 
-Or localization based features
+Alternatively instead of using the image-based features, features based on the localization data can be calculated.
 ```{r}
 point_features <- SMOLR_POINT_FEATURES(SMOLR_DBSCAN(smolrdata,eps=50,MinPts=5))
 ```
 
-```{r, echo=TRUE, results='asis'}
-knitr::kable(head(point_features[,1:10], 10))
+```{r, echo=FALSE, results='asis'}
+pander(head(point_features[,1:10], 10))
 ```

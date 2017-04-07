@@ -377,7 +377,7 @@ plot.smolr_image <- function(x,y,saturate=0,brightness=0,contrast=1, rgb=F,...){
         dim(col) <- dim(x[[1]][,,1])
       }  
       oripar <- par(mar=c(2.5,2.5,2.5,2.5),no.readonly = TRUE)
-      plot(1:2, type='n',xlim= c(x$inputs$xlim[1],x$inputs$xlim[2]),ylim=c(x$inputs$ylim[1],x$inputs$ylim[2]), asp = 1,xlab="X",ylab="Y",bty="n",axes=FALSE)
+      plot(1:2, type='n',xlim= c(x$inputs$xlim[1],x$inputs$xlim[2]),ylim=c(x$inputs$ylim[1],x$inputs$ylim[2]), asp = 1,xlab="X",ylab="Y",bty="n",axes=FALSE, xaxs="i", yaxs="i")
       lim <- par()
       rasterImage(col, x$inputs$xlim[1], x$inputs$ylim[1], x$inputs$xlim[2], x$inputs$ylim[2])
       par(oripar)
@@ -425,7 +425,12 @@ plot_lut <- function(x,channel,lut){
 plot_lut.smolr_image <- function(x,channel=1,lut="Red Hot"){
   x$img<-aperm(x$img, c(2,1,3)) #flip image into the right orientation
   x$img <- EBImage::flop(x$img)
-    img <-readTIFF(paste0(lut,".tif"))
+  if(file.exists(file.path(path.package("SMolR"),paste0(lut,".tif")))){
+    img <-readTIFF(file.path(path.package("SMolR"),paste0(lut,".tif")))
+  } else {
+    stop("Lut file does not exists")
+  }
+    
     rgblut <- rgb(img[1,,1],img[1,,2],img[1,,3])
     D <- round(x$img[,,channel]*255)
     D2 <- matrix(nrow = nrow(D),ncol = ncol(D))

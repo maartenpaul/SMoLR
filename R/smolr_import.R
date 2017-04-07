@@ -67,10 +67,11 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
           }
           if(nrow(locs_roi)!=0){
             if(!is.null(condition)){
-              if(!is.null(names)){
-                names(locs_roi) <- names
-              }
+             
               locs_roi$Condition <- condition
+            }
+            if(!is.null(names)){
+              names(locs_roi) <- names
             }
             
             Locname <- paste(basename(folder),i,sep="_")

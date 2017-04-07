@@ -50,14 +50,10 @@ S3method(SMOLR_TO_PPP, data.frame)
 S3method(SMOLR_TO_PPP, list)
 
 import(plotrix, 
-       EBImage, 
        KernSmooth, 
-       tiff, 
        tools,
        plyr,
-       dbscan,
-       RImageJROI
-       )
+       dbscan)
 
 
 export(rotate3d,
@@ -80,3 +76,6 @@ export(rotate3d,
        )
 
 importFrom("spatstat", owin,disc,ppp)
+importFrom("EBImage", flop,erode,dilate,normalize,computeFeatures)
+importFrom("tiff",readTIFF,writeTIFF)
+importFrom("RImageJROI",read.ijzip,read.ijroi)
