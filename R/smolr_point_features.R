@@ -26,38 +26,19 @@ smolr_point_features <- function(x){
       perimeter <- pracma::poly_length(coord[rev(chull_coord),1], coord[rev(chull_coord),2])
       
       
-      # skeletonize <- function(x){
-      #   sa <- matrix(1, nrow(x), ncol(x)) 
-      #   skel <- matrix(0, nrow(x), ncol(x)) 
-      #   kern <- makeBrush(3, shape="diamond") 
-      #   while(max(sa)==1||max(skel)==0||max(x)==1){
-      #     k <- EBImage::opening(x,kern) 
-      #     sa <- x-k 
-      #     skel <- skel | sa
-      #     x <- EBImage::erode(x,kern) 
-      #   }
-      #   return(skel)
-      # }
-      
-
       xlim <- c(min(dx)-50,max(dx)+50)
       ylim <-  c(min(y)-50,max(y)+50)   
       kde <- SMOLR_KDE(x,threshold = 0.1,px=5,bandwidth = c(10,10),xlim=xlim,ylim=ylim)$kde_binary[,,1]
-    #  image(kde)
-    #  skeleton <- skeletonize(as.matrix(kde))
-   #   image(skeleton)
-   #   length_skeleton <- length(skeleton[skeleton==TRUE])*10
       
-      skeleton2 <- thinImage(as.matrix(kde))
-    #     image(skeleton2)
-      length_skeleton2 <- length(skeleton2[skeleton2==1])*10
+      skeleton <- thinImage(as.matrix(kde))
+      #from pixels to nanometers    
+      length_skeleton <- length(skeleton[skeleton==1])*5
 
     
-      # return(data.frame("N"=nrow(x),"sd"=((D$sdev[1]+D$sdev[2])/2)*2.35))
       return(
         data.frame("meanX" = mean(dx),"meanY" = mean(y),
                    "sd" = ((D$sdev[1] + D$sdev[2])/2) * 2.35,"width" = (max(D$scores[,1]) - min(D$scores[,1])),"area"=area,"perimeter"=perimeter,
-                   "major_axis"= D$sdev[1]*2.35,"minor_axis"= D$sdev[2]*2.35 ,"ratio" = (D$sdev[1] /D$sdev[2]),"angle" = angle,"N" = nrow(x),"skeleton"=length_skeleton2
+                   "major_axis"= D$sdev[1]*2.35,"minor_axis"= D$sdev[2]*2.35 ,"ratio" = (D$sdev[1] /D$sdev[2]),"angle" = angle,"N" = nrow(x),"skeleton"=length_skeleton
         )
       )})
     
@@ -85,7 +66,7 @@ SMOLR_POINT_FEATURES.smolr_kde <- function(x){
 }
 
 SMOLR_POINT_FEATURES.smolr_dbscan <- function(x){
-  x <- ldply(x$dbscan)
+  x <- x$dbscan
   
   return(smolr_point_features(x))
 }

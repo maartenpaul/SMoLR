@@ -2,7 +2,7 @@
 title: "Introduction to Single Molecule Localization in R (SMolR)"
 author: "Maarten Paul (m.w.paul@erasmusmc.nl) and Johan Slotman (j.slotman@erasmusmc.nl)"
 date: "`r Sys.Date()`"
-output: rmarkdown::pdf_document
+output: html_document
 vignette: >
   %\VignetteIndexEntry{SMoLR}
   %\VignetteEngine{knitr::rmarkdown}
@@ -31,12 +31,13 @@ vignette: >
   }
 --->
 </STYLE>
-```{r,cache=TRUE,echo=FALSE}
-library(SMolR)
+```{r,cache=FALSE,echo=FALSE,warning=FALSE}
+library(SMoLR)
 library(pander)
+library(EBImage)
 ```
 
-The SMolR package consists of a set of functions dedicated to quantitive analysis of Single Molecule Localization data in R.
+The SMoLR package consists of a set of functions dedicated to quantitive analysis of Single Molecule Localization data in R.
 
 - Importing and organizing large single molecule localization data sets
 - Visualize super resolution localization data

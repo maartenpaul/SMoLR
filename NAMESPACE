@@ -49,11 +49,15 @@ S3method(SMOLR_TO_PPP, default)
 S3method(SMOLR_TO_PPP, data.frame)
 S3method(SMOLR_TO_PPP, list)
 
+S3method(thinImage, default)
+
+
 import(plotrix, 
        KernSmooth, 
        tools,
        plyr,
-       dbscan)
+       dbscan,
+       deldir)
 
 
 export(rotate3d,
@@ -72,10 +76,11 @@ export(rotate3d,
        SMOLR_LOAD,
        SMOLR_TO_PPP,
        plot_lut,
-       SMOLR_POINT_FEATURES
+       SMOLR_POINT_FEATURES,
+       thinImage
        )
 
 importFrom("spatstat", owin,disc,ppp)
-importFrom("EBImage", flop,erode,dilate,normalize,computeFeatures)
+importFrom("EBImage", flop,erode,dilate,normalize,computeFeatures,makeBrush,bwlabel)
 importFrom("tiff",readTIFF,writeTIFF)
 importFrom("RImageJROI",read.ijzip,read.ijroi)

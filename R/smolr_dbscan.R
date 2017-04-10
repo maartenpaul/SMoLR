@@ -16,7 +16,7 @@ smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
       dbscan_temp[[i]] <- k
    
    }
-
+  dbscan_temp <- ldply(dbscan_temp)
  
   
   return(dbscan_temp)
@@ -46,12 +46,12 @@ SMOLR_DBSCAN.default <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
 #   names(intensities) <- c("channel","kde_intensity","binary_no")
   clust_parameters <- data.frame(matrix(ncol=12,nrow = 1))[-1,]
   for(i in 1:length(ch_range)){
-    for(j in min(dbscan_temp[[ch_range[i]]][,4]):max(dbscan_temp[[ch_range[i]]][,4])){
+    for(j in min(dbscan_temp[dbscan_temp$Channel==ch_range[i],4]):max(dbscan_temp[dbscan_temp$Channel==ch_range[i],4])){
     #for(j in 0:max(dbscan_temp[[i]][,3])){
-      clust_parameters_temp <- cbind(SMOLR_PARAMETER(x[ch==ch_range[i]][dbscan_temp[[i]][,4]==j],
-                                                     y[ch==ch_range[i]][dbscan_temp[[i]][,4]==j],
-                                                     ch[ch==ch_range[i]][dbscan_temp[[i]][,4]==j],
-                                                     prec[ch==ch_range[i]][dbscan_temp[[i]][,4]==j]),
+      clust_parameters_temp <- cbind(SMOLR_PARAMETER(x[ch==ch_range[i]][dbscan_temp[dbscan_temp$Channel==ch_range[i],4]==j],
+                                                     y[ch==ch_range[i]][dbscan_temp[dbscan_temp$Channel==ch_range[i],4]==j],
+                                                     ch[ch==ch_range[i]][dbscan_temp[dbscan_temp$Channel==ch_range[i],4]==j],
+                                                     prec[ch==ch_range[i]][dbscan_temp[dbscan_temp$Channel==ch_range[i],4]==j]),
                                                       binary_no=j)
       if(j==0&i==1){names(clust_parameters) <- names(clust_parameters_temp)}
       clust_parameters <- rbind(clust_parameters,clust_parameters_temp)
@@ -110,10 +110,9 @@ print.smolr_dbscan <- function(x,...){
   print(x$parameters)
 }
 
-
 plot.smolr_dbscan <- function(x,y, hide_noise=FALSE, ...){
   
-  x <- ldply(x$dbscan,.id=NULL)
+  x <- x$dbscan
   
     if(max(x$Cluster)!=min(x$Cluster)){
       if(hide_noise){
@@ -127,6 +126,25 @@ plot.smolr_dbscan <- function(x,y, hide_noise=FALSE, ...){
   
     SMOLR_PLOT(x = x,split_ch = T,color = x$Cluster,clim=clim, ...)
     
+}
+
+dbscan_to_localizations <- function(dbscan,localizations){
+  if(class(dbscan)=="list"&&class(localizations)=="list"){
+    for (i in 1:length(dbscan)){
+      if (nrow(localizations[[i]])==nrow(dbscan[[i]]$dbscan)){
+        localizations[[i]]$Cluster <- dbscan[[i]]$dbscan$Cluster
+      } else {
+        stop("dbscan and localizations objects not of equal length")
+      }
+    }
+  }else{
+    if (nrow(localizations)==nrow(dbscan)){
+    localizations$Cluster <- dbscan$dbscan$Cluster
+  } else {
+    stop("dbscan and localizations objects not of equal length")
+  }
+  }
+  invisible(localizations)
 }
 
 #plot(SMOLR_DBSCAN(x=smolrdata,eps = 20,MinPts=5,elki=F))

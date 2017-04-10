@@ -53,7 +53,7 @@ smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, yli
   kde <- array(data=0, dim=(c(input_xsize,input_ysize,length(ch_range))))
   kdebin <- array(data=0, dim=(c(input_xsize,input_ysize,length(ch_range))))
   
-  kern <- makeBrush(3, shape="disc")
+  kern <- EBImage::makeBrush(3, shape="disc")
   
     
   for(i in 1:length(ch_range)){
@@ -167,7 +167,7 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   intensities <- data.frame(
                         cbind(ch,
                               apply(cbind(ceiling(x_corr/px),ceiling(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde,y=img$kde),
-                              apply(cbind(ceiling(x_corr/px),ceiling(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde, y=bwlabel(img$kde_binary))
+                              apply(cbind(ceiling(x_corr/px),ceiling(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde, y=EBImage::bwlabel(img$kde_binary))
                               )
                         )
   
