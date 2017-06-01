@@ -51,13 +51,17 @@ S3method(SMOLR_TO_PPP, list)
 
 S3method(thinImage, default)
 
+S3method(IJROI_subset, default)
+S3method(IJROI_subset, list)
+
 
 import(plotrix, 
        KernSmooth, 
        tools,
        plyr,
        dbscan,
-       deldir)
+       deldir,
+       RImageJROI)
 
 
 export(rotate3d,
@@ -77,10 +81,12 @@ export(rotate3d,
        SMOLR_TO_PPP,
        plot_lut,
        SMOLR_POINT_FEATURES,
-       thinImage
+       thinImage,
+       dbscan_to_localizations,
+       IJROI_subset
        )
 
-importFrom("spatstat", owin,disc,ppp)
+importFrom("spatstat", owin,disc,ppp,inside.owin)
 importFrom("EBImage", flop,erode,dilate,normalize,computeFeatures,makeBrush,bwlabel)
 importFrom("tiff",readTIFF,writeTIFF)
 importFrom("RImageJROI",read.ijzip,read.ijroi)

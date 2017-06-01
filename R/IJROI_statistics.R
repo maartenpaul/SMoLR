@@ -13,7 +13,11 @@ IJROI_statistics <- function(file,pxsize=5){
   invisible(out)
 }
 
-IJROI_subset <- function(x,file,pxsize=5){
+IJROI_subset <- function(x,file,pxsize,split){
+  UseMethod("IJROI_subset")
+}
+
+IJROI_subset.default <- function(x,file,pxsize=5,split=F){
   
   if(file_ext(file)=="zip"){
     D <- floor(x$Y/pxsize)
@@ -46,12 +50,26 @@ IJROI_subset <- function(x,file,pxsize=5){
     isin<-inside.owin(x = C,y = D,w=maskdata)
     x$inroi <- isin
   }
-  
+  if (split){
+  x <- na.omit(x)
+  x <- dlply(x,.variables = "inroi")
+  }
   return(x)
 }
 
-localizations_toROI <- function(x){
-  return(dlply(x,.variables = "inroi"))
+IJROI_subset.list <- function(x,file,pxsize=5,split=F){
+ if(length(x)==length(file)){
+   y <- list()
+   for(i in 1:length(x)){
+     y[[names(x)[i]]] <- IJROI_subset(x[[i]],file[i],pxsize,split)
+   }
+   if (split){
+     y <- unlist(y,recursive = F)
+   }
+ } else{
+   stop("localizations list and list of file of different length")
+ }
+ return(y)
 }
 #example
 #locs <- IJROI_subset(localizations[[1]],file,5)

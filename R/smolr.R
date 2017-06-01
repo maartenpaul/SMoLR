@@ -422,16 +422,17 @@ plot_lut <- function(x,channel,lut){
   UseMethod("plot_lut")
 }
 
-plot_lut.smolr_image <- function(x,channel=1,lut="Red Hot"){
+plot_lut.smolr_image <- function(x,channel=1,lut="parula"){
   x$img<-aperm(x$img, c(2,1,3)) #flip image into the right orientation
   x$img <- EBImage::flop(x$img)
-  if(file.exists(file.path(path.package("SMolR"),paste0(lut,".tif")))){
-    img <-readTIFF(file.path(path.package("SMolR"),paste0(lut,".tif")))
-  } else {
-    stop("Lut file does not exists")
-  }
-    
-    rgblut <- rgb(img[1,,1],img[1,,2],img[1,,3])
+  # if(file.exists(file.path(path.package("SMolR"),paste0(lut,".tif")))){
+  #   img <-readTIFF(file.path(path.package("SMolR"),paste0(lut,".tif")))
+  # } else {
+  #   stop("Lut file does not exists")
+  # }
+  #   
+    #rgblut <- rgb(img[1,,1],img[1,,2],img[1,,3])
+  rgblut <- get(lut)(256)
     D <- round(x$img[,,channel]*255)
     D2 <- matrix(nrow = nrow(D),ncol = ncol(D))
     for (i in 1:nrow(D)){

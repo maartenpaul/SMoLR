@@ -1,5 +1,6 @@
 \name{SMOLR_IMPORT}
 \alias{SMOLR_IMPORT}
+\alias{SMOLR_LOAD}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
@@ -11,6 +12,8 @@ Import Single Molecule Localization Data into SMOLR
 }
 \usage{
 SMOLR_IMPORT(folder, basename, sep_chfiles, channel, length_statistics, condition, remove_empty_ROI, extension, prename)
+SMOLR_LOAD(folder, statistics)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -46,10 +49,13 @@ Profiles with correct settings for different data types. Currently available: "d
 If ROIs are present that do not contain any localization they will be removed
 }
   \item{extension}{
-%%     ~~Describe \code{extension} here~~
+File extenstion of to be imported localization files
 }
   \item{prename}{
-%%     ~~Describe \code{prename} here~~
+Is there any name in the file names of the localization files that can be used to subset the imported files from the folders 
+}
+ \item{statistics}{
+  Using SMOLR_LOAD should the attached statistics file be loaded, default to FALSE
 }
 }
 \details{
@@ -76,23 +82,15 @@ If ROIs are present that do not contain any localization they will be removed
 
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
-SMOLR_LOAD
+
 }
 \examples{
-
 SMOLR_IMPORT(file.path(getwd(),"loc"),profile="roiloc")
 SMOLR_LOAD(file.path(getwd(),"loc"),statistics=T)
 
 SMOLR_IMPORT(file.path(getwd(),"thunderstorm"),profile="thunderstorm")
 
-## The function is currently defined as
-function (folder, basename, sep_chfiles, channel, length_statistics, 
-    condition, remove_empty_ROI, extension, prename) 
-{
-    UseMethod("smlmr_import")
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
