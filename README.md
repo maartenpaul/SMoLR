@@ -1,5 +1,5 @@
 # SMoLR
-Single Molecule Localization in R
+Single Molecule Localization in R  
 
 To install run the following in R
 
