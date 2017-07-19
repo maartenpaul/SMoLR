@@ -8,7 +8,7 @@ Depends: R (>= 3.1.0)
 Imports: plotrix, EBImage, KernSmooth, tiff, tools, plyr, dbscan, RImageJROI, grid, spatstat, deldir
 Maintainer: Maarten Paul <m.w.paul@erasmusmc.nl>, Johan Slotman <j.slotman@erasmusmc.nl>
 Description: Single Molecule Localization Microscopy visualization and analysis
-License: GPL2
+License: LGPLv3
 LazyData: TRUE
 Repository: CRAN
 Suggests: knitr,  rmarkdown
