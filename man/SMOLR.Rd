@@ -59,7 +59,7 @@ If fit=TRUE all coordinates that lie outside of indicated xlim and ylim values a
 }
   \item{fast}{
 %%     ~~Describe \code{fast} here~~
-If fast is TRUE a predefined list of gaussian functions will be loaded in the memory instead of generated for each localization. This Will speed up calculations for large images, loses some accuracy by placing gaussians in the middle of the pixel.
+If fast is TRUE a predefined list of gaussian functions will be loaded in the memory instead of generated for each localization. This Will speed up calculations for large images. This method is less precise placing gaussians in the middle of the pixel instead of the regular subpixel location.
 }
 }
 \details{
