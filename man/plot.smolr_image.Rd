@@ -27,6 +27,9 @@ Fraction of pixels that will be saturated in the plotted image
   \item{rgb}{
 Make an RGB image, default=FALSE
 }
+  \item{lut}{
+Use a lookup table from the pals package
+}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -51,15 +54,15 @@ Erasmus MC, Johan Slotman and Maarten Paul
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+  \code{\link{pals}},\code{\link{continous}}
 }
 \examples{
 plot(SMOLR(smolrdata))
 plot(SMOLR(smolrdata),brightness = 0.9)
 plot(SMOLR(smolrdata),saturate = 0.2)
 
-plot_lut(SMOLR(smolrdata),channel = 2,lut="Fire")
-plot_lut(SMOLR(smolrdata),channel = 3,lut="Red Hot")
+plot_lut(SMOLR(smolrdata),channel = 2)
+plot_lut(SMOLR(smolrdata),channel = 3,)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 }

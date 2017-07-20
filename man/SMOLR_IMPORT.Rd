@@ -4,10 +4,11 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Import Single Molecule Localization Data into SMOLR
+Import Single Molecule Localization Data into R
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+From different dataformats the SMOLR_IMPORT function can import data from a chosen folder into a list of data.frames and converts it to a .Rdata file in the same folder.
+The SMOLR_LOAD function can subsequently be used to load the data from the folder into the R evironment.
 
 }
 \usage{
@@ -18,11 +19,10 @@ SMOLR_LOAD(folder, statistics)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{folder}{
-%%     ~~Describe \code{folder} here~~
 The folder containing the localization data files
 }
   \item{basename}{
-%%     ~~Describe \code{basename} here~~
+The part of the file name which every text file to be imported has. This is followed by a number.
 }
   \item{sep_chfiles}{
 %%     ~~Describe \code{sep_chfiles} here~~
@@ -34,7 +34,7 @@ Which channels are presents, default=1
 }
   \item{length_statistics}{
 %%     ~~Describe \code{length_statistics} here~~
-If ROI statistics are present, under the localization data in the text files, the number of lines that should be converted into a statistics file is shown here
+If ROI statistics are present, under the localization data in the text files, the number of lines that should be converted into a statistics file is shown here. Only the case when the ImageJ SMLM_viewer is used to organize localization data.
 }
   \item{condition}{
 %%     ~~Describe \code{condition} here~~
@@ -72,7 +72,7 @@ Is there any name in the file names of the localization files that can be used t
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Optical Imaging Centre ErasmusMC Rotterdam
 }
 \note{
 %%  ~~further notes~~
