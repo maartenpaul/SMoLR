@@ -61,7 +61,8 @@ import(plotrix,
        plyr,
        dbscan,
        deldir,
-       RImageJROI)
+       RImageJROI,
+       pals)
 
 
 export(rotate3d,
