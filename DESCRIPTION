@@ -13,3 +13,4 @@ LazyData: TRUE
 Repository: CRAN
 Suggests: knitr,  rmarkdown
 VignetteBuilder: knitr
+biocViews: Visualization
