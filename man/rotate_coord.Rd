@@ -1,5 +1,6 @@
 \name{rotate_coord}
 \alias{rotate_coord}
+\alias{SMOLR_ROTATE}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Rotate Cartesian coordinates
@@ -31,7 +32,7 @@ Define the type of angle that is given. Default is "degrees", alternative is "ra
 }
   \item{method}{
 %%     ~~Describe \code{method} here~~
-Define method to be used for rotation. Transform uses an transformation matrix (fast), polar transforms coordinates to polar (slow), polar_extended additionally returns distances of points from center. 
+Define method to be used for rotation. Default method is "transform" uses an transformation matrix. Other method "polar" transforms coordinates to polar, "polar_extended" additionally returns distances of points from center. Results are the same for both methods.
 }
   \item{center}{
 %%     ~~Describe \code{center} here~~
