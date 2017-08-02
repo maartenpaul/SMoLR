@@ -7,8 +7,8 @@
 Import Single Molecule Localization Data into R
 }
 \description{
-From different dataformats the SMOLR_IMPORT function can import data from a chosen folder into a list of data.frames and converts it to a .Rdata file in the same folder.
-The SMOLR_LOAD function can subsequently be used to load the data from the folder into the R evironment.
+From different dataformats the SMOLR_IMPORT function can import data from a chosen directory into a list of data.frames and saves it to a .Rdata file in the same directory.
+The SMOLR_LOAD function can subsequently be used to load the data from the directory into the R evironment.
 
 }
 \usage{
@@ -19,30 +19,30 @@ SMOLR_LOAD(folder, statistics)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{folder}{
-The folder containing the localization data files
+The folder/directory containing the localization data (text) files
 }
   \item{basename}{
-The part of the file name which every text file to be imported has. This is followed by a number.
+The part of the file name which every text file to be imported has. This is followed by an ID/number.
 }
   \item{sep_chfiles}{
 %%     ~~Describe \code{sep_chfiles} here~~
-If multiple channels are present are they present in one text file or separate files
+If the data contains multiple image channels are they present in one text file or separate files, default=FALSE. If TRUE the channel names should be idicated with channel and should be present in the to-be imported filenames after the basename.
 }
   \item{channel}{
 %%     ~~Describe \code{channel} here~~
-Which channels are presents, default=1
+Which channels are presents, default=1. If multiple channels are present give their names as a vector.
 }
   \item{length_statistics}{
 %%     ~~Describe \code{length_statistics} here~~
-If ROI statistics are present, under the localization data in the text files, the number of lines that should be converted into a statistics file is shown here. Only the case when the ImageJ SMLM_viewer is used to organize localization data.
+If ROI statistics are present, under the localization data in the text files, the number of lines that should be converted into a statistics file is shown here. Only the case when the ImageJ SMLM_viewer is used to organize localization data. Those channel names should be present in the to-be imported filenames after the basename.
 }
   \item{condition}{
 %%     ~~Describe \code{condition} here~~
-The data can be labelled with a condition, which allows comparing different experimental conditions
+The data can be labelled with a condition, which allows comparing different experimental conditions, when different datasets are imported.
 }
   \item{profile}{
 %%     ~~Describe \code{condition} here~~
-Profiles with correct settings for different data types. Currently available: "default","loc","roiloc","elyra",'thunderstorm'
+Profiles with correct settings for different data types. Currently available: default="default".Using SMLM_viewer macro in ImageJ/Fiji: "loc" and "roiloc". For Zeiss Elyra: "elyra". For the ImageJ/Fiji plugin Thunderstorm: 'thunderstorm'.
 }
   \item{remove_empty_ROI}{
 %%     ~~Describe \code{remove_empty_ROI} here~~
@@ -69,7 +69,7 @@ Is there any name in the file names of the localization files that can be used t
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+ImageJ/Fiji plugin Thunderstorm: https://github.com/zitmen/thunderstorm .
 }
 \author{
 Optical Imaging Centre ErasmusMC Rotterdam
@@ -85,6 +85,7 @@ Optical Imaging Centre ErasmusMC Rotterdam
 
 }
 \examples{
+#see for example files SMoLR_data github
 SMOLR_IMPORT(file.path(getwd(),"loc"),profile="roiloc")
 SMOLR_LOAD(file.path(getwd(),"loc"),statistics=T)
 
