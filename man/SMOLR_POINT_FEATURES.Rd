@@ -17,7 +17,7 @@ SMOLR_POINT_FEATURES(x)
   \item{x}{
 %%     ~~Describe \code{x} here~~
 item{x}{
-SMOLR_DBSCAN or SMOLR_KDE file, can be a list
+localization data, SMOLR_DBSCAN or SMOLR_KDE object, can be a list of objects
 }
 }
 }
@@ -25,10 +25,8 @@ SMOLR_DBSCAN or SMOLR_KDE file, can be a list
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
+\item{comp1 }{Description of 'comp1'}
+\item{comp2 }{Description of 'comp2'}
 %% ...
 }
 \references{
@@ -49,16 +47,15 @@ Optical Imaging Centre ErasmusMC Rotterdam
 
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (x) 
-{
-    UseMethod("SMOLR_POINT_FEATURES")
-  }
-}
+#obtain statistics for a localization data.frame
+x1<-SMOLR_POINT_FEATURES(smolrdata)
+x1
+#obtain statistics after clustering using SMOLR_KDE
+x2<-SMOLR_POINT_FEATURES(SMOLR_KDE(smolrdata))
+x2
+#obtain statistics after clustering using SMOLR_DBSCAN
+x3<-SMOLR_POINT_FEATURES(SMOLR_DBSCAN(smolrdata,MinPts=10))
+x3  
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")

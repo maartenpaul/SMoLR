@@ -67,7 +67,7 @@ If fast is TRUE a predefined list of gaussian functions will be loaded in the me
 }
 \value{
 %%  ~Describe the value returned
-returns a r object of the class smlmr_image which is a list containing 3 items
+returns a r object of the class smolr_image which is a list containing 3 items
 %%  If it is a LIST, use
 \item{img}{an array pixel values between zero and one}
 \item{parameters}{list of parameters of the given data per channel. Nloc number of localizations, max min and mean of x and y coordinates}

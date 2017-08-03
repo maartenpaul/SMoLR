@@ -30,7 +30,7 @@ If the data contains multiple image channels are they present in one text file o
 }
   \item{channel}{
 %%     ~~Describe \code{channel} here~~
-Which channels are presents, default=1. If multiple channels are present give their names as a vector.
+Which channels are presents, default=1. If multiple channels are present give their names in a vector.
 }
   \item{length_statistics}{
 %%     ~~Describe \code{length_statistics} here~~
@@ -49,13 +49,13 @@ Profiles with correct settings for different data types. Currently available: de
 If ROIs are present that do not contain any localization they will be removed
 }
   \item{extension}{
-File extenstion of to be imported localization files
+File extension of the to-be imported localization files. default is txt .
 }
   \item{prename}{
-Is there any name in the file names of the localization files that can be used to subset the imported files from the folders 
+Is there any name in the file names of the localization files that can be used to filter the to-be imported files from the folders.
 }
  \item{statistics}{
-  Using SMOLR_LOAD should the attached statistics file be loaded, default to FALSE
+  Using SMOLR_LOAD should the attached statistics file be loaded, default is FALSE.
 }
 }
 \details{
