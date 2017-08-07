@@ -3,11 +3,11 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-SMOLR POINT FEATURES
+SMOLR COORDINATE-BASED FEATURES
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-Extraction of features based on the localization data
+Extraction of features based on the coordinates of the localization data
 }
 \usage{
 SMOLR_POINT_FEATURES(x)
@@ -17,7 +17,10 @@ SMOLR_POINT_FEATURES(x)
   \item{x}{
 %%     ~~Describe \code{x} here~~
 item{x}{
-localization data, SMOLR_DBSCAN or SMOLR_KDE object, can be a list of objects
+localization data, \code{SMOLR_DBSCAN} or \code{SMOLR_KDE} object, can be a list of objects
+}
+item{skeleton}{
+estimate the skeleton length, using skeltonization of a binary image.
 }
 }
 }
@@ -25,8 +28,7 @@ localization data, SMOLR_DBSCAN or SMOLR_KDE object, can be a list of objects
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-\item{comp1 }{Description of 'comp1'}
-\item{comp2 }{Description of 'comp2'}
+A \code{data.frame} with columns indicating the different obtained values
 %% ...
 }
 \references{
@@ -58,5 +60,4 @@ x3<-SMOLR_POINT_FEATURES(SMOLR_DBSCAN(smolrdata,MinPts=10))
 x3  
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

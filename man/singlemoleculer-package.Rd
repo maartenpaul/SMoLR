@@ -3,38 +3,65 @@
 \alias{singlemoleculer}
 \docType{package}
 \title{
-Single molecule visualization and analysis
+SMoLR package overview
 
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+Single Molecule Localization in R (SMoLR) is a package for analysis in single-molecule localization microscopy data in R. The pacakage allows to extract spatial organization information from (multiple) single-molecule super-resolution images or ROIs (Region of Interests). Using lists large sets of localization data organized in a \code{list} of \code{data.frame}'s can be applied to the functions of the package.
 }
 \details{
 \tabular{ll}{
-Package: \tab singlemoleculer\cr
+Package: \tab SMoLR\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2014-08-12\cr
-License: \tab What license is it under?\cr
+Version: \tab 0.9.2\cr
+Date: \tab 2017-08-07\cr
+License: \tab LGPLv3\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
 }
-\author{
-Optical Imaging Center ErasmusMC Rotterdam
+\section{Package content}{
+Data import:
+  \itemize{
+    \item \code{SMOLR_IMPORT}
+    \item \code{SMOLR_LOAD}
+    \item \code{IJROI_subset}
+  }
+  
+Visualization:
+  \itemize{
+    \item \code{SMOLR}
+    \item \code{SMOLR_KDE}
+    \item \code{SMOLR_PLOT}
+  }
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Clustering:
+  \itemize{
+    \item \code{SMOLR_KDE}
+    \item \code{SMOLR_DBSCAN}
+  }
+  
+Statistic extration:
+  \itemize{
+    \item \code{SMOLR_FEATURES}
+    \item \code{SMOLR_POINT_FEATURES}
+    \item \code{SMOLR_TO_PPP}
+  }
+
+
+}
+
+\author{
+Optical Imaging Center Erasmus MC, Rotterdam\cr
+
+Johan Slotman (j.slotman@erasmusmc.nl) and Maarten Paul (m.w.paul@erasmusmc.nl)
 }
 \references{
-~~ Literature or other references for background information ~~
+
 }
 
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+
 }
 \examples{
-SMLMR_PLOT(smlmrdata)
+  vignette("vignettename")
 }

@@ -48,7 +48,8 @@ The pixel size used to create the ROI files in ImageJ defined in nanometer, defa
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{read.ijroi}}
+\code{\link{read.ijzip}}
 }
 \examples{
 
