@@ -3,10 +3,11 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Rotate 3D coordinates around given angles
+Rotate 3D 
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Rotate 3d coordinates around given angles
 }
 \usage{
 rotate3d(x = NULL, y = NULL, z = NULL, i = 0, j = 0, k = 0)
