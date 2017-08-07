@@ -39,6 +39,7 @@ Precision
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
+Depicts a summary containing mean minimum and maximum x,y and precision values of localizations per channel.
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -48,6 +49,7 @@ Precision
 }
 \note{
 %%  ~~further notes~~
+Optical Imaging Center ErasmusMC
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
