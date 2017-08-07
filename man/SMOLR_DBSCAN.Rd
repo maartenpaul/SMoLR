@@ -36,8 +36,8 @@ number of minimum points in the eps region (default =50)
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-returns a r object of the class smolr_dbscan which is a list containing 4 items.
-\item{dbscan}{the localization data.frame containing an addition "Cluster" column, indicating the cluster ID as determined by the dbscan algorithm. Cluster=0 is background}
+returns a r object of the class \code{smolr_dbscan} which is a list containing 4 items.
+\item{dbscan}{the localization \code{data.frame} containing an addition "Cluster" column, indicating the cluster ID as determined by the dbscan algorithm. Cluster=0 is background}
 \item{parameters}{list of parameters of the given data per channel. Nloc number of localizations, max min and mean of x and y coordinates.}
 \item{clust_parameters}{list of parameters of the given data per DBSCAN cluster.}
 \item{inputs}{list of values that were the input in the function, for back reference}
@@ -70,6 +70,7 @@ Optical Imaging Centre ErasmusMC Rotterdam
 x <- SMOLR_DBSCAN(smolrdata)
 plot(x)
 plot(x,hide_noise = T)
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{cluster}% use one of  RShowDoc("KEYWORDS")

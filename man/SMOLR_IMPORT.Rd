@@ -19,7 +19,7 @@ SMOLR_LOAD(folder, statistics)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{folder}{
-The folder/directory containing the localization data (text) files
+The folder/directory containing the localization data (text) files.
 }
   \item{basename}{
 The part of the file name which every text file to be imported has. This is followed by an ID/number.
@@ -30,7 +30,7 @@ If the data contains multiple image channels are they present in one text file o
 }
   \item{channel}{
 %%     ~~Describe \code{channel} here~~
-Which channels are presents, default=1. If multiple channels are present give their names in a vector.
+Which channels are presents, default=1. If multiple channels are present give their names in a \code{vector}.
 }
   \item{length_statistics}{
 %%     ~~Describe \code{length_statistics} here~~
