@@ -21,6 +21,7 @@ A single molecule data set, representing data from 3 Channels with random precis
 }
 \details{
 %%  ~~ If necessary, more details than the __description__ above ~~
+Channels 1,2 and 3 depict an o, an i and a c respectively
 }
 \source{
 %%  ~~ reference to a publication or URL from which the data were obtained ~~
