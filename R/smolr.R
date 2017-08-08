@@ -180,7 +180,7 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
     
     ### normalize between 0 and 1 for the bitrange
     for(j in 1:length(ch_range)){
-      i_m_tif[,,j]<-EBImage::normalize(i_m_tif[,,j], ft=c(0,1),inputRange=c(0,2^bits))
+      i_m_tif[,,j]<-smolr_norm(i_m_tif[,,j],range=2^bits)
     }
     
     ### select a file is none was specified
@@ -199,6 +199,17 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
   
   
 }
+
+### Normalization function ###
+
+smolr_norm <- function(x,range){
+  
+  x <- (x-min(x))/(range-min(x))
+  
+  return(x)
+  
+}
+
 
 ### Function to create a 2D or a 1D gaus with a given sigma in x and y and an offset
 
