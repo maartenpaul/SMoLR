@@ -92,8 +92,8 @@ smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, yli
       kde_tiff <- array(data=0, dim=(c(input_xsize,input_ysize,3)))
       kde_bin_tiff <- array(data=0, dim=(c(input_xsize,input_ysize,3)))
       for(i in 1:length(ch_range)){
-        kde_tiff[,,i]<-EBImage::normalize(kde[,,i],ft=c(0,1))
-        kde_bin_tiff[,,i] <- EBImage::normalize(kdebin[,,i],ft=c(0,1))
+        kde_tiff[,,i]<-smolr_norm_kde(kde[,,i])
+        kde_bin_tiff[,,i] <- smolr_norm_kde(kdebin[,,i])
       }
       
       kde_tiff <- aperm(kde_tiff, c(2,1,3))
@@ -112,6 +112,24 @@ smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, yli
   
   
   return(list(kde=kde, kde_binary=kdebin))
+  
+}
+
+### Normalization function ###
+
+smolr_norm_kde <- function(x){
+  minx <- min(x)
+  maxx <- min(x)
+  
+  if(minx==maxx){
+    
+    maxx <- maxx+1
+  }
+  
+  x <- (x-minx)/(maxx-minx)
+  
+  
+  return(x)
   
 }
 
