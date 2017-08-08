@@ -30,6 +30,7 @@ vignette: >
     border-collapse: collapse;
   }
 --->
+
 </STYLE>
 ```{r,cache=FALSE,echo=FALSE,warning=FALSE}
 library(SMoLR)
