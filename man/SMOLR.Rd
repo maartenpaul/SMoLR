@@ -19,7 +19,7 @@ SMOLR(x, y, prec, ch, px, xlim, ylim, file, output, fit, fast)
 \arguments{
   \item{x}{
 %%     ~~Describe \code{x} here~~
-X coordinates in nm
+X coordinates in nm, a localizations data.frame or a list of data.frames.
 }
   \item{y}{
 %%     ~~Describe \code{y} here~~

@@ -16,7 +16,7 @@ SMOLR_KDE(x, y, ch, prec, bandwidth, input_xsize, input_ysize, px, threshold, fi
 \arguments{
   \item{x}{
 %%     ~~Describe \code{x} here~~
-X coordinates in nm
+X coordinates in nm, a localizations data.frame or a list of data.frames.
 }
   \item{y}{
 %%     ~~Describe \code{y} here~~
@@ -24,11 +24,11 @@ Y coordinates in nm
 }
   \item{ch}{
 %%     ~~Describe \code{ch} here~~
-channel number (default=1)
+Channel number (default=1)
 }
   \item{prec}{
 %%     ~~Describe \code{prec} here~~
-precision in nm (default=20)
+Precision in nm (default=20)
 }
   \item{bandwidth}{
 %%     ~~Describe \code{bandwidth} here~~
@@ -44,18 +44,18 @@ Vector with the upper and lower limit of y axis (y coordinates outside limits wi
 }
   \item{px}{
 %%     ~~Describe \code{px} here~~
-pixelsize in nm
+Pixelsize in nm
 }
   \item{threshold}{
 %%     ~~Describe \code{threshold} here~~
-threshold for the kde in localizations per squared nm, used to create binary image of the single molecule data
+Threshold for the kde in localizations per squared nm, used to create binary image of the single molecule data
 }
   \item{fit}{
 %%     ~~Describe \code{fit} here~~
 If fit=TRUE all coordinates that lie outside of indicated xlim and ylim values are discarded
 }
 \item{file}{
-path and name of file to save tif to (i.e. file="D:/test.tif", will return the files test_kde.tif and test_kde_bin.tif)
+Path and name of file to save tif to (i.e. file="D:/test.tif", will return the files test_kde.tif and test_kde_bin.tif)
 }
 \item{output}{
 Set output to "tiff" to output tiff files of the KDE
@@ -76,7 +76,7 @@ Set output to "tiff" to output tiff files of the KDE
 }
 \references{
 %% ~put references to the literature/web site here ~
-kernel density estimation uses the bkde2D algorithm from the kernsmooth package
+Kernel density estimation uses the bkde2D algorithm from the kernsmooth package
 }
 \author{
 %%  ~~who you are~~
