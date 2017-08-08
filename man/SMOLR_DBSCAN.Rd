@@ -14,35 +14,35 @@ SMOLR_DBSCAN(x, y, ch, prec, eps, MinPts)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{
-X coordinates in nm
+X coordinates in nm, a localizations data.frame or a list of data.frames.
 }
   \item{y}{
 Y coordinates in nm
 }
   \item{ch}{
-channel number (default=1)
+Channel number (default=1)
 }
   \item{prec}{
-precision in nm (default=20)
+Precision in nm (default=20)
 }
   \item{eps}{
-size of linking radius. (default = 50)
+Size of linking radius. (default = 50)
 }
   \item{MinPts}{
-number of minimum points in the eps region (default =50)
+Number of minimum points in the eps region (default =50)
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-returns a r object of the class smolr_dbscan which is a list containing 4 items.
-\item{dbscan}{the localization data.frame containing an addition "Cluster" column, indicating the cluster ID as determined by the dbscan algorithm. Cluster=0 is background}
+returns a r object of the class \code{smolr_dbscan} which is a list containing 4 items.
+\item{dbscan}{the localization \code{data.frame} containing an addition "Cluster" column, indicating the cluster ID as determined by the dbscan algorithm. Cluster=0 is background}
 \item{parameters}{list of parameters of the given data per channel. Nloc number of localizations, max min and mean of x and y coordinates.}
 \item{clust_parameters}{list of parameters of the given data per DBSCAN cluster.}
 \item{inputs}{list of values that were the input in the function, for back reference}
 
-The smolrdata object can be used for plotting.
+The smolrdata object can be used for plotting, see examples.
 
 
 %%  ~Describe the value returned
@@ -70,6 +70,7 @@ Optical Imaging Centre ErasmusMC Rotterdam
 x <- SMOLR_DBSCAN(smolrdata)
 plot(x)
 plot(x,hide_noise = T)
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{cluster}% use one of  RShowDoc("KEYWORDS")

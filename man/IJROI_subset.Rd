@@ -22,24 +22,20 @@ The file location on the ROI file to be processd, either a single ROI (.roi) or 
 The pixel size used to create the ROI files in ImageJ defined in nanometer, default = 5 nm. 
 }
   \item{split}{
-  The localizations data.frame can be splitted 
+  If TRUE, the localizations data.frame will be splitted in a list of data.frames for every ROI, default = FALSE.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+WARNING: For now overlapping ROIs are not supported, localizations will be present only in one IJ-ROI.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+Returns the same (list of) data.frame, indicating for every localization to which ROI they belong. If split=TRUE, for every ROI a dat.frame is returned in a list.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Optical Imaging Centre ErasmusMC Rotterdam
 }
 \note{
 %%  ~~further notes~~
@@ -48,10 +44,16 @@ The pixel size used to create the ROI files in ImageJ defined in nanometer, defa
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{read.ijroi}}
+\code{\link{read.ijzip}}
 }
 \examples{
-
+###Example can be downloaded from the SMOLR_DATA GitHub
+#data <- IJROI_subset(smolrdata,file = "IJROI_data/RoiSet.zip")
+#data <- IJROI_subset(smolrdata,file = "IJROI_data/RoiSet.zip",split=T)
+#plot(SMOLR(data[[1]]),rgb=T)
+#plot(SMOLR(data[[2]]),rgb=T)
+#plot(SMOLR(data[[3]]),rgb=T)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

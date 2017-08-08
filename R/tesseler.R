@@ -1,4 +1,4 @@
-smolr_tesseler <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
+smolr_tesseler <- function(x,y,ch=NULL, prec=NULL){
   
   #convert to point pattern
   localizations_ppp <- SMOLR_TO_PPP(x,marks=x$Channel)

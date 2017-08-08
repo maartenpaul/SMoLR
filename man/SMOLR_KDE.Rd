@@ -3,11 +3,11 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
-Get kernel density estimation from a single molecule dataset
+2D kernel density estimation from a single molecule dataset
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
-Fits a kernel density estimation to single molecule localization data based on bkde2de from the kernsmooth package
+Fits a 2D kernel density estimation to single molecule localization data based on bkde2de from the kernsmooth package
 }
 \usage{
 SMOLR_KDE(x, y, ch, prec, bandwidth, input_xsize, input_ysize, px, threshold, fit, file, output)
@@ -16,7 +16,7 @@ SMOLR_KDE(x, y, ch, prec, bandwidth, input_xsize, input_ysize, px, threshold, fi
 \arguments{
   \item{x}{
 %%     ~~Describe \code{x} here~~
-X coordinates in nm
+X coordinates in nm, a localizations data.frame or a list of data.frames.
 }
   \item{y}{
 %%     ~~Describe \code{y} here~~
@@ -24,15 +24,15 @@ Y coordinates in nm
 }
   \item{ch}{
 %%     ~~Describe \code{ch} here~~
-channel number (default=1)
+Channel number (default=1)
 }
   \item{prec}{
 %%     ~~Describe \code{prec} here~~
-precision in nm (default=20)
+Precision in nm (default=20)
 }
   \item{bandwidth}{
 %%     ~~Describe \code{bandwidth} here~~
-Bandwidth of the kernel used to fit, typically a bandwidth of around the precision is used. The bandwidth is a vector containing an x and a y size.
+Bandwidth of the kernel used to fit, typically a bandwidth of around the precision is used. The bandwidth is a \code{vector} containing an x and a y size. (default = c(20,20))
 }
   \item{xlim}{
 %%     ~~Describe \code{input_xsize} here~~
@@ -44,18 +44,18 @@ Vector with the upper and lower limit of y axis (y coordinates outside limits wi
 }
   \item{px}{
 %%     ~~Describe \code{px} here~~
-pixelsize in nm
+Pixelsize in nm
 }
   \item{threshold}{
 %%     ~~Describe \code{threshold} here~~
-threshold for the kde in loxalizations per squared nm, used to create binary image of the single molecule data
+Threshold for the kde in localizations per squared nm, used to create binary image of the single molecule data
 }
   \item{fit}{
 %%     ~~Describe \code{fit} here~~
 If fit=TRUE all coordinates that lie outside of indicated xlim and ylim values are discarded
 }
 \item{file}{
-path and name of file to save tif to (i.e. file="D:/test.tif", will return the files test_kde.tif and test_kde_bin.tif)
+Path and name of file to save tif to (i.e. file="D:/test.tif", will return the files test_kde.tif and test_kde_bin.tif)
 }
 \item{output}{
 Set output to "tiff" to output tiff files of the KDE
@@ -71,12 +71,12 @@ Set output to "tiff" to output tiff files of the KDE
 \item{kde_binary }{Array containing the binary thresholded image }
 \item{parameters}{Parameters of the input}
 \item{int}{list of intensities from the kde per localization, unique feature id per localization}
-\item{inputs}{list of values that were the input in the function, for back reference}
+\item{inputs}{list of values that were the input in the function, for reference}
 %% ...
 }
 \references{
 %% ~put references to the literature/web site here ~
-kernel density estimation uses the bkde2D algorithm from the kernsmooth package
+Kernel density estimation uses the bkde2D algorithm from the kernsmooth package
 }
 \author{
 %%  ~~who you are~~
@@ -89,19 +89,12 @@ Optical Imaging Centre ErasmusMC Rotterdam
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{bkde2D}}
 }
 \examples{
-test_kde <- SMOLR_KDE(400,400,threshold=0.005)
-test_kde <- SMOLR_KDE(c(200,150,400,345),c(200,300,400.5,239),ch=c(2,3,4,2),threshold=0.01)
 test_kde <- SMOLR_KDE(smolrdata)
-
-
-#test_kde
-#test_kde$kde
-#test_kde$kde_binary
-#test_kde$parameters
-#test_kde$int
 plot(test_kde)
-SMOLR_PLOT(smlmrdata,color=SMOLR_KDE(smolrdata)[[4]][,1],rev.color=TRUE,size="off",split_ch=TRUE)
+plot(test_kde)
+plot(test_kde,contrast = 2,saturate = 0.05,brightness = 0)
+SMOLR_PLOT(smolrdata,color=SMOLR_KDE(smolrdata)[[4]][,2],split_ch=TRUE)
 }

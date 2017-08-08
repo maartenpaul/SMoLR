@@ -1,16 +1,20 @@
 \name{plot.smolr_image}
 \alias{plot.smolr_image}
+\alias{plot.smolr_kde}
+\alias{plot.smolr_dbscan}
 \alias{plot_lut.smolr_image}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-PLOT of SMOLR image
+PLOT of SMOLR objects
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Different objects from SMoLR can be plotted using the \code{plot()} function. Depending on the type of object an image or a scatter plot will be returned.
 }
 \usage{
 plot.smolr_image(x, y, saturate = 0, brightness = 0, contrast = 1, rgb = F, ...)
+plot.smolr_kde(x, y, saturate = 0, brightness = 0, contrast = 1, rgb = F, ...)
 plot_lut.smolr_image(channel,lut)
+plot.smolr_dbscan(x,hide_noise=FALSE)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -19,10 +23,10 @@ plot_lut.smolr_image(channel,lut)
 Fraction of pixels that will be saturated in the plotted image
 }
   \item{brightness}{
-%%     ~~Describe \code{brightness} here~~
+Adjust brightness, value between 0 and 1, this will shift the pixel values with the indicated value (default=0).
 }
   \item{contrast}{
-%%     ~~Describe \code{contrast} here~~
+Adjust contrast, pixel values are multiplied with the input value (default = 1).
 }
   \item{rgb}{
 Make an RGB image, default=FALSE
@@ -30,6 +34,9 @@ Make an RGB image, default=FALSE
   \item{lut}{
 Use a lookup table from the pals package
 }
+  \item{hide_noise}{
+  Used for a smolr_dbscan, this will hide to localizations which are not in a cluster (background/noise).
+  }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -45,7 +52,7 @@ Use a lookup table from the pals package
 %% ~put references to the literature/web site here ~
 }
 \author{
-Erasmus MC, Johan Slotman and Maarten Paul
+Optical Imaging Centre ErasmusMC Rotterdam
 }
 \note{
 %%  ~~further notes~~
@@ -54,15 +61,22 @@ Erasmus MC, Johan Slotman and Maarten Paul
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-  \code{\link{pals}},\code{\link{continous}}
+  \code{\link{pals}},\code{\link{continuous}}
 }
 \examples{
 plot(SMOLR(smolrdata))
 plot(SMOLR(smolrdata),brightness = 0.9)
 plot(SMOLR(smolrdata),saturate = 0.2)
 
-plot_lut(SMOLR(smolrdata),channel = 2)
-plot_lut(SMOLR(smolrdata),channel = 3,)
+plot(SMOLR_KDE(smolrdata))
+plot(SMOLR_KDE(smolrdata),contrast=2)
+
+plot(SMOLR_DBSCAN(smolrdata,MinPts=15),hide_noise = F)
+plot(SMOLR_DBSCAN(smolrdata,MinPts=15),hide_noise = T)
+
+plot_lut(SMOLR(smolrdata),channel = 1)
+plot_lut(SMOLR(smolrdata),channel = 2,"warmcool")
+plot_lut(SMOLR(smolrdata),channel = 3,"coolwarm")
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 }
