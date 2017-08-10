@@ -5,7 +5,7 @@ Version: 0.9.2
 Date: 2017-07-20
 Author: Optical Imaging Centre ErasmusMC Rotterdam 
 Depends: R (>= 3.4.0)
-Imports: plotrix, EBImage, KernSmooth, tiff, tools, plyr, dbscan, RImageJROI, grid, spatstat, deldir,pals
+Imports: plotrix, EBImage, KernSmooth, tiff, tools, plyr, dbscan, RImageJROI, grid, spatstat, deldir,pals, BiocStyle
 Maintainer: Maarten Paul <m.w.paul@erasmusmc.nl>, Johan Slotman <j.slotman@erasmusmc.nl>
 Description: Single Molecule Localization Microscopy visualization and analysis
 License: LGPLv3
