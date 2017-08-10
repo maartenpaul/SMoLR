@@ -204,7 +204,7 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
 
 smolr_norm <- function(x,range){
   
-  x <- (x-0)/(range-min(x))
+  x <- (x-0)/(range-0)
   
   return(x)
   
