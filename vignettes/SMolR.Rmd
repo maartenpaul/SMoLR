@@ -1,12 +1,13 @@
 ---
 title: "Introduction to Single Molecule Localization in R (SMolR)"
 author: "Maarten Paul (m.w.paul@erasmusmc.nl) and Johan Slotman (j.slotman@erasmusmc.nl)"
-date: '`r Sys.Date()`'
-output: rmarkdown::html_vignette
+package: SMoLR
+output: 
+  BiocStyle::html_document2
 vignette: >
   %\VignetteIndexEntry{SMoLR}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
 ---
 <STYLE TYPE="text/css">
 <!--
