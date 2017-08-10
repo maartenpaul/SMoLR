@@ -63,5 +63,5 @@ Johan Slotman (j.slotman@erasmusmc.nl) and Maarten Paul (m.w.paul@erasmusmc.nl)
 
 }
 \examples{
-  vignette("vignettename")
+  vignette("SMolR")
 }

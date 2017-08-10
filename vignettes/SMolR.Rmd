@@ -5,7 +5,7 @@ package: SMoLR
 output: 
   BiocStyle::html_document2
 vignette: >
-  %\VignetteIndexEntry{SMoLR}
+  %\VignetteIndexEntry{Introduction to Single Molecule Localization in R (SMolR)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
