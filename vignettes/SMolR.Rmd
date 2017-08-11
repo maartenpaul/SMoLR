@@ -1,6 +1,8 @@
 ---
 title: "Introduction to Single Molecule Localization in R (SMolR)"
-author: "Maarten Paul (m.w.paul@erasmusmc.nl) and Johan Slotman (j.slotman@erasmusmc.nl)"
+author: 
+- Maarten Paul (m.w.paul@erasmusmc.nl)
+- Johan Slotman (j.slotman@erasmusmc.nl)
 package: SMoLR
 output: 
   BiocStyle::html_document2
