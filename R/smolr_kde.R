@@ -119,7 +119,7 @@ smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, yli
 
 smolr_norm_kde <- function(x){
   minx <- min(x)
-  maxx <- min(x)
+  maxx <- max(x)
   
   if(minx==maxx){
     

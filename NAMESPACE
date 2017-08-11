@@ -62,7 +62,8 @@ import(plotrix,
        dbscan,
        deldir,
        RImageJROI,
-       pals)
+       pals, 
+       BiocStyle)
 
 
 export(rotate3d,
