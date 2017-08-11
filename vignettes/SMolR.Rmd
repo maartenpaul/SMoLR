@@ -51,15 +51,19 @@ The SMoLR package consists of a set of functions dedicated to quantitive analysi
 
 Using `SMOLR_IMPORT`, different types of data can be imported into R from a folder. The localizations from different ROIs or images are sorted in a `list` of `data.frame`'s. Different `profiles` are available to load different types of data.
 
+```{r,eval=FALSE}
+SMOLR_IMPORT(folder="../test_data",profile = "roiloc")
+```
+
+
 ```{r}
-SMOLR_IMPORT(folder="../loc",profile = "roiloc")
-SMOLR_LOAD(folder="../loc")
+SMOLR_LOAD(folder="../test_data")
 ```
 
 Example of localizations `data.frame`
 
 ```{r, echo=FALSE, results='asis'}
-pander(head(localizations[[1]][,-c(5,10,11)], 10))
+pander(head(smolrdata[,-c(5,10,11)], 10))
 ```
 
 \newpage
