@@ -11,10 +11,6 @@ Description: Single Molecule Localization Microscopy visualization and analysis
 License: LGPLv3
 LazyData: TRUE
 Repository: CRAN
-<<<<<<< HEAD
-Suggests:  BiocStyle, knitr,  rmarkdown
-=======
 Suggests: knitr,  rmarkdown, BiocStyle
->>>>>>> 7fc73455a4995c6067484f702cc89cc5f7eba538
 VignetteBuilder: knitr
 biocViews: Visualization
