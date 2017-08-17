@@ -117,5 +117,8 @@ Optical Imaging Center Rotterdam
 SMOLR_PLOT(smolrdata,rev.color=TRUE,size="off",split_ch=TRUE)
 
 SMOLR_PLOT(smolrdata,color_scale = adjustcolor(c("red","green","magenta"),0.3))
+
+overlay <- SMOLR(smolrdata)
+SMOLR_PLOT(smolrdata,overlay=overlay,alpha = 0.2,size="off",,color_scale = adjustcolor(c("red","green","blue")),px=1)
 }
 

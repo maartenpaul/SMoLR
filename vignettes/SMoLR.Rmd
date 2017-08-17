@@ -109,6 +109,11 @@ par(mar=c(2,2,2,2))
 SMOLR_PLOT(smolrdata,split_ch = T,color = smolrdata$First_Frame)
 ```
 
+An overlay can be added as well:
+```{r, fig.show='hold',fig.height=5,fig.asp=1}
+overlay <- SMOLR(smolrdata)
+SMOLR_PLOT(smolrdata,overlay=overlay,alpha = 0.2,size="off",,color_scale = adjustcolor(c("red","green","blue")),px=0.5)
+```
 
 \newpage 
 
