@@ -44,7 +44,7 @@ library(EBImage)
 library(plyr)
 ```
 
-The SMoLR package consists of a set of functions dedicated to quantitive analysis of Single Molecule Localization data in R.
+The SMoLR package consists of a set of functions dedicated to the quantitive analysis of Single Molecule Localization data in R.
 
 - Importing and organizing large single molecule localization data sets
 - Visualize super resolution localization data
