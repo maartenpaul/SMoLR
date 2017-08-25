@@ -67,7 +67,7 @@ SMOLR_LOAD(folder="../test_data")
 Example of localizations `data.frame`
 
 ```{r, echo=FALSE, results='asis'}
-pander(head(smolrdata[,-c(5,10,11)], 10))
+pander(head(smolrdata, 10))
 ```
 
 \newpage
