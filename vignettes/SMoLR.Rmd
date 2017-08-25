@@ -87,6 +87,11 @@ plot(img,rgb=TRUE)
 
 Instead of using the image in R it is also possible to export an image as tiff.
 
+```{r, fig.show='hold',fig.height=2.5,eval=FALSE}
+SMOLR(smolrdata,output = "tiff",file="image.tif")
+```
+
+Using subsetting only certain channels can be plotted.
 ```{r, fig.show='hold',fig.height=2.5}
 plot(SMOLR(subset(smolrdata,Channel==1)))
 ```
