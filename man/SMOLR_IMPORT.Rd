@@ -86,9 +86,11 @@ Optical Imaging Centre ErasmusMC Rotterdam
 }
 \examples{
 #see for example files SMoLR_data github
+#https://github.com/ErasmusOIC/SMoLR_data/raw/master/loc.zip
 SMOLR_IMPORT(file.path(getwd(),"loc"),profile="roiloc")
 SMOLR_LOAD(file.path(getwd(),"loc"),statistics=T)
-
+#Example Thuderstorm file:
+#https://github.com/ErasmusOIC/SMoLR_data/raw/master/thunderstorm.zip
 SMOLR_IMPORT(file.path(getwd(),"thunderstorm"),profile="thunderstorm")
 
 }
