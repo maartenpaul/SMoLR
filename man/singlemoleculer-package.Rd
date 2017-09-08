@@ -13,8 +13,8 @@ Single Molecule Localization in R (SMoLR) is a package for analysis in single-mo
 \tabular{ll}{
 Package: \tab SMoLR\cr
 Type: \tab Package\cr
-Version: \tab 0.9.2\cr
-Date: \tab 2017-08-07\cr
+Version: \tab 1.0.0\cr
+Date: \tab 2017-09-07\cr
 License: \tab LGPLv3\cr
 }
 }
@@ -63,5 +63,5 @@ Johan Slotman (j.slotman@erasmusmc.nl) and Maarten Paul (m.w.paul@erasmusmc.nl)
 
 }
 \examples{
-  vignette("SMolR")
+  vignette("SMoLR")
 }
