@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Single Molecule Localization in R (SMolR)"
+title: "Introduction to Single Molecule Localization in R (SMoLR)"
 author: 
 - name: Maarten Paul
   email: m.w.paul@erasmusmc.nl
@@ -9,7 +9,7 @@ package: SMoLR
 output: 
   BiocStyle::html_document2
 vignette: >
-  %\VignetteIndexEntry{Introduction to Single Molecule Localization in R (SMolR)}
+  %\VignetteIndexEntry{Introduction to Single Molecule Localization in R (SMoLR)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
@@ -123,11 +123,13 @@ SMOLR_PLOT(smolrdata,overlay=overlay,alpha = 0.2,size="off",,color_scale = adjus
 \newpage 
 
 ## Clustering
+A threshold applied to a kernel density estimation, can be used to cluster groups of localizations. 
 ```{r, fig.show='hold',fig.width=8}
 plot(SMOLR_KDE(smolrdata))
 
 ```
 
+Alternatively the DBSCAN Algorithm can be used.
 Visualization of DBSCAN clustering. The colors indicate the assigned cluster, while the red localizations are considered background.
 ```{r, fig.show='hold',fig.width=10,fig.asp=0.3}
 plot(SMOLR_DBSCAN(smolrdata,eps=50,MinPts=5))
