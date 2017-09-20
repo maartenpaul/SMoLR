@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Single Molecule Localization in R (SMolR)"
+title: "Introduction to Single Molecule Localization in R (SMoLR)"
 author: 
 - name: Maarten Paul
   email: m.w.paul@erasmusmc.nl
@@ -9,7 +9,7 @@ package: SMoLR
 output: 
   BiocStyle::html_document2
 vignette: >
-  %\VignetteIndexEntry{Introduction to Single Molecule Localization in R (SMolR)}
+  %\VignetteIndexEntry{Introduction to Single Molecule Localization in R (SMoLR)}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}  
 ---
@@ -48,7 +48,7 @@ The SMoLR package consists of a set of functions dedicated to the quantitive ana
 
 - Importing and organizing large single molecule localization data sets
 - Visualize super resolution localization data
-- High-thoughput analysis of large data sets
+- High-throughput analysis of large data sets
 
 
 ## Import of localization data
@@ -72,7 +72,7 @@ pander(head(smolrdata, 10))
 
 \newpage
 ## Visualization
-The localizations can plotted by individual Gaussians using the `SMOLR` function. This can also be applied to a `list` of `data.frame's`. This will create an list of super resolution images. In this example a `data.frame` is the input. The plot function can be applied to the `SMOLR_image` object. This will return images of all channels in gray scale.
+The localizations can be plotted by individual Gaussians distributions using the `SMOLR` function. This can also be applied to a `list` of `data.frame's`. This will create an list of super resolution images. In this example a `data.frame` is the input. The plot function can be applied to the `SMOLR_image` object. This will return images of all channels in gray scale.
 
 ```{r, fig.show='hold',fig.height=2}
 img <- SMOLR(smolrdata)
@@ -96,13 +96,13 @@ Using subsetting only certain channels can be plotted.
 plot(SMOLR(subset(smolrdata,Channel==1)))
 ```
 
-Using the SMOLR_PLOT function the localizations can be plotted in a scatter plot
+Using the SMOLR_PLOT function, localizations can be plotted in a scatter plot
 ```{r, fig.show='hold',fig.height=2,fig.asp=0.5}
 par(mar=c(2,2,2,2))
 SMOLR_PLOT(smolrdata)
 ```
 
-Plotting channels separetely
+Plotting channels separately
 ```{r, fig.show='hold',fig.width=10,fig.asp=0.3}
 par(mar=c(2,2,2,2))
 SMOLR_PLOT(smolrdata,split_ch = T)
@@ -123,11 +123,13 @@ SMOLR_PLOT(smolrdata,overlay=overlay,alpha = 0.2,size="off",,color_scale = adjus
 \newpage 
 
 ## Clustering
+A threshold applied to a kernel density estimation, can be used to cluster groups of localizations. 
 ```{r, fig.show='hold',fig.width=8}
 plot(SMOLR_KDE(smolrdata))
 
 ```
 
+Alternatively the DBSCAN Algorithm can be used.
 Visualization of DBSCAN clustering. The colors indicate the assigned cluster, while the red localizations are considered background.
 ```{r, fig.show='hold',fig.width=10,fig.asp=0.3}
 plot(SMOLR_DBSCAN(smolrdata,eps=50,MinPts=5))

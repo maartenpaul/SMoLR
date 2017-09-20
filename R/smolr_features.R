@@ -1,6 +1,7 @@
 
 smolr_features <- function(x, filter=NULL, filter_value=NULL){
   
+  if(grep(x = (.packages()),pattern = "EBImage")!=1){library(EBImage)}
   
   est <- array(0,c(dim(x[[1]])[1],dim(x[[1]])[2],dim(x[[1]])[3]))
   features <- list()

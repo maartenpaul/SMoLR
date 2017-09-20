@@ -63,7 +63,8 @@ import(plotrix,
        deldir,
        RImageJROI,
        pals, 
-       BiocStyle)
+       BiocStyle,
+       EBImage)
 
 
 export(rotate3d,
@@ -89,7 +90,6 @@ export(rotate3d,
        )
 
 importFrom("spatstat", owin,disc,ppp,inside.owin)
-importFrom("EBImage", flop,erode,dilate,normalize,computeFeatures,makeBrush,bwlabel)
 importFrom("tiff",readTIFF,writeTIFF)
 importFrom("RImageJROI",read.ijzip,read.ijroi)
 importFrom("pander",pander)
