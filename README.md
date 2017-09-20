@@ -15,7 +15,7 @@ Documentation of the different functions in the package can be found in R. Addit
 
 
 ## Example data
-Example data to test the package can be found at the repository: https://github.com/maartenpaul/SMoLR_data
+Example data to test the package can be found at the repository: https://github.com/ErasmusOIC/SMoLR_data
 
 ## Bug reports and feature requests
 

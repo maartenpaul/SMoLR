@@ -2,7 +2,7 @@
 \alias{thinImage}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Skeletonize/Thin an binary image
+Skeletonize/thin an binary image
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
