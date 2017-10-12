@@ -87,6 +87,7 @@ export(rotate3d,
        thinImage,
        dbscan_to_localizations,
        IJROI_subset
+       dynamicplot
        )
 
 importFrom("spatstat", owin,disc,ppp,inside.owin)
