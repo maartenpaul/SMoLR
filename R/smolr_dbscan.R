@@ -1,5 +1,12 @@
 smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
   
+  if(!is.numeric(x)){stop("x values are not (all) numeric")}
+  if(!is.numeric(y)){stop("y values are not (all) numeric")}
+  if(!is.numeric(prec)){stop("precision values are not (all) numeric")}
+  if(length(which(is.na(x)))>0){stop("x values contain NAs")}
+  if(length(which(is.na(y)))>0){stop("y values contain NAs")}
+  if(length(which(is.na(prec)))>0){stop("precision values contain NAs")}
+  
   if(is.null(ch)){ch <- rep(1,length(x))}
   if(is.null(prec)){prec <- rep(20,length(x))}
     ch_range <- unique(ch)
