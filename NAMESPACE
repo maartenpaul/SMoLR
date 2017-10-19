@@ -86,7 +86,7 @@ export(rotate3d,
        SMOLR_POINT_FEATURES,
        thinImage,
        dbscan_to_localizations,
-       IJROI_subset
+       IJROI_subset,
        dynamicplot
        )
 
