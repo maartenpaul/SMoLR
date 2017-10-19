@@ -1,5 +1,11 @@
 smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE){
   
+  if(!is.numeric(x)){stop("x values are not (all) numeric")}
+  if(!is.numeric(y)){stop("y values are not (all) numeric")}
+  if(!is.numeric(prec)){stop("precision values are not (all) numeric")}
+  if(length(which(is.na(x)))>0){stop("x values contain NAs")}
+  if(length(which(is.na(y)))>0){stop("y values contain NAs")}
+  if(length(which(is.na(prec)))>0){stop("precision values contain NAs")}
   
   if((is.null(xlim) || length(xlim)==2)==FALSE){stop("xlim should be a vector with two values")}
   if((is.null(ylim) || length(ylim)==2)==FALSE){stop("ylim should be a vector with two values")}  

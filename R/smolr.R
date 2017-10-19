@@ -13,8 +13,13 @@ smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NUL
   if(is.null(x)||is.null(y)){stop("No x and y coordinates present")}
   if(length(unique(c(length(x),length(y),length(prec),length(ch))))!=1){stop("x, y, prec and ch differ in length")}
   if((is.null(xlim) || length(xlim)==2)==FALSE){stop("xlim should be a vector with two values")}
-  if((is.null(ylim) || length(ylim)==2)==FALSE){stop("ylim should be a vector with two values")}  
-  
+  if((is.null(ylim) || length(ylim)==2)==FALSE){stop("ylim should be a vector with two values")}
+  if(!is.numeric(x)){stop("x values are not (all) numeric")}
+  if(!is.numeric(y)){stop("y values are not (all) numeric")}
+  if(!is.numeric(prec)){stop("precision values are not (all) numeric")}
+  if(length(which(is.na(x)))>0){stop("x values contain NAs")}
+  if(length(which(is.na(y)))>0){stop("y values contain NAs")}
+  if(length(which(is.na(prec)))>0){stop("precision values contain NAs")}
   
   output <-match.arg(output)
   
