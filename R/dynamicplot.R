@@ -249,7 +249,7 @@ dynamicplot <- function(var,dbdata=NULL,overlay=NULL,eps=50,MinPts=50) {
   )}
 
 
-load("D:/Dropbox/PhD R_dam/manuscripts/Methods paper/Singlemoleculer_GUI/locdata.R")
+#load("D:/Dropbox/PhD R_dam/manuscripts/Methods paper/Singlemoleculer_GUI/locdata.R")
 
 #overlay <- SMOLR(locdata)
-dynamicplot(locdata,overlay=overlay)
+#dynamicplot(locdata,overlay=overlay)
