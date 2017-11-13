@@ -2,21 +2,26 @@
 \alias{dynamicplot}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Dynamic plot for SMoLR}
+Dynamic Shiny plot for SMoLR}
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function allows to run a Shiny web application to explore the localization data
 }
 \usage{
 dynamicplot(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{var}{
+the localization data of a single image to be viewed in the dynamic Shiny plot
 }
+  \item{dbdata}{
+  dbscan clustering object of the localizations in the \code{var}, when ommitted this is calculated in the dynamic plot while loading, but this might increase the time to load application
+  }
+  \item{overlay}{
+a \code{SMOLR_image} object of the localizations in the \code{var}, when ommitted this is calculated in the dynamic plot while loading, but this might increase the time to load application  }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+In the shiny application one can drag on the plot to select clusters with certain values, those will be color codes in the plot on the right. Additionally it is possible to zoom-in in the image, by dragging in the image, the plot and image will be shown for the selected zoom-in area.
 }
 \value{
 %%  ~Describe the value returned
@@ -41,14 +46,17 @@ dynamicplot(x)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+dynamicplot(smolrdata[smolrdata$Channel==1,],eps = 50,MinPts=5)
+dynamicplot(smolrdata[smolrdata$Channel==3,],eps = 50,MinPts=5)
 
-## The function is currently defined as
-function (x) 
-{
-  }
+download.file("https://github.com/maartenpaul/SMoLR_data/blob/master/dynamicplot_data.Rdata","dynamicplot_data.Rdata")
+load("dynamicplot_data.Rdata")
+dynamicplot(locdata)
+
+#preload the data
+dbdata <- SMOLR_DBSCAN(locdata)
+overlay <- SMOLR(locdata)
+dynamicplot(locdata,dbdat=dbdata,overlay=overlay)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

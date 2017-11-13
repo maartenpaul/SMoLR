@@ -7,8 +7,8 @@
 Import Single Molecule Localization Data into R
 }
 \description{
-From different dataformats the SMOLR_IMPORT function can import data from a chosen directory into a list of data.frames and saves it to a .Rdata file in the same directory.
-The SMOLR_LOAD function can subsequently be used to load the data from the directory into the R evironment.
+From different data formats the SMOLR_IMPORT function can import data from a chosen directory into a list of data.frames and saves it to a .Rdata file in the same directory. For different single molecule localization microscopy software packages profiles have been made which should make importing data straightforward.
+The SMOLR_LOAD function can subsequently be used to load the data from the directory into the R environment.
 
 }
 \usage{
@@ -22,7 +22,7 @@ SMOLR_LOAD(folder, statistics)
 The folder/directory containing the localization data (text) files.
 }
   \item{basename}{
-The part of the file name which every text file to be imported has. This is followed by an ID/number.
+The part of the file name which every text file to be imported contains. This is followed by an ID/number.
 }
   \item{sep_chfiles}{
 %%     ~~Describe \code{sep_chfiles} here~~
@@ -34,7 +34,7 @@ Which channels are presents, default=1. If multiple channels are present give th
 }
   \item{length_statistics}{
 %%     ~~Describe \code{length_statistics} here~~
-If ROI statistics are present, under the localization data in the text files, the number of lines that should be converted into a statistics file is shown here. Only the case when the ImageJ SMLM_viewer is used to organize localization data. Those channel names should be present in the to-be imported filenames after the basename.
+If statistics of the ROIs are present, under the localization data in the text files, the number of lines that should be converted into a statistics data.frame should be the input here. This is used in combination with the Erasmus OIC ImageJ SMLM_viewer plugin to organize localization data. Those channel names should be present in the to-be imported filenames after the basename.
 }
   \item{condition}{
 %%     ~~Describe \code{condition} here~~
@@ -87,12 +87,23 @@ Optical Imaging Centre ErasmusMC Rotterdam
 \examples{
 #see for example files SMoLR_data github
 #https://github.com/ErasmusOIC/SMoLR_data/raw/master/loc.zip
+
+download.file("https://github.com/ErasmusOIC/SMoLR_data/raw/master/loc.zip","loc.zip")
+unzip("loc.zip")
+
 SMOLR_IMPORT(file.path(getwd(),"loc"),profile="roiloc")
 SMOLR_LOAD(file.path(getwd(),"loc"),statistics=T)
+head(localizations[[1]])
+
 #Example Thuderstorm file:
 #https://github.com/ErasmusOIC/SMoLR_data/raw/master/thunderstorm.zip
-SMOLR_IMPORT(file.path(getwd(),"thunderstorm"),profile="thunderstorm")
 
+download.file("https://github.com/ErasmusOIC/SMoLR_data/raw/master/thunderstorm.zip","thunderstorm.zip")
+unzip("thunderstorm.zip")
+
+SMOLR_IMPORT(file.path(getwd(),"thunderstorm"),profile="thunderstorm")
+SMOLR_LOAD(file.path(getwd(),"thunderstorm"),statistics=F)
+head(localizations[[1]])
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
