@@ -59,8 +59,8 @@ dynamicplot <- function(var,dbdata=NULL,overlay=NULL,eps=50,MinPts=50) {
         #            h4("Points near click"),
         #            verbatimTextOutput("click_info2")
         #     ),
-            column(width = 6,
-                   h4("Brushed points")
+            column(width = 6
+                  # h4("Brushed points")
                    
       )
       
@@ -117,7 +117,8 @@ dynamicplot <- function(var,dbdata=NULL,overlay=NULL,eps=50,MinPts=50) {
       
       
       output$plot1 <- renderPlot({
-        ggplot(clusterdata, aes_string(input$xaxis,input$yaxis )) + geom_point(aes(colour = color))
+        ggplot(clusterdata, aes_string(input$xaxis,input$yaxis )) + geom_point(aes(colour = color))+theme(axis.text=element_text(size=12),
+                                                                                                           axis.title=element_text(size=14,face="bold"))
       })
       
       output$plot2 <- renderPlot({
@@ -126,7 +127,8 @@ dynamicplot <- function(var,dbdata=NULL,overlay=NULL,eps=50,MinPts=50) {
       })
       
       output$plot3 <- renderPlot({
-        ggplot(clusterdata, aes_string(input$hist_axis)) + geom_histogram(aes(colour = color),bins=input$breakCount)
+        ggplot(clusterdata, aes_string(input$hist_axis)) + geom_histogram(aes(colour = color),bins=input$breakCount)+theme(axis.text=element_text(size=12),
+                                                                                                                            axis.title=element_text(size=14,face="bold"))
       })
       
       # output$click_info <- renderPrint({
