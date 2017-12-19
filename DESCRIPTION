@@ -1,8 +1,8 @@
 Package: SMoLR
 Type: Package
 Title: Single Molecule Localization Microscopy visualization and analysis in R
-Version: 1.0.0
-Date: 2017-09-07
+Version: 1.0.1
+Date: 2017-12-19
 Author: Optical Imaging Centre ErasmusMC Rotterdam 
 Depends: R (>= 3.4.0)
 Imports: plotrix, EBImage, KernSmooth, tiff, tools, plyr, dbscan, RImageJROI, grid, spatstat, deldir,pals, BiocStyle, pander,pracma

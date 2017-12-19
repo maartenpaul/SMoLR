@@ -15,6 +15,7 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
              extension <- "txt"
              length_statistics <- 8
              sep_chfiles <- TRUE
+             
            },
            elyra={
              # basename <- ""
@@ -129,18 +130,18 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
         for (i in 2:length(channel)){
           if(length_statistics>0){
             if(basename==""){
-              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics = length_statistics,condition,extension=extension,sep=sep)[[1]] 
+              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics = length_statistics,condition,extension=extension,sep=sep,names=names)[[1]] 
             } else{
-              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep)[[1]] 
+              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names)[[1]] 
             }
             if(length(localizations)==length(localizations_tmp)){
               localizations <- mapply(rbind,localizations,localizations_tmp,SIMPLIFY=FALSE)
             } else {stop("Something different between the channels")}
           } else {
             if(basename==""){
-              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics,condition,extension=extension,sep=sep)
+              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics,condition,extension=extension,sep=sep,names=names)
             }else{
-              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep)
+              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names)
               
             }
             if(length(localizations)==length(localizations_tmp)){
