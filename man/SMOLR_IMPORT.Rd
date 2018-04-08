@@ -12,7 +12,7 @@ The SMOLR_LOAD function can subsequently be used to load the data from the direc
 
 }
 \usage{
-SMOLR_IMPORT(folder, basename, sep_chfiles, channel, length_statistics, condition, remove_empty_ROI, extension, prename)
+SMOLR_IMPORT(folder, basename, sep_chfiles, channel, length_statistics, condition, profile, remove_empty_ROI, extension, prename)
 SMOLR_LOAD(folder, statistics)
 
 }
