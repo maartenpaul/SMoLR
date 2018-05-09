@@ -7,7 +7,9 @@ install.packages("devtools")
 library(devtools)  
 source("https://bioconductor.org/biocLite.R")  
 biocLite("EBImage")  
-install_github("maartenpaul/SMoLR")
+
+install_github("ErasmusOIC/SMoLR", build_vignettes = TRUE)
+
 
 library(SMoLR)  
 
