@@ -7,7 +7,7 @@ author:
   email: j.slotman@erasmusmc.nl
 package: SMoLR
 output: 
-  BiocStyle::html_document2
+  BiocStyle::html_document
 vignette: >
   %\VignetteIndexEntry{Introduction to Single Molecule Localization in R (SMoLR)}
   %\VignetteEngine{knitr::rmarkdown}
