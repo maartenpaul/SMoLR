@@ -49,7 +49,9 @@ In the shiny application one can drag on the plot to select clusters with certai
 dynamicplot(smolrdata[smolrdata$Channel==1,],eps = 50,MinPts=5)
 dynamicplot(smolrdata[smolrdata$Channel==3,],eps = 50,MinPts=5)
 
-download.file("https://github.com/maartenpaul/SMoLR_data/blob/master/dynamicplot_data.Rdata","dynamicplot_data.Rdata")
+download.file("https://github.com/maartenpaul/SMoLR_data/raw/master/dynamicplot_data.zip","dynamicplot_data.zip")
+unzip("dynamicplot_data.zip")
+
 load("dynamicplot_data.Rdata")
 dynamicplot(locdata)
 
