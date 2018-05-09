@@ -50,6 +50,8 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
       } else{
         file <- file.path(folder,paste(basename,as.character(i),".",extension, sep="")) 
       }
+      
+      
       if (file.exists(file)){
         if (file.info(file)$size>0){
           
@@ -87,6 +89,7 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
         } 
       }
     }
+    
     if(length_statistics>1){
       for (i in 1:length(localizations)){
         attr(localizations[[i]],"statistics") <- statistics[i,]
