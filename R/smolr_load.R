@@ -1,6 +1,6 @@
 smolr_load <- function(folder,statistics=F,prename=""){
   load(file.path(folder,paste(prename,"localizations.Rdata",sep="")),.GlobalEnv)
-  if (statistics==T){
+  if (statistics==TRUE){
     
     load(file.path(folder,paste(prename,"statistics.Rdata",sep="")),.GlobalEnv)
     
