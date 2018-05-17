@@ -79,7 +79,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
             
             Locname <- paste(basename(folder),i,sep="_")
             localizations[[Locname]] <- na.omit(locs_roi) #remove rows with NA's 
-            
+            if(is.null(localizations[[Locname]]$Channel)){
+              localizations[[Locname]]$Channel  <- channel
+            }
             
           } else {
             Locname <- paste(basename(folder),i,sep="_")
