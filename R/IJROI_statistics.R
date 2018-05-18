@@ -17,7 +17,7 @@ IJROI_subset <- function(x,file,pxsize,split){
   UseMethod("IJROI_subset")
 }
 
-IJROI_subset.default <- function(x,file,pxsize=5,split=F){
+IJROI_subset.default <- function(x,file,pxsize=5){
   
   if(file_ext(file)=="zip"){
     D <- floor(x$Y/pxsize)
@@ -33,14 +33,11 @@ IJROI_subset.default <- function(x,file,pxsize=5,split=F){
     
     maskdata<-ij2spatstat(data)  
     
-    out <- llply(maskdata,function(x){
-      inside.owin(x = C,y = D,w=x)
-      
-      
+    x <- llply(maskdata,function(y){
+      x <- x[inside.owin(x = C,y = D,w=y),]
+      return(x)
     })
-    for (i in 1:length(out)){
-      x$inroi[out[[i]]] <- data[[i]]$name
-    }
+    
     
   } else if (file_ext(file)=="roi"){
     D <- floor(x$Y/pxsize)
@@ -48,23 +45,16 @@ IJROI_subset.default <- function(x,file,pxsize=5,split=F){
     data <- read.ijroi(file)
     maskdata<-ij2spatstat(data)  
     isin<-inside.owin(x = C,y = D,w=maskdata)
-    x$inroi <- isin
-  }
-  if (split){
-  x <- na.omit(x)
-  x <- dlply(x,.variables = "inroi")
+    x <- x[isin,]
   }
   return(x)
 }
 
-IJROI_subset.list <- function(x,file,pxsize=5,split=F){
+IJROI_subset.list <- function(x,file,pxsize=5){
  if(length(x)==length(file)){
    y <- list()
    for(i in 1:length(x)){
-     y[[names(x)[i]]] <- IJROI_subset(x[[i]],file[i],pxsize,split)
-   }
-   if (split){
-     y <- unlist(y,recursive = F)
+     y[[names(x)[i]]] <- IJROI_subset(x[[i]],file[i],pxsize)
    }
  } else{
    stop("localizations list and list of file of different length")
