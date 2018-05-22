@@ -20,8 +20,8 @@ IJROI_subset <- function(x,file,pxsize,split){
 IJROI_subset.default <- function(x,file,pxsize=5){
   
   if(file_ext(file)=="zip"){
-    D <- floor(x$Y/pxsize)
-    C <- floor(x$X/pxsize)
+    D <- x$Y/pxsize
+    C <- x$X/pxsize
     data <- RImageJROI::read.ijzip(file)
     data <- llply(data,function(x){
       if (x$strType=="traced"){
@@ -40,8 +40,8 @@ IJROI_subset.default <- function(x,file,pxsize=5){
     
     
   } else if (file_ext(file)=="roi"){
-    D <- floor(x$Y/pxsize)
-    C <- floor(x$X/pxsize)
+    D <- x$Y/pxsize
+    C <- x$X/pxsize
     data <- read.ijroi(file)
     maskdata<-ij2spatstat(data)  
     isin<-inside.owin(x = C,y = D,w=maskdata)
@@ -49,6 +49,8 @@ IJROI_subset.default <- function(x,file,pxsize=5){
   }
   return(x)
 }
+
+
 
 IJROI_subset.list <- function(x,file,pxsize=5){
  if(length(x)==length(file)){
