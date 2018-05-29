@@ -3,12 +3,18 @@
 ### minimum requirement is a set of coordinates
 
 
-smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+smolr <- function(x=NULL,y=NULL,prec=NULL,ch=NULL, px=5L,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE, sortChannels = TRUE){
   
   
   
   if(is.null(ch)){ch=rep(1L,length(x))}
   ch_range <- unique(ch)
+  
+  if(sortChannels){
+    ch_range <- sort(ch_range,decreasing = FALSE)
+  }
+  
+  
   if(is.null(prec)){prec=rep(20L,length(x))}
   if(is.null(x)||is.null(y)){stop("No x and y coordinates present")}
   if(length(unique(c(length(x),length(y),length(prec),length(ch))))!=1){stop("x, y, prec and ch differ in length")}
@@ -241,20 +247,24 @@ GAUSS_FUNCTION <- function(sigx,sigy=NULL,xo=0,yo=0, one_D=FALSE, int_norm=FALSE
 
 
 
-SMOLR <- function(x,y,prec,ch, px,xlim,ylim,file,output,fit,fast){
+SMOLR <- function(x,y,prec,ch, px,xlim,ylim,file,output,fit,fast,sortChannels){
   UseMethod("SMOLR")
 }
 
-SMOLR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+SMOLR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE,sortChannels = TRUE){
   
   if(is.null(ch)){ch <- rep(1, length(x))}
   if(is.null(prec)){prec <- rep(20, length(x))}
   
   
   
-  img <- smolr(x,y,prec,ch,px,xlim,ylim,file,output,fit,fast)
+  img <- smolr(x,y,prec,ch,px,xlim,ylim,file,output,fit,fast,sortChannels)
   
   ch_range <- unique(ch)
+  
+  if(sortChannels){
+    ch_range <- sort(ch_range,decreasing = FALSE)
+  }
   
   
   
@@ -278,7 +288,7 @@ SMOLR.default <- function(x,y,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,f
   
 }
 
-SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim = NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE,sortChannels = TRUE){
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
   ind_y <- grep("^y$",names(x),ignore.case=T)
@@ -293,26 +303,26 @@ SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
   if(length(c(ind_x,ind_y,ind_prec,ind_ch))!=4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
   
   
-  img <- SMOLR(x=dx,y=y,prec=prec,ch=ch,px=px,xlim=xlim,ylim=ylim,file=file,output=output,fit=fit,fast=fast)
+  img <- SMOLR(x=dx,y=y,prec=prec,ch=ch,px=px,xlim=xlim,ylim=ylim,file=file,output=output,fit=fit,fast=fast, sortChannels=sortChannels)
   
   class(img) <- "smolr_image"
   return(img)
   
 }
 
-SMOLR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE){
+SMOLR.list <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim=NULL,ylim=NULL,file=NULL, output=c("r","tiff"), fit=TRUE, fast=FALSE,sortChannels = TRUE){
   
   img <- list()
   if(is.null(nrow(xlim)) & is.null(nrow(ylim)) ){
     for(i in 1:length(x)){
       
-      img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim,ylim,file,output,fit,fast)
+      img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim,ylim,file,output,fit,fast,sortChannels)
     }
   }else{
     if(nrow(xlim)==length(x) & nrow(ylim)==length(x) ){
       for(i in 1:length(x)){
         
-        img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),file,output,fit)
+        img[[i]] <- SMOLR(x[[i]],y,prec,ch,px,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]),file,output,fit,sortChannels)
       }
     }
   }
