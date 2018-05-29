@@ -79,7 +79,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
             
             Locname <- paste(basename(folder),i,sep="_")
             localizations[[Locname]] <- na.omit(locs_roi) #remove rows with NA's 
-            
+            if(is.null(localizations[[Locname]]$Channel)){
+              localizations[[Locname]]$Channel  <- channel
+            }
             
           } else {
             Locname <- paste(basename(folder),i,sep="_")
@@ -111,7 +113,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
   
   import_files <- function(folder,basename,sep_chfiles,channel,length_statistics,condition,extension,sep,names){
     if(sep_chfiles){
+      
       if(length_statistics>0){
+        
         if(basename==""){
           loc <- files_to_list(folder = folder,basename = basename,length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names)   
         } else {
@@ -122,15 +126,18 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
         #if(nrow(localizations)/nrow(localizations[duplicated(localizations),])>0.4){stop(paste("Too many duplicated localizations in",folder,basename,channel[1],sep=" "))}
         statistics <- loc[[2]]
       } else {
+        
         if(basename==""){
           localizations <- files_to_list(folder = folder,basename = basename,length_statistics,condition,extension=extension,sep=sep,names=names)  
         } else {
           localizations <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names)  
         }
+      
       }
       
       if (length(channel) > 1){
         for (i in 2:length(channel)){
+          
           if(length_statistics>0){
             if(basename==""){
               localizations_tmp <- files_to_list(folder,basename=basename,length_statistics = length_statistics,condition,extension=extension,sep=sep,names=names)[[1]] 
@@ -139,7 +146,8 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
             }
             if(length(localizations)==length(localizations_tmp)){
               localizations <- mapply(rbind,localizations,localizations_tmp,SIMPLIFY=FALSE)
-            } else {stop("Something different between the channels")}
+            } else {stop("Number of files for Channel 1 is not equal to number of files of other channels")}
+          
           } else {
             if(basename==""){
               localizations_tmp <- files_to_list(folder,basename=basename,length_statistics,condition,extension=extension,sep=sep,names=names)
@@ -149,7 +157,7 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
             }
             if(length(localizations)==length(localizations_tmp)){
               localizations <- mapply(rbind,localizations,localizations_tmp,SIMPLIFY=FALSE)
-            } else {stop("Something different between the channels")}
+            } else {stop("Number of files for Channel 1 is not equal to number of files of other channels")}
           }
           
           

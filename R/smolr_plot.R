@@ -1,4 +1,4 @@
-smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1,color_scale=NULL){
+smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1,color_scale=NULL,sortChannels=TRUE){
   
   if(!is.numeric(x)){stop("x values are not (all) numeric")}
   if(!is.numeric(y)){stop("y values are not (all) numeric")}
@@ -179,11 +179,11 @@ smolr_plot <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE
   }
 }
 
-SMOLR_PLOT <- function(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,split_ch,fit,clim,slim,alpha,overlay,contrast,color_scale){
+SMOLR_PLOT <- function(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,split_ch,fit,clim,slim,alpha,overlay,contrast,color_scale,sortChannels){
   UseMethod("SMOLR_PLOT")
 }
 
-SMOLR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1,color_scale=NULL){
+SMOLR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL,alpha=0.5, overlay=NULL,contrast=1,color_scale=NULL,sortChannels=TRUE){
   
   if(is.null(color)){color <- rep(1,length(x))}
   if(is.null(size)){size <- rep(1,length(x))}
@@ -195,10 +195,10 @@ SMOLR_PLOT.default <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.col
 #     size <- size[selection]
 #   } 
   par(mfrow=c(1,1),pty="s",xpd=T)  
-  smolr_plot(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale)
+  smolr_plot(x,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale,sortChannels)
 }
 
-SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1,color_scale=NULL){
+SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.color=FALSE,  xlim=NULL, ylim=NULL, px=5, grey=FALSE,split_ch=FALSE, fit=TRUE, clim=NULL, slim=NULL, alpha=0.5,overlay=NULL,contrast=1,color_scale=NULL,sortChannels=TRUE){
   
   
   
@@ -223,6 +223,11 @@ SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
   
   range_ch <- unique(ch)
   
+  if(sortChannels){
+    ch_range <- sort(ch_range,decreasing = FALSE)
+  }
+  
+  
   if(fit==TRUE){
     selection <- dx>=xlim[1] & dx<=xlim[2] & y>=ylim[1] & y<=ylim[2]
     dx <- dx[selection]
@@ -230,6 +235,10 @@ SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
     prec <- prec[selection]
     ch <- ch[selection]
     range_ch <- unique(ch)
+    if(sortChannels){
+      ch_range <- sort(ch_range,decreasing = FALSE)
+    }
+    
   }
   
   if(is.null(clim) & is.null(color) & split_ch){clim = c(range_ch[1],range_ch[length(range_ch)])}
@@ -240,13 +249,13 @@ SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
   
   if(!split_ch){
     par(mfrow=c(1,1),pty="s",xpd=T)  
-    smolr_plot(dx,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale)
+    smolr_plot(dx,y,size,color,rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale,sortChanels)
   }
   
   if(split_ch){
     par(mfrow=c(1,length(range_ch)),pty="s",xpd=T)
     for(i in 1:length(range_ch)){
-      smolr_plot(dx[ch==range_ch[i]],y[ch==range_ch[i]],size[ch==range_ch[i]],color[ch==range_ch[i]],rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale)
+      smolr_plot(dx[ch==range_ch[i]],y[ch==range_ch[i]],size[ch==range_ch[i]],color[ch==range_ch[i]],rev.size,rev.color, xlim, ylim,px,grey,fit,clim,slim,alpha,overlay,contrast,color_scale,sortChannels)
     }
   }
 }

@@ -1,13 +1,14 @@
 smolr_load <- function(folder,statistics=F,prename=""){
   load(file.path(folder,paste(prename,"localizations.Rdata",sep="")),.GlobalEnv)
-  if (statistics==T){
+  if (statistics==TRUE){
     
     load(file.path(folder,paste(prename,"statistics.Rdata",sep="")),.GlobalEnv)
     
-    #if(nrow(statistics)!=length(localizations)){ 
-    #  
-    #  warning("localizations and statistics not the same length")
-    #}
+    if(nrow(.GlobalEnv$statistics)!=length(.GlobalEnv$localizations)){ 
+      
+      warning("localizations and statistics not the same length")
+    
+      }
     
   }
   

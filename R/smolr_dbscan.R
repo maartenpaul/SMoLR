@@ -1,4 +1,4 @@
-smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
+smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50,sortChannels=TRUE){
   
   if(!is.numeric(x)){stop("x values are not (all) numeric")}
   if(!is.numeric(y)){stop("y values are not (all) numeric")}
@@ -9,7 +9,13 @@ smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
   
   if(is.null(ch)){ch <- rep(1,length(x))}
   if(is.null(prec)){prec <- rep(20,length(x))}
+    
+  
     ch_range <- unique(ch)
+    
+    if(sortChannels){
+      ch_range <- sort(ch_range,decreasing = FALSE)
+    }
     
     dbscan_temp <- list()
   for(i in 1:length(ch_range)){
@@ -35,18 +41,22 @@ smolr_dbscan <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
 #test <- smolr_dbscan(x=smolrdata[,1],y = smolrdata[,2],ch=smolrdata[,4],MinPts=10,elki=TRUE)
 
 
-SMOLR_DBSCAN <- function(x,y,ch,prec, eps, MinPts){
+SMOLR_DBSCAN <- function(x,y,ch,prec, eps, MinPts,sortChannels){
   UseMethod("SMOLR_DBSCAN")
 }
 
-SMOLR_DBSCAN.default <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
+SMOLR_DBSCAN.default <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50,sortChannels=TRUE){
   
   if(is.null(ch)){ch <- rep(1,length(x))}
   if(is.null(prec)){prec <- rep(20,length(x))}
   
   ch_range <- unique(ch)
   
-  dbscan_temp <- smolr_dbscan(x,y,ch,prec,eps,MinPts)
+  if(sortChannels){
+    ch_range <- sort(ch_range,decreasing = FALSE)
+  }
+  
+  dbscan_temp <- smolr_dbscan(x,y,ch,prec,eps,MinPts,sortChannels)
   parameters <- SMOLR_PARAMETER(x,y,ch,prec)
     
 #   intensities <- data.frame(cbind(ch,apply(cbind(trunc(x_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde,y=img$kde),apply(cbind(trunc(x_corr/px),trunc(y_corr/px),sapply(ch,function(x) which(ch_range==x))),1,getkde, y=bwlabel(img$kde_binary))))
@@ -75,7 +85,7 @@ SMOLR_DBSCAN.default <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
 #example
 #k <- SMOLR_DBSCAN(x=smolrdata[,1],y = smolrdata[,2],prec = smolrdata[,3],ch=smolrdata[,4],eps = 100,MinPts=20)
 
-SMOLR_DBSCAN.data.frame <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
+SMOLR_DBSCAN.data.frame <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50,sortChannels=TRUE){
   
   
   ind_x <- grep("^x$",names(x),ignore.case=T)
@@ -88,7 +98,7 @@ SMOLR_DBSCAN.data.frame <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50)
   ch <- x[,ind_ch]
   prec <- x[,ind_prec]
   
-  dbimg <- SMOLR_DBSCAN(dx,y,ch, prec, eps, MinPts)
+  dbimg <- SMOLR_DBSCAN(dx,y,ch, prec, eps, MinPts,sortChannels)
   
 
   return(dbimg)  
@@ -98,10 +108,10 @@ SMOLR_DBSCAN.data.frame <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50)
 
 #k <- SMOLR_DBSCAN(x=smolrdata,eps = 100,MinPts=20,elki=T)
 
-SMOLR_DBSCAN.list <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50){
+SMOLR_DBSCAN.list <- function(x,y,ch=NULL, prec=NULL, eps = 50, MinPts=50,sortChannels=TRUE){
 
   dbscan_temp <- llply(x,function(x){
-          SMOLR_DBSCAN(x,y,ch, prec, eps, MinPts)
+          SMOLR_DBSCAN(x,y,ch, prec, eps, MinPts,sortChannels)
       })
 
   
