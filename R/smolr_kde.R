@@ -1,4 +1,4 @@
-smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE){
+smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE,definedChannels =NULL){
   
   if(!is.numeric(x)){stop("x values are not (all) numeric")}
   if(!is.numeric(y)){stop("y values are not (all) numeric")}
@@ -40,6 +40,10 @@ smolr_kde <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20), xlim=NULL, yli
   
   if(sortChannels){
     ch_range <- sort(ch_range,decreasing = FALSE)
+  }
+  
+  if(!is.null(definedChannels)){
+    ch_range <- definedChannels
   }
   
   if(fit==TRUE){
@@ -143,11 +147,11 @@ smolr_norm_kde <- function(x){
   
 }
 
-SMOLR_KDE <- function(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit, sortChannels){
+SMOLR_KDE <- function(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit, sortChannels,definedChannels){
   UseMethod("SMOLR_KDE")
 }
 
-SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE){
+SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE, definedChannels=NULL){
   
   getkde <- function(x,y){return(y[x[1],x[2],x[3]])}
        
@@ -192,8 +196,11 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
     ch_range <- sort(ch_range,decreasing = FALSE)
   }
   
+  if(!is.null(definedChannels)){
+    ch_range <- definedChannels
+  }
   
-  img <- smolr_kde(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit, sortChannels)
+  img <- smolr_kde(x,y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit, sortChannels,definedChannels)
 
   parameters <- SMOLR_PARAMETER(x,y,ch,prec,ch_range)
     
@@ -225,7 +232,7 @@ SMOLR_KDE.default <- function(x,y,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=
   return(img)
 }
 
-SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE){
+SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05, file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE, definedChannels=NULL){
     
   getkde <- function(x,y){return(y[x[1],x[2],x[3]])}
     
@@ -239,7 +246,7 @@ SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   ch <- x[,ind_ch]
   prec <- x[,ind_prec]
   
-  img <- SMOLR_KDE(x=dx,y=y,ch=ch,prec=prec, bandwidth= bandwidth,  xlim=xlim, ylim=ylim, px=px, threshold=threshold, file=file, output=output, fit = fit, sortChannels = sortChannels)
+  img <- SMOLR_KDE(x=dx,y=y,ch=ch,prec=prec, bandwidth= bandwidth,  xlim=xlim, ylim=ylim, px=px, threshold=threshold, file=file, output=output, fit = fit, sortChannels = sortChannels, definedChannels=definedChannels)
   
   class(img) <- "smolr_kde"
   return(img)
@@ -247,17 +254,17 @@ SMOLR_KDE.data.frame <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20)
   
 }
 
-SMOLR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05,  file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE){
+SMOLR_KDE.list <- function(x,y=NULL,ch=NULL,prec=NULL, bandwidth= c(20,20),  xlim=NULL, ylim=NULL, px=5, threshold=0.05,  file=NULL, output=c("r","tiff"), fit = TRUE, sortChannels=TRUE, definedChannels=NULL){
 
   kde <- list()
   if(is.null(nrow(xlim)) & is.null(nrow(ylim)) ){
     for(i in 1:length(x)){
-      kde[[i]] <- SMOLR_KDE(x[[i]],y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit, sortChannels)
+      kde[[i]] <- SMOLR_KDE(x[[i]],y,ch,prec,bandwidth,xlim,ylim, px, threshold, file, output, fit, sortChannels,definedChannels)
     }
   }else{
   if(nrow(xlim)==length(x) & nrow(ylim)==length(x) ){
     for(i in 1:length(x)){
-      kde[[i]] <- SMOLR_KDE(x[[i]],y,ch,prec,bandwidth,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]), px, threshold, file, output, fit, sortChannels)
+      kde[[i]] <- SMOLR_KDE(x[[i]],y,ch,prec,bandwidth,xlim=as.numeric(xlim[i,]),ylim=as.numeric(ylim[i,]), px, threshold, file, output, fit, sortChannels,definedChannels)
     }  
     
   }
