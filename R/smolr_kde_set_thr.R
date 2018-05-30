@@ -1,6 +1,8 @@
 smolr_kde_setThreshold <- function(kde = NULL, threshold=0.05){
   
   if(class(kde)!="smolr_kde"){stop("kde class is not 'smolr_kde'")}
+  if(!(length(threshold)==1 || length(threshold)==length(kde$inputs$ch_range))){stop("threshold is not single value or vector matching number of channels")}
+  
   
   kde_raw <- kde$kde
   kde_bin <- kde$kde_binary
@@ -12,9 +14,18 @@ smolr_kde_setThreshold <- function(kde = NULL, threshold=0.05){
   
   for(i in 1:dimensions[3]){
     
+    if(length(threshold)==1){
+      thr <- threshold
+    }else{
+      thr <- threshold[i]
+    }
+    
+    
+    
+    
     kde_binary <- kde_raw[,,i]
-    kde_binary[kde_binary < threshold] <- 0
-    kde_binary[kde_binary >= threshold] <- 1
+    kde_binary[kde_binary < thr] <- 0
+    kde_binary[kde_binary >= thr] <- 1
     kde_binary <- EBImage::erode(kde_binary, kern)    
     kde_binary <- EBImage::dilate(kde_binary, kern)
     
