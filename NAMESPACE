@@ -54,6 +54,8 @@ S3method(thinImage, default)
 S3method(IJROI_subset, default)
 S3method(IJROI_subset, list)
 
+S3method(SMOLR_KDE_SET_THRESHOLD, default)
+S3method(SMOLR_KDE_SET_THRESHOLD, list)
 
 import(plotrix, 
        KernSmooth, 
@@ -87,7 +89,8 @@ export(rotate3d,
        thinImage,
        dbscan_to_localizations,
        IJROI_subset,
-       dynamicplot
+       dynamicplot,
+       SMOLR_KDE_SET_THRESHOLD
        )
 
 importFrom("spatstat", owin,disc,ppp,inside.owin)
