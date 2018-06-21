@@ -26,7 +26,7 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
            },
            thunderstorm={
              #  basename<-""
-             names <- c("Index","First_Frame","X","Y","Z","sigma1","sigma2","Photons","Offset","Background","Fit","Precision","N_detections")
+             names <- c("Index","X","Y","sigma1","Photons","Offset","Background","Fit","Precision","N_detections")
              sep <- ","
              extension<-"csv"
            })
