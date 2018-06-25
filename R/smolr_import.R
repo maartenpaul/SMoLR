@@ -1,5 +1,5 @@
 smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
-                         profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL){
+                         profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL,use_data.table=FALSE){
   #should be compatible with Elyra .txt files, SMOLR Viewer .loc files and SMOLR ROI files (.txt)
   profile <- match.arg(profile)
   if(profile!="default"){
@@ -26,13 +26,13 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
            },
            thunderstorm={
              #  basename<-""
-             names <- c("Index","First_Frame","X","Y","Z","sigma1","sigma2","Photons","Offset","Background","Fit","Precision","N_detections")
+             names <- c("Index","X","Y","sigma1","Photons","Offset","Background","Fit","Precision","N_detections")
              sep <- ","
              extension<-"csv"
            })
   }
   
-  files_to_list <- function(folder,basename,length_statistics,condition,extension,sep,names) {
+  files_to_list <- function(folder,basename,length_statistics,condition,extension,sep,names,use_data.table) {
     localizations <- list()
     files <- list.files(folder) 
     files <- files[grep(paste0(extension,"$"),files)]
@@ -55,8 +55,11 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
       if (file.exists(file)){
         if (file.info(file)$size>0){
           
-          locs_roi <- read.csv(file=file ,header =TRUE,sep=sep,stringsAsFactors=F)
-          
+          if(!use_data.table){
+            locs_roi <- read.csv(file=file ,header =TRUE,sep=sep,stringsAsFactors=F)
+          } else {
+            locs_roi <- data.table::fread(input=file ,header =TRUE,sep=sep,data.table = FALSE)
+          }
           if(length_statistics>1){
             stat <- tail(locs_roi,length_statistics)
             #still needs to be made variable
@@ -111,15 +114,15 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
     
   }
   
-  import_files <- function(folder,basename,sep_chfiles,channel,length_statistics,condition,extension,sep,names){
+  import_files <- function(folder,basename,sep_chfiles,channel,length_statistics,condition,extension,sep,names,use_data.table){
     if(sep_chfiles){
       
       if(length_statistics>0){
         
         if(basename==""){
-          loc <- files_to_list(folder = folder,basename = basename,length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names)   
+          loc <- files_to_list(folder = folder,basename = basename,length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names,use_data.table)   
         } else {
-          loc <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names)  
+          loc <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names,use_data.table)  
         }
         
         localizations <- loc[[1]]
@@ -128,9 +131,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
       } else {
         
         if(basename==""){
-          localizations <- files_to_list(folder = folder,basename = basename,length_statistics,condition,extension=extension,sep=sep,names=names)  
+          localizations <- files_to_list(folder = folder,basename = basename,length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table)  
         } else {
-          localizations <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names)  
+          localizations <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table)  
         }
       
       }
@@ -167,7 +170,7 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
       
     } else {
       
-      localizations <- files_to_list(folder=folder,basename = basename,length_statistics = length_statistics,condition = condition,extension = extension,sep = sep,names=names)
+      localizations <- files_to_list(folder=folder,basename = basename,length_statistics = length_statistics,condition = condition,extension = extension,sep = sep,names=names,use_data.table=use_data.table)
       #       statistics <- localizations[[2]]
       #       localizations <- localizations[[1]]
     }
@@ -186,7 +189,7 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
   
   if(length(list.dirs(folder,recursive=F))==0) {
     localizations <- import_files(folder = folder,basename = basename,sep_chfiles = sep_chfiles,channel = channel,
-                                  length_statistics = length_statistics,condition = condition,extension = extension,sep=sep,names=names)
+                                  length_statistics = length_statistics,condition = condition,extension = extension,sep=sep,names=names,use_data.table=use_data.table)
     if (length_statistics>0){
       statistics <- localizations[[2]]
       localizations <- localizations[[1]]
@@ -199,7 +202,7 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
     directories <- list.dirs(folder,recursive=F)
     for (i in 1:length(directories)){
       localizations_tmp <- import_files(folder=directories[i],basename = basename,sep_chfiles = sep_chfiles,channel = channel,
-                                        length_statistics = length_statistics,condition = condition,extension = extension,sep=sep,names=names)
+                                        length_statistics = length_statistics,condition = condition,extension = extension,sep=sep,names=names,use_data.table=use_data.table)
       if(length_statistics>0){  
         statistics[[i]] <- localizations_tmp[[2]] 
         localizations_tmp <- localizations_tmp[[1]]
@@ -228,11 +231,11 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
 }
 
 
-SMOLR_IMPORT <- function(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names){
+SMOLR_IMPORT <- function(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names,use_data.table){
   UseMethod("SMOLR_IMPORT")
 }
 
 SMOLR_IMPORT.default <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
-                                 profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL){
-  smolr_import(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names)}
+                                 profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL,use_data.table=FALSE){
+  smolr_import(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names,use_data.table)}
     
