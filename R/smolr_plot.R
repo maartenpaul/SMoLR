@@ -224,7 +224,7 @@ SMOLR_PLOT.data.frame <- function(x,y,size=NULL,color=NULL, rev.size=FALSE, rev.
   range_ch <- unique(ch)
   
   if(sortChannels){
-    ch_range <- sort(ch_range,decreasing = FALSE)
+    range_ch <- sort(range_ch,decreasing = FALSE)
   }
   
   
