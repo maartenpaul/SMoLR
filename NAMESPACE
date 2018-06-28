@@ -66,6 +66,7 @@ import(plotrix,
        RImageJROI,
        pals, 
        BiocStyle,
+       manipulateWidget,
        EBImage)
 
 
