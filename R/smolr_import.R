@@ -1,11 +1,11 @@
 smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
-                         profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL,use_data.table=FALSE){
+                         profile=c("default","loc","roiloc","elyra","thunderstorm","thunderstorm_merged"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL,use_data.table=FALSE,naomit=TRUE){
   #should be compatible with Elyra .txt files, SMOLR Viewer .loc files and SMOLR ROI files (.txt)
   profile <- match.arg(profile)
+
   if(profile!="default"){
     switch(profile,
            loc={
-             #basename <- ""
              sep <- "\t"
              extension <- "loc"
            },
@@ -18,21 +18,25 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
              
            },
            elyra={
-             # basename <- ""
              sep <- "\t"
              extension<-"txt"
              names <- c("Index","First_Frame","Number_Frames", "Frames_Missing", "X","Y","Precision","Photons","Background","Fit_chi2","PSF_width","Channel","Z_slice")
              
            },
            thunderstorm={
-             #  basename<-""
-             names <- c("Index","X","Y","sigma1","Photons","Offset","Background","Fit","Precision","N_detections")
+             names <- c("First_Frame","X","Y","sigma1","Photons","Offset","Background","Fit","Precision")
              sep <- ","
              extension<-"csv"
-           })
+           },
+    thunderstorm_merged={
+      names <- c("First_Frame","X","Y","sigma1","Photons","Offset","Background","Precision","N_detections")
+      sep <- ","
+      extension<-"csv"
+    })
   }
   
-  files_to_list <- function(folder,basename,length_statistics,condition,extension,sep,names,use_data.table) {
+  files_to_list <- function(folder=folder,basename=basename,length_statistics=length_statistics,condition=condition,extension=extension,sep=sep,names=names,use_data.table=FALSE,channel=channel) {
+    print(naomit)
     localizations <- list()
     files <- list.files(folder) 
     files <- files[grep(paste0(extension,"$"),files)]
@@ -72,16 +76,20 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
             
           }
           if(nrow(locs_roi)!=0){
-            if(!is.null(condition)){
-             
-              locs_roi$Condition <- condition
-            }
+            
             if(!is.null(names)){
               names(locs_roi) <- names
             }
+            if(!is.null(condition)){
+              
+              locs_roi$Condition <- condition
+            }
             
             Locname <- paste(basename(folder),i,sep="_")
-            localizations[[Locname]] <- na.omit(locs_roi) #remove rows with NA's 
+            
+            if(naomit==TRUE){
+              localizations[[Locname]] <- na.omit(locs_roi) #remove rows with NA's 
+            }
             if(is.null(localizations[[Locname]]$Channel)){
               localizations[[Locname]]$Channel  <- channel
             }
@@ -120,9 +128,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
       if(length_statistics>0){
         
         if(basename==""){
-          loc <- files_to_list(folder = folder,basename = basename,length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names,use_data.table)   
+          loc <- files_to_list(folder = folder,basename = basename,length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names,use_data.table,channel=channel[1])   
         } else {
-          loc <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names,use_data.table)  
+          loc <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics = length_statistics,condition = condition,extension=extension,sep=sep,names=names,use_data.table,channel=channel[1])  
         }
         
         localizations <- loc[[1]]
@@ -131,9 +139,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
       } else {
         
         if(basename==""){
-          localizations <- files_to_list(folder = folder,basename = basename,length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table)  
+          localizations <- files_to_list(folder = folder,basename = basename,length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table,channel=channel[1])  
         } else {
-          localizations <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table)  
+          localizations <- files_to_list(folder = folder,basename = paste(basename,channel[1],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table=use_data.table,channel=channel[1])  
         }
       
       }
@@ -143,9 +151,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
           
           if(length_statistics>0){
             if(basename==""){
-              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics = length_statistics,condition,extension=extension,sep=sep,names=names)[[1]] 
+              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics = length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table=use_data.table,channel=channel[i])[[1]] 
             } else{
-              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names)[[1]] 
+              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table=use_data.table,channel=channel[i])[[1]] 
             }
             if(length(localizations)==length(localizations_tmp)){
               localizations <- mapply(rbind,localizations,localizations_tmp,SIMPLIFY=FALSE)
@@ -153,9 +161,9 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
           
           } else {
             if(basename==""){
-              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics,condition,extension=extension,sep=sep,names=names)
+              localizations_tmp <- files_to_list(folder,basename=basename,length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table=use_data.table,channel=channel[i])
             }else{
-              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names)
+              localizations_tmp <- files_to_list(folder,paste(basename,channel[i],"_",sep=""),length_statistics,condition,extension=extension,sep=sep,names=names,use_data.table=use_data.table,channel=channel[i])
               
             }
             if(length(localizations)==length(localizations_tmp)){
@@ -231,11 +239,11 @@ smolr_import <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,len
 }
 
 
-SMOLR_IMPORT <- function(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names,use_data.table){
+SMOLR_IMPORT <- function(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names,use_data.table,naomit){
   UseMethod("SMOLR_IMPORT")
 }
 
 SMOLR_IMPORT.default <- function(folder=NULL,basename="",sep_chfiles=FALSE,channel=1,length_statistics=0,
-                                 profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL,use_data.table=FALSE){
-  smolr_import(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names,use_data.table)}
+                                 profile=c("default","loc","roiloc","elyra","thunderstorm"),condition=NULL,remove_empty_ROI=FALSE,extension="txt",prename="",sep="\t",names=NULL,use_data.table=FALSE,naomit=TRUE){
+  smolr_import(folder,basename,sep_chfiles,channel,length_statistics,profile,condition,remove_empty_ROI,extension,prename,sep,names,use_data.table,naomit)}
     
