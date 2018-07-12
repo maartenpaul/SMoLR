@@ -300,8 +300,8 @@ SMOLR.data.frame <- function(x,y=NULL,prec=NULL,ch=NULL, px=5,xlim = NULL, ylim 
   prec <- x[,ind_prec]
   ch <- x[,ind_ch]
   
-  if(length(c(ind_x,ind_y,ind_prec,ind_ch))!=4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
-  
+  if(length(c(ind_x,ind_y,ind_prec,ind_ch))<4){stop("Not all parameters (x,y,channel,precision) are present once in the header")}
+  if(length(c(ind_x,ind_y,ind_prec,ind_ch))>4){stop("Some parameters (x,y,ch,prec) are present more than once in the header")}
   
   img <- SMOLR(x=dx,y=y,prec=prec,ch=ch,px=px,xlim=xlim,ylim=ylim,file=file,output=output,fit=fit,fast=fast, sortChannels=sortChannels)
   
