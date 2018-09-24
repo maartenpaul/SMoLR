@@ -25,8 +25,15 @@ vignette("SMolR")
 ```
 
 ## Example data
-Example data to test the package can be found at the repository: https://github.com/ErasmusOIC/SMoLR_data
+Testing plot functions:
+```R
+library(SMoLR)
+plot(SMOLR(smolrdata))
+SMOLR_PLOT(smolrdata)
+```
+More example data to test the package can be found at the repository: https://github.com/ErasmusOIC/SMoLR_data
 
+Loading example ThunderSTORM data:
 ```R
 library(SMoLR)
 download.file("https://github.com/ErasmusOIC/SMoLR_data/raw/master/thunderstorm.zip","thunderstorm.zip")
@@ -35,6 +42,8 @@ SMOLR_IMPORT(file.path(getwd(),"thunderstorm"),profile="thunderstorm")
 SMOLR_LOAD(file.path(getwd(),"thunderstorm"),statistics=F)
 head(localizations[[1]])
 ```
+
+
 
 ## Bug reports and feature requests
 Bug reports, feature requests, or any other issues with the package can be reported at github.
