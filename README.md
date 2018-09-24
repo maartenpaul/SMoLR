@@ -2,7 +2,7 @@
 Single Molecule Localization in R  
 
 ## Installation
-
+```R
 install.packages("devtools")  
 library(devtools)  
 source("https://bioconductor.org/biocLite.R")  
@@ -10,9 +10,8 @@ biocLite("EBImage")
 
 install_github("ErasmusOIC/SMoLR", build_vignettes = TRUE)
 
-
 library(SMoLR)  
-
+```
 
 ## Documentation
 Documentation of the different functions in the package can be found in R. Additionally a vignette is available explaining the main functions of SMoLR.
