@@ -2,6 +2,8 @@
 Single Molecule Localization in R  
 
 ## Installation
+R can be installed at: https://www.r-project.org/
+We recommend the use of Rstudio to work with SMoLR: https://www.rstudio.com/products/rstudio/#Desktop
 ```R
 install.packages("devtools")  
 library(devtools)  
