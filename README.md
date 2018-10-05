@@ -24,7 +24,7 @@ https://htmlpreview.github.io/?https://github.com/ErasmusOIC/SMoLR_data/blob/mas
 or within R, after installing SMoLR, run:
 ```R
 library(SMoLR)
-vignette("SMolR")
+vignette("SMoLR")
 ```
 
 ## Example data
