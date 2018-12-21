@@ -19,7 +19,7 @@ library(SMoLR)
 ## Documentation
 Documentation of the different functions in the package can be found in R. Additionally a vignette is available explaining the main functions of SMoLR.
 The vignette can be found here:
-https://htmlpreview.github.io/?https://github.com/ErasmusOIC/SMoLR_data/blob/master/SMolR.html
+https://htmlpreview.github.io/?https://github.com/ErasmusOIC/SMoLR_data/blob/master/SMoLR.html
 
 or within R, after installing SMoLR, run:
 ```R
