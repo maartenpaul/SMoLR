@@ -31,6 +31,15 @@ IJROI_subset.default <- function(x,file,pxsize=5){
     })
     class(data) <- "ijzip"
     
+    data <- llply(data, function(x){
+      area <- Area.xypolygon( list(x = x$coords[, 1], y = x$coords[, 2]))
+      if (area<0){
+        x$coords <- x$coords[ nrow(x$coords):1, ]
+      }
+      return(x)
+    })
+    
+    
     maskdata<-ij2spatstat(data)  
     
     x <- llply(maskdata,function(y){
@@ -43,6 +52,11 @@ IJROI_subset.default <- function(x,file,pxsize=5){
     D <- x$Y/pxsize
     C <- x$X/pxsize
     data <- read.ijroi(file)
+    area <- Area.xypolygon( list(x = data$coords[, 1], y = data$coords[, 2]))
+    if (area<0){
+      data$coords <- data$coords[ nrow(data$coords):1, ]
+    }
+    
     maskdata<-ij2spatstat(data)  
     isin<-inside.owin(x = C,y = D,w=maskdata)
     x <- x[isin,]
@@ -53,15 +67,15 @@ IJROI_subset.default <- function(x,file,pxsize=5){
 
 
 IJROI_subset.list <- function(x,file,pxsize=5){
- if(length(x)==length(file)){
-   y <- list()
-   for(i in 1:length(x)){
-     y[[names(x)[i]]] <- IJROI_subset(x[[i]],file[i],pxsize)
-   }
- } else{
-   stop("localizations list and list of file of different length")
- }
- return(y)
+  if(length(x)==length(file)){
+    y <- list()
+    for(i in 1:length(x)){
+      y[[names(x)[i]]] <- IJROI_subset(x[[i]],file[i],pxsize)
+    }
+  } else{
+    stop("localizations list and list of file of different length")
+  }
+  return(y)
 }
 #example
 #locs <- IJROI_subset(localizations[[1]],file,5)
