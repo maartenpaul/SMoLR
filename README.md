@@ -53,5 +53,4 @@ Bug reports, feature requests, or any other issues with the package can be repor
 
 ## Citation
 If you use SMoLR please cite the paper describing SMoLR:
-
-Paul, M.W., Gruiter, H.M. De, Lin, Z., Baarends, W.M., Cappellen, W.A. Van, Houtsmuller, A.B., and Slotman, J.A. (2019). SMoLR : visualization and analysis of single- molecule localization microscopy data in R. 1–7. doi: https://doi.org/10.1186/s12859-018-2578-3
+Paul, M.W., Gruiter, H.M. De, Lin, Z., Baarends, W.M., Cappellen, W.A. Van, Houtsmuller, A.B., and Slotman, J.A. (2019). SMoLR : visualization and analysis of single- molecule localization microscopy data in R. BMC Bioinformatics 1–7. doi: https://doi.org/10.1186/s12859-018-2578-3
