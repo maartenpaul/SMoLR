@@ -33,7 +33,7 @@ IJROI_subset.default <- function(x,file,pxsize=5){
     
     data <- llply(data, function(x){
       area <- Area.xypolygon( list(x = x$coords[, 1], y = x$coords[, 2]))
-      if (area<0){
+      if (area>0){
         x$coords <- x$coords[ nrow(x$coords):1, ]
       }
       return(x)
@@ -53,7 +53,7 @@ IJROI_subset.default <- function(x,file,pxsize=5){
     C <- x$X/pxsize
     data <- read.ijroi(file)
     area <- Area.xypolygon( list(x = data$coords[, 1], y = data$coords[, 2]))
-    if (area<0){
+    if (area>0){
       data$coords <- data$coords[ nrow(data$coords):1, ]
     }
     
